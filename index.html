@@ -1256,7 +1256,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22r';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22s';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -4979,8 +4979,9 @@ function pgFitArt(art){
   const st = art.style; st.lineHeight = st.height = st.paddingTop = st.paddingBottom = '';
   const cs = getComputedStyle(art), fs = parseFloat(cs.fontSize) || 18;
   let lh = parseFloat(cs.lineHeight); if (!(lh > 0)) lh = fs * 1.8;
-  const TOP = 18, BOT = 26, avail = H - TOP - BOT;
+  const TOP = 18, BOT = 10, avail = H - TOP - BOT;   // 2026.11.22s: lề dưới 26→10px (trước đây chừa ~1 dòng trống sát chân trang)
   const n = Math.max(1, Math.floor(avail / lh));
+  if (avail / n / lh <= 1.08) lh = avail / n;          // phần dư (<1 dòng) chia đều vào các dòng (giãn ≤8%, mắt không nhận ra) → chữ phủ kín trang, không còn khoảng trống ở đáy
   const put = (l, k) => { const pad = TOP;   /* 2026.11.22f: lề trên CỐ ĐỊNH (trước đây chia đôi phần dư → tên sách/chương/dòng đầu nhích lên xuống tuỳ chương); phần dư dồn xuống đáy trang */ st.lineHeight = l + 'px'; st.paddingTop = pad + 'px'; st.paddingBottom = '0px'; st.height = (pad + k * l) + 'px'; return pad; };
   let pad = put(lh, n); pgBrk(art, W, lh); let P = pgPagesOf(art, W);
   if (P < 2) return;
