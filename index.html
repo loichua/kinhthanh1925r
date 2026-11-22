@@ -1258,7 +1258,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22u';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22v';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -6087,11 +6087,13 @@ planSum();
   const de = document.documentElement;
   if (!de.classList.contains('sa') || !window.visualViewport) return;
   const vv = window.visualViewport, b = document.body, KB = 'kt.kbh';
-  let pend = 0, kbaT = 0;
+  let pend = 0, kbaT = 0, baseH = 0;
+  /* 2026.11.22v: bàn phím đã mở chưa? Máy iOS cũ (vd iPhone 8 Plus) co CẢ CỬA SỔ theo bàn phím (innerHeight giảm theo) nên không thể chỉ so innerHeight với vùng nhìn; so thêm với chiều cao vùng nhìn lúc chưa có bàn phím (baseH) */
+  const kbShown = () => innerHeight - vv.height > 100 || (baseH > 0 && vv.height < baseH - 100);
   const inBar = () => { const a = document.activeElement; return !!(a && a.closest && a.closest('.top') && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)); };
   const typing = () => { const a = document.activeElement; return !!(a && a.closest && a.closest('.top') && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && !/^(checkbox|radio|button|submit|range|color|file)$/i.test(a.type)))); };
   const numBox = () => { const a = document.activeElement; return !!(a && (a.id === 'niChap' || a.id === 'niVerse')); };
-  const reset = () => { b.style.height = ''; b.style.top = ''; de.classList.remove('kb', 'kbtop', 'kbup'); de.style.removeProperty('--kb'); de.style.removeProperty('--kbu'); };
+  const reset = () => { baseH = 0; b.style.height = ''; b.style.top = ''; de.classList.remove('kb', 'kbtop', 'kbup'); de.style.removeProperty('--kb'); de.style.removeProperty('--kbu'); };
   /* Đo vị trí thật của thanh menu rồi nâng/hạ cho đáy thanh khớp đúng mép trên bàn phím (không dựa vào con số ước lượng) */
   const place = () => {
     const bar = document.querySelector('.top'); if (!bar) return;
@@ -6103,7 +6105,7 @@ planSum();
   };
   const fit = settle => {
     const kb = Math.round(innerHeight - vv.height);
-    if (de.classList.contains('kbup') && numBox()){ if (kb > 100) place(); if (kb <= 1) return; }   // 22l: bám sát bàn phím ở MỌI lần iOS báo kích thước mới, không chờ mốc 0,4 / 0,95 giây
+    if (de.classList.contains('kbup') && numBox()){ if (kbShown()) place(); if (kb <= 1) return; }   // 22l: bám sát bàn phím ở MỌI lần iOS báo kích thước mới, không chờ mốc 0,4 / 0,95 giây
     if (kb <= 1){ if (typing() && Date.now() < pend) return; reset(); return; }      // đang chờ bàn phím hiện: giữ vị trí ước lượng
     b.style.top = vv.offsetTop + 'px';
     if (inBar() && de.classList.contains('kbup')){
@@ -6123,6 +6125,7 @@ planSum();
       let h = 0;
       try { const hu = +localStorage.getItem('kt.kbu') || 0; if (hu >= 150 && hu <= 420) h = hu; } catch(e){}
       pend = Date.now() + 1200;
+      if (!de.classList.contains('kbup')) baseH = vv.height;
       de.classList.remove('kbtop');
       if (!de.classList.contains('kbup')){
         /* thanh xuất phát từ đáy (độ nâng 0) rồi trượt lên cùng lúc với bàn phím */
@@ -6139,8 +6142,8 @@ planSum();
       const t0 = Date.now(); let last = -1;
       const tick = () => {
         if (!numBox() || !de.classList.contains('kbup') || Date.now() - t0 > 1600) return;
-        const kb = Math.round(innerHeight - vv.height);
-        if (kb > 100 && kb !== last){ last = kb; place(); }
+        const sig = Math.round(vv.height * 10 + vv.offsetTop + innerHeight * 1000);
+        if (kbShown() && sig !== last){ last = sig; place(); }
         requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
