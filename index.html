@@ -1258,7 +1258,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22v';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22w';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -1829,6 +1829,13 @@ new MutationObserver(sideSync).observe(document.body, { attributes:true, attribu
 $('#prevChap').onclick = () => stepChapter(-1);
 $('#nextChap').onclick = () => stepChapter(1);
 
+/* ╔══════════════════════════════════════════════════════════════════════════════╗
+   ║ 🔒 VÙNG ĐÃ KHÓA (người dùng đã xác nhận chạy tốt trên iPhone) — LẬT TRANG Ở CHẾ ĐỘ CUỘN (trang chính)
+   ║ KHÔNG sửa, không "tối ưu", không dọn dẹp vùng này khi làm việc khác.
+   ║ Chỉ được đụng vào khi người dùng nói rõ muốn sửa CHÍNH tính năng này.
+   ║ Nếu buộc phải sửa: chạy lại bộ thử bàn phím + lật trang trước & sau khi sửa.
+   ║ Gồm: hàng đợi vuốt nhanh, dựng sẵn chương bên cạnh, hoạt ảnh lật.
+   ╚══════════════════════════════════════════════════════════════════════════════╝ */
 /* Lật trang như sách giấy thật: trang hiện tại là một tờ giấy quay quanh gáy sách (cạnh trái),
    lộ ra trang kế bên dưới, có đổ bóng theo góc lật. Vuốt trái = chương sau, vuốt phải = chương trước.
    Trang kế được dựng sẵn từ trước nên không bị giật; cử chỉ dùng touch events nên ổn định trên iPhone/Android. */
@@ -4868,6 +4875,13 @@ async function dropDemoBook(){
 }
 
 
+/* ╔══════════════════════════════════════════════════════════════════════════════╗
+   ║ 🔒 VÙNG ĐÃ KHÓA (người dùng đã xác nhận chạy tốt trên iPhone) — CHẾ ĐỘ TRANG GIẤY: CHIA TRANG + LẬT TRANG
+   ║ KHÔNG sửa, không "tối ưu", không dọn dẹp vùng này khi làm việc khác.
+   ║ Chỉ được đụng vào khi người dùng nói rõ muốn sửa CHÍNH tính năng này.
+   ║ Nếu buộc phải sửa: chạy lại bộ thử bàn phím + lật trang trước & sau khi sửa.
+   ║ Gồm: pgFitArt (chia trang, lề dưới, dãn dòng), pgFlip/pgStage/pgApply, xử lý cảm ứng và hàng đợi vuốt.
+   ╚══════════════════════════════════════════════════════════════════════════════╝ */
 /* §§ ▼▼▼ MỤC 1 · GIAO DIỆN & HÌNH THỨC HIỂN THỊ — Chế độ giấy: chia trang + lật trang ▼▼▼ */
 /* ============ CHẾ ĐỘ GIẤY: CHIA TRANG + LẬT TRANG NHƯ TỜ GIẤY ============ */
 const pg = { page:0, pages:1, toEnd:false, key:'', busy:false };
@@ -5332,6 +5346,7 @@ async function pgFlip(dir, dur){                                        // chạ
 })();
 
 
+/* ═══ 🔒 HẾT VÙNG KHÓA: CHẾ ĐỘ TRANG GIẤY ═══ */
 /* §§ ▼▼▼ MỤC 6 · QUẢN TRỊ & SAO LƯU — Quản lý dữ liệu cá nhân: sao lưu · khôi phục ▼▼▼ */
 /* ============ QUẢN LÝ DỮ LIỆU CÁ NHÂN: sao lưu · khôi phục · làm mới hành trình ============ */
 const dtDefName = withDate => 'NhatKy_DocKT' + (withDate ? '_' + dayKey().split('-').reverse().join('-') : '');   // NhatKy_DocKT_02-11-2026 (Ngày-Tháng-Năm)
@@ -6011,6 +6026,13 @@ planSum();
   if (vv){ vv.addEventListener('resize', pin); vv.addEventListener('scroll', pin); }
 })();
 
+/* ╔══════════════════════════════════════════════════════════════════════════════╗
+   ║ 🔒 VÙNG ĐÃ KHÓA (người dùng đã xác nhận chạy tốt trên iPhone) — THANH MENU Ở DƯỚI + BÀN PHÍM Ô CHƯƠNG/CÂU (iPhone, Màn hình chính)
+   ║ KHÔNG sửa, không "tối ưu", không dọn dẹp vùng này khi làm việc khác.
+   ║ Chỉ được đụng vào khi người dùng nói rõ muốn sửa CHÍNH tính năng này.
+   ║ Nếu buộc phải sửa: chạy lại bộ thử bàn phím + lật trang trước & sau khi sửa.
+   ║ Gồm: ô ẩn #kbProxy, kbShown/place/fit/focusin, CSS .kbup/.kbanim/.kbtop, quy tắc mtop chỉ cho Màn hình chính.
+   ╚══════════════════════════════════════════════════════════════════════════════╝ */
 /* Ô Chương / Câu khi menu ở DƯỚI (iPhone, Màn hình chính): "ô nhập thay thế".
    Gốc lỗi: ô thật nằm sát đáy nên iOS luôn tự đẩy/cuộn cả trang để khỏi bị bàn phím che. Không có cách nào chặn việc đó khi ô thật còn ở đáy.
    Cách dứt điểm: khi chạm ô Chương/Câu, bàn phím được mở bằng một ô ẩn (#kbProxy) đặt ở phía trên màn hình (luôn nhìn thấy → iOS không có lý do đẩy trang).
@@ -6152,6 +6174,7 @@ planSum();
   document.addEventListener('focusout', () => { setTimeout(fit, 120); setTimeout(fit, 500); });
 })();
 
+/* ═══ 🔒 HẾT VÙNG KHÓA: BÀN PHÍM + THANH MENU Ở DƯỚI ═══ */
 /* §§ ▼▼▼ MỤC 3 · BỘ NHỚ LƯU TRỮ TRÊN MÁY — PStore: kho bền vững dữ liệu cá nhân ▼▼▼ */
 /* =========================================================
  *  PStore – KHO BỀN VỮNG CHO DỮ LIỆU CÁ NHÂN (localForage → IndexedDB)
