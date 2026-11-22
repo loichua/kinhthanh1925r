@@ -505,6 +505,13 @@ html:has(.overlay:not([hidden])),body:has(.overlay:not([hidden])){overflow:hidde
 .fld span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
 .fld select{height:42px;padding:0 28px 0 12px;-webkit-appearance:none;appearance:none;
   background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239a9080' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center}
+.ctrow{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;cursor:pointer}   /* 2026.11.22q: mục Liên hệ (cấu hình trong admin → Giới thiệu ứng dụng) */
+.ctrow:active{background:var(--line)}
+.ctrow .ctic{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none}
+.ctrow .ctic svg{width:18px;height:18px;display:block}
+.ctrow .stxt{flex:1;min-width:0}.ctrow .stxt b{display:block;font-weight:600}.ctrow .stxt span{display:block;overflow-wrap:anywhere;color:var(--muted);font-size:12.5px;margin-top:1px}
+.ctrow .ctgo{color:var(--muted);flex:none}
+.ctnote{font-size:13px;line-height:1.55;color:var(--muted);padding:12px 14px 4px}
 .about{padding:18px 16px 14px}
 .abhead{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .abicon{width:48px;height:48px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex:none}   /* logo sách giống favicon / icon app */
@@ -1083,6 +1090,9 @@ html[data-paper] .reader.print{text-align:justify}
       <div class="abfeatbox"><ul class="abfeat" id="abFeat"></ul></div>
     </div>
 
+    <div class="slabel" id="ctSec" hidden>Liên hệ</div>
+    <div class="sgroup" id="ctGrp" hidden></div>
+
     <div class="slabel">Sao lưu &amp; cập nhật</div>
     <div class="sgroup safe">
       <div class="srow bk updwarn" id="updWarn">
@@ -1246,7 +1256,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22p';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3556,7 +3566,7 @@ setInterval(() => { if (syncOn() && document.visibilityState === 'visible' && Da
 function show(id, on = true){ $(id).hidden = !on; }
 
 /* Phần "Giới thiệu" trong Cài đặt (nội dung lấy từ dữ liệu đồng bộ) */
-const ABOUT_DEF = { name:'Kinh Thánh', sub:'', text:'', feat:[] };   // mặc định để trống
+const ABOUT_DEF = { name:'Kinh Thánh', sub:'', text:'', feat:[], contact:{ on:true, note:'', phone:{ on:false, v:'' }, fb:{ on:false, v:'' }, email:{ on:false, v:'' } } };   // mặc định để trống
 let ABOUT = { ...ABOUT_DEF, feat:[...ABOUT_DEF.feat] };
 try { const a = JSON.parse(localStorage.getItem('kt.about') || 'null'); if (a && typeof a === 'object') ABOUT = { ...ABOUT, ...a }; } catch(e){}
 if (!Array.isArray(ABOUT.feat)) ABOUT.feat = [];
@@ -3579,6 +3589,41 @@ function aboutMd(t){
                     : (x && x.sig) ? '<div class="absig">' + x.sig.map((s, i) => (x.auto && i && !/<b>/.test(s)) ? '<b>' + s + '</b>' : s).join('<br>') + '</div>' : x).join('');
 }
 const aboutInl = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+/* ── Liên hệ (2026.11.22q): 3 kênh số điện thoại / Facebook (tin nhắn) / email, mỗi kênh bật-tắt riêng, cấu hình trong admin, lưu cùng dữ liệu "about" ── */
+const CT_DEF = { on:true, note:'', phone:{ on:false, v:'' }, fb:{ on:false, v:'' }, email:{ on:false, v:'' } };
+function ctNorm(c){
+  c = (c && typeof c === 'object') ? c : {};
+  const ch = k => { const x = c[k] || {}; return { on: x.on === true, v: String(x.v || '').trim() }; };
+  return { on: c.on !== false, note: String(c.note || '').trim(), phone: ch('phone'), fb: ch('fb'), email: ch('email') };
+}
+function ctFbUrl(v){   // chấp nhận: m.me/tên · facebook.com/tên · https://… · chỉ tên/ID → luôn mở khung nhắn tin Messenger
+  v = String(v || '').trim().replace(/^@/, ''); if (!v) return '';
+  if (/^(javascript|data|vbscript):/i.test(v)) return '';
+  let m = v.match(/(?:facebook\.com|fb\.com)\/profile\.php\?id=(\d+)/i); if (m) return 'https://m.me/' + m[1];
+  m = v.match(/^(?:https?:\/\/)?(?:www\.|m\.)?(?:m\.me|facebook\.com|fb\.com|messenger\.com\/t)\/([^/?#\s]+)/i);
+  if (m) return 'https://m.me/' + m[1];
+  if (/^https?:\/\//i.test(v)) return v;
+  return /^[\w.\-]+$/.test(v) ? 'https://m.me/' + v : '';
+}
+const CT_ICON = {
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>',
+  fb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20.5l1.6-5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8 12.5l3-3 2 2 3-3"/></svg>',
+  email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+};
+function renderContact(){
+  const sec = $('#ctSec'), grp = $('#ctGrp'); if (!sec || !grp) return;
+  const c = ctNorm(ABOUT.contact), rows = [];
+  if (c.on){
+    const digits = c.phone.v.replace(/[^\d+]/g, '');
+    if (c.phone.on && digits.replace(/\D/g, '').length >= 6) rows.push(['phone', 'Gọi điện thoại', c.phone.v, 'tel:' + digits, false]);
+    const fu = c.fb.on ? ctFbUrl(c.fb.v) : '';
+    if (fu) rows.push(['fb', 'Nhắn tin Facebook', 'Mở Messenger', fu, true]);
+    if (c.email.on && /^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(c.email.v)) rows.push(['email', 'Gửi email', c.email.v, 'mailto:' + c.email.v + '?subject=' + encodeURIComponent('Góp ý Kinh Thánh'), false]);
+  }
+  sec.hidden = grp.hidden = !rows.length;
+  grp.innerHTML = (c.note ? `<div class="ctnote">${aboutInl(c.note)}</div>` : '') + rows.map(r =>
+    `<a class="srow ctrow" href="${esc(r[3])}"${r[4] ? ' target="_blank" rel="noopener noreferrer"' : ''}><span class="ctic">${CT_ICON[r[0]]}</span><div class="stxt"><b>${r[1]}</b><span>${esc(r[2])}</span></div><span class="ctgo" aria-hidden="true">›</span></a>`).join('');
+}
 function renderAbout(){
   $('#abName').textContent = ABOUT.name || ABOUT_DEF.name;
   $('#abSub').textContent = ABOUT.sub || ''; $('#abSub').hidden = !ABOUT.sub;
@@ -3591,11 +3636,12 @@ function renderAbout(){
     return i > 0 ? `<li><b>${aboutInl(s.slice(0, i).trim())}</b> ${aboutInl(s.slice(i + 2).trim())}</li>` : `<li>${aboutInl(s)}</li>`;
   }).join('');
   $('#abFeat').hidden = !fl.length;
+  renderContact();
 }
 
 function applyAbout(a){
   if (!a || typeof a !== 'object') return;
-  ABOUT = { ...ABOUT_DEF, ...a }; if (!Array.isArray(ABOUT.feat)) ABOUT.feat = [];
+  ABOUT = { ...ABOUT_DEF, ...a }; if (!Array.isArray(ABOUT.feat)) ABOUT.feat = []; ABOUT.contact = ctNorm(ABOUT.contact);
   saveAbout(); renderAbout();
 }
 renderAbout();
