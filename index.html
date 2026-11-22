@@ -1071,7 +1071,7 @@ html[data-paper] .reader.print{text-align:justify}
           <div class="srow"><div class="stxt"><b>Toàn màn hình khi đọc</b><span>Ẩn thanh hệ thống cho rộng chỗ (Android, máy tính). Trên iPhone: bấm Chia sẻ → “Thêm vào Màn hình chính”.</span></div>
             <div class="seg tg" id="fullSeg"><button data-v="0">Tắt</button><button data-v="1">Bật</button></div>
           </div>
-          <div class="srow iosonly"><div class="stxt"><b>Thanh menu ở trên hay dưới</b><span>Chỉ dùng khi mở app từ biểu tượng ở Màn hình chính của iPhone.</span></div>
+          <div class="srow iosonly"><div class="stxt"><b>Thanh menu ở trên hay dưới</b><span>Chỉ dùng khi mở app từ biểu tượng ở Màn hình chính của iPhone. Mở bằng Safari thì menu luôn ở trên.</span></div>
             <div class="seg" id="mpSeg"><button data-v="top">Trên</button><button data-v="bottom">Dưới</button></div>
           </div>
           <div class="srow iosonly" style="flex-direction:column;align-items:stretch;gap:10px"><div class="stxt"><b>Khoảng trống mép trên</b><span>Chỉ dùng khi mở app từ Màn hình chính của iPhone. Nếu chữ ở mép trên bị mờ hoặc bị che, hãy tăng mức.</span></div>
@@ -1226,7 +1226,8 @@ html[data-paper] .reader.print{text-align:justify}
 /* chạm đúp không zoom: đã có touch-action:manipulation ở CSS, không cần chặn thêm (chặn sẽ làm mất cú chạm nhanh liên tiếp) */
 /* Nhận biết app chạy từ biểu tượng Màn hình chính (standalone) để áp dụng CSS riêng (html.sa) */
 try { if (navigator.standalone === true || matchMedia('(display-mode: standalone)').matches) document.documentElement.classList.add('sa'); } catch(e){}
-try { if (localStorage.getItem('kt.menupos') !== 'bottom') document.documentElement.classList.add('mtop'); } catch(e){ document.documentElement.classList.add('mtop'); }
+/* 2026.11.22u: thanh menu ở DƯỚI chỉ chạy được khi mở từ biểu tượng Màn hình chính (html.sa). Trên Safari/trình duyệt luôn để menu ở TRÊN: trước đây chọn "Dưới" rồi mở bằng Safari thì chỉ bật một nửa (mã bàn phím chạy, CSS thì không) → thanh menu lơ lửng giữa màn hình khi gõ ô Chương/Câu */
+try { if (!document.documentElement.classList.contains('sa') || localStorage.getItem('kt.menupos') !== 'bottom') document.documentElement.classList.add('mtop'); } catch(e){ document.documentElement.classList.add('mtop'); }
 /* Tự nhận dạng: iPhone/iPad chạy iOS 26 trở lên (nhận biết qua CSS anchor-name – chỉ Safari 26+ có; chuỗi UA của iOS bị đóng băng nên không dùng được) mới có lớp mờ mép trên → chừa 24px.
    Máy khác (Android, iOS cũ, máy tính) → 0, tràn viền. Người dùng vẫn chọn tay được ở Cài đặt. */
 window.sbAuto = () => { try { return (/iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && CSS.supports('anchor-name', '--a') ? 24 : 0; } catch(e){ return 0; } };
@@ -1257,7 +1258,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22t';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22u';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -4667,6 +4668,7 @@ $$('#fullSeg button').forEach(b => { b.classList.toggle('on', (b.dataset.v === '
   const de = document.documentElement, cur = () => (de.classList.contains('mtop') ? 'top' : 'bottom');
   const paint = () => $$('#mpSeg button').forEach(x => x.classList.toggle('on', x.dataset.v === cur()));
   $$('#mpSeg button').forEach(b => b.onclick = () => {
+    if (b.dataset.v === 'bottom' && !de.classList.contains('sa')){ try { localStorage.setItem('kt.menupos', 'bottom'); } catch(e){} paint(); toast('Menu ở dưới chỉ dùng khi mở từ biểu tượng Màn hình chính. Trên Safari, menu luôn ở trên.'); return; }
     de.classList.toggle('mtop', b.dataset.v === 'top');
     try { localStorage.setItem('kt.menupos', b.dataset.v); } catch(e){}
     paint(); toast(b.dataset.v === 'top' ? 'Thanh menu ở trên' : 'Thanh menu ở dưới');
