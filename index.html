@@ -33,9 +33,9 @@
   --accent:#e0b160; --accent-soft:#2c2619; --line:#2e2b26; --hl:#4a3d1a; --danger:#ff8a80;
 }
 /* Chế độ Trang giấy: đen trắng tương phản cao, không màu, không hiệu ứng */
-html[data-paper]{--bg:#f4f3ee; --card:#fbfaf6; --fg:#000; --muted:#3d3d3a; --accent:#000; --accent-soft:#e6e5df; --line:#b9b8b1; --hl:#d6d5ce; --danger:#000}
+html[data-paper]{--bg:#f4f3ee; --card:#fbfaf6; --fg:#1c1a16; --muted:#4e4b45; --accent:#2e2820;   /* 2026.11.22t: mực đen tuyền #000 → nâu đen dịu (chữ bớt đậm, đỡ nặng mắt khi đọc lâu; vẫn tương phản ~16:1) */ --accent-soft:#e6e5df; --line:#b9b8b1; --hl:#d6d5ce; --danger:#000}
 /* Trang giấy – bản tối: nền đen giấy, chữ trắng ngà, tương phản cao, không màu (chọn "Tối" ở Cài đặt → Chế độ màu) */
-html[data-paper][data-theme=dark]{--bg:#0e0e0d; --card:#151514; --fg:#f2f1ec; --muted:#c4c3bc; --accent:#f2f1ec; --accent-soft:#2a2a28; --line:#4a4a46; --hl:#44443f; --danger:#f2f1ec}
+html[data-paper][data-theme=dark]{--bg:#0e0e0d; --card:#151514; --fg:#e3e0d7; --muted:#b4b1a9; --accent:#e3e0d7; --accent-soft:#2a2a28; --line:#4a4a46; --hl:#44443f; --danger:#f2f1ec}
 html[data-paper][data-theme=dark] .fnm{color:#f2f1ec}
 html[data-paper][data-theme=dark] .iconbtn.on{background:#f2f1ec;color:#0e0e0d}
 html[data-paper][data-theme=dark] .v.flash{outline-color:#f2f1ec}
@@ -43,8 +43,9 @@ html[data-paper][data-theme=dark] .v.flash .vn{background:#f2f1ec;color:#0e0e0d;
 html[data-paper][data-theme=dark] .btn.primary,html[data-paper][data-theme=dark] .seg button.on{color:#0e0e0d}
 html[data-paper] *{transition:none!important;animation:none!important;box-shadow:none!important;text-shadow:none!important}
 html.fw .reader{visibility:hidden}
-html[data-paper] .fnm{color:#000;text-decoration:underline;text-underline-offset:.18em}
-html[data-paper] .reader{-webkit-font-smoothing:antialiased;font-weight:500}
+html[data-paper] .fnm{color:var(--accent);text-decoration:underline;text-underline-offset:.18em}
+html[data-paper] .reader{-webkit-font-smoothing:antialiased;font-weight:400}
+html[data-paper] .vn{font-weight:600}
 html[data-paper] .iconbtn.on{background:#000;color:#f4f3ee;border-radius:8px}
 .iconbtn.on{background:var(--accent-soft);border-radius:8px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -1256,7 +1257,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22s';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22t';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
