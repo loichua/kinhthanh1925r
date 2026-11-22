@@ -228,7 +228,7 @@ html[data-paper] .v.flash .vn{background:#000;color:#f4f3ee;box-shadow:0 0 0 2px
 .hd .secn{margin-top:.5em}
 .sec2{font-size:.9em;font-weight:400;font-style:normal;color:var(--fg);line-height:1.4;margin-top:.35em}   /* dòng dưới tiêu đề (dòng # thứ 2 trở đi): chữ thường, nhỏ hơn mục lớn — giống sách in (Thi-thiên: tiêu đề đậm, dòng mô tả bên dưới không đậm) */
 .ref1{font-style:italic;font-size:.8em;color:var(--muted)}
-.para{margin:0 0 .2em;text-indent:1.4em;-webkit-text-wrap:pretty;text-wrap:pretty}   /* Kinh Thánh in: đoạn văn xuôi thụt đầu dòng, các đoạn sát nhau (không cách dòng rộng như trang web) */
+.para{margin:0 0 .2em;text-indent:1.4em;-webkit-text-wrap:wrap;text-wrap:wrap}   /* 2026.11.22p: bỏ text-wrap:pretty — Chrome/Android làm dòng cuối của đoạn bị căn đều (vd "cho ……… cha." dạt hai đầu); chống chữ lẻ cuối đoạn đã có nbJoin ở dưới */   /* Kinh Thánh in: đoạn văn xuôi thụt đầu dòng, các đoạn sát nhau (không cách dòng rộng như trang web) */
 .hd + .para,.chhead + .para,.para:has(.dc){text-indent:0}
 .para:has(.dc){margin-bottom:.05em}   /* đoạn có số chương lớn: sát dòng kế để số chương cao đúng 2 dòng */   /* đoạn đầu chương / ngay sau tiêu đề mục: không thụt */
 /* Số chương lớn: cao đúng 2 dòng chữ, đỉnh số ngang đỉnh dòng 1, chân số ngang chân dòng 2; số câu 1 được lược bỏ (số chương thay cho số câu 1) như Kinh Thánh in */
@@ -1246,7 +1246,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.22o';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.22p';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3905,7 +3905,8 @@ function paperHTML(book, ch, verses, view, idp){
       const head = h ? `${num}${richText(L.slice(0, h).join(' '), vm)}` : '';
       out += `<span ${attrs}>${dc}${head}` + L.slice(h).map((ln, j) => { const k = h + j;
         return `<span class="pl q${+v.q[k] === 0 ? 0 : Math.max(+v.q[k] || 1, k ? 2 : 1)}">${k === 0 ? num : ''}${richText(nbJoin(ln), vm)}</span>`; }).join('') + '</span>' + (h ? ' ' : '');   // số chương lớn đứng NGOÀI các dòng thơ để nằm đúng lề trái
-    } else out += `<span ${attrs}>${dc}${num}${richText(v.t, vm)}</span> `;
+    } else { const nx = verses[i + 1], paraEnd = !nx || nx.p || nx.h || (Array.isArray(nx.q) && nx.q.length && +nx.q[0] !== 0);   // câu cuối đoạn: nối 2 chữ cuối để không bị 1 chữ lẻ xuống dòng
+      out += `<span ${attrs}>${dc}${num}${richText(paraEnd ? nbJoin(v.t) : v.t, vm)}</span> `; }
     /* Ghi chú KHÔNG số (vd "(Phó cho quản phường nhạc…)"): xuống dòng ngay sau câu đó, in nghiêng, cỡ chữ thường — không đẩy xuống cuối chương */
     const un = (v.fn || []).filter(f => !isNumFn(f));
     if (un.length){ close(); out += un.map(f => `<div class="fn fnv">${esc(f)}</div>`).join(''); }
