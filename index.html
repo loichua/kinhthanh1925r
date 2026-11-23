@@ -768,6 +768,7 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lstabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 [data-theme=dark] .lstabs button.on{color:#1a1409}
 .lsq{width:100%;box-sizing:border-box;margin:0 0 6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:inherit;font-size:15px}
+.lsqw{position:relative;margin:0 0 6px}.lsqw .lsq{margin:0;padding-right:42px}#lsQ::-webkit-search-cancel-button,#lsQ::-webkit-search-decoration{-webkit-appearance:none;display:none}.lsqx{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer}.lsqx:active{background:var(--accent-soft)}.lsqx[hidden]{display:none}
 .lscount{font-size:11.5px;color:var(--muted);margin:0 0 4px}
 .lslinks{flex:none;margin:8px 0 0;max-height:96px;overflow:auto}
 .lslinks .lk{font:700 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:2px 0 4px}
@@ -1263,7 +1264,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.23z';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.24a';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2410,7 +2411,7 @@ function openLessons(){
   let tab = 'notes', q = '';
   o.innerHTML = `<div class="sheet"><h3>✍️ Bài học cá nhân</h3>
     <div class="lstabs"><button data-tab="notes" class="on">Ghi chú</button><button data-tab="stats">Hành trình</button></div>
-    <input class="lsq" id="lsQ" type="search" placeholder="Tìm trong ghi chú (không cần gõ dấu)…" autocomplete="off">
+    <div class="lsqw"><input class="lsq" id="lsQ" type="search" placeholder="Tìm trong ghi chú (không cần gõ dấu)…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search"><button type="button" class="lsqx" id="lsQx" aria-label="Xóa chữ đã gõ" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div id="lsList"></div>
     <div class="btns"><button class="btn primary" data-close="1" style="margin-left:auto">Đóng</button></div></div>`;
   const list = o.querySelector('#lsList'), inp = o.querySelector('#lsQ');
@@ -2477,9 +2478,11 @@ function openLessons(){
     const cb = list.querySelector('#hjComm');
     if (cb) ctRender(cb);
   };
-  const draw = () => { inp.hidden = tab !== 'notes'; tab === 'notes' ? drawNotes() : drawStats(); o.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === tab)); };
+  const lsx = o.querySelector('#lsQx');
+  const draw = () => { inp.parentNode.hidden = tab !== 'notes'; tab === 'notes' ? drawNotes() : drawStats(); o.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === tab)); };
   draw();
-  inp.addEventListener('input', () => { q = inp.value; drawNotes(); });
+  inp.addEventListener('input', () => { q = inp.value; lsx.hidden = !q; drawNotes(); });
+  lsx.onclick = () => { inp.value = ''; q = ''; lsx.hidden = true; drawNotes(); inp.focus(); };   // nút ✕ xóa nhanh thay cho chấm mờ mặc định của trình duyệt
   o.addEventListener('click', async e => {
     if (e.target === o || e.target.closest('[data-close]')) return o.remove();
     const tb = e.target.closest('[data-tab]'); if (tb){ tab = tb.dataset.tab; draw(); return; }
