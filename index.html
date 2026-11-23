@@ -1263,7 +1263,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.23x';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.23z';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -1504,7 +1504,7 @@ async function initBible(){
   await openBook(name, name === S.book ? S.chapter : 1);
 }
 async function openBook(name, chapter){
-  curBook = await dbGet('books', name);
+  curBook = await dbGet('books', name); if (curBook && curBook.chapters) curBook.chapters.forEach(fixMk);
   if (!curBook) return renderBibleEmpty();
   const total = curBook.chapters.length;
   S.book = name; S.chapter = Math.min(Math.max(1, chapter || 1), total); saveS();
@@ -3188,21 +3188,34 @@ $('#bsItems').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key
  *  NHẬP DỮ LIỆU: chuẩn hóa JSON / văn bản
  * ========================================================= */
 
+/* 2026.11.23y: dữ liệu cũ có dấu ẩn (U+2063) đánh dấu "chữ đầu câu nằm TRƯỚC tiêu đề giữa câu". Chuyển phần chữ đó về cuối câu liền trước (đúng như sách giấy) rồi bỏ dấu ẩn:
+   … "Hãy đi bình yên." | "Khi Na-a-man … xa xa," ↵ [Tiêu đề] ↵ 20 "thì Ghê-ha-xi…" — số 20 đứng đúng chỗ "thì", không bị đẩy lên đầu cụm. */
+function fixMk(ch){
+  if (!Array.isArray(ch)) return ch;
+  for (let i = 0; i < ch.length; i++){
+    const v = ch[i]; if (!v || typeof v.t !== 'string' || v.t.indexOf('⁣') < 0) continue;
+    const k = v.t.indexOf('⁣'), pre = v.t.slice(0, k).trim(), post = v.t.slice(k).replace(/⁣/g, '').trim();
+    const pv = i > 0 ? ch[i - 1] : null;
+    if (pre && pv && typeof pv.t === 'string'){ pv.t = pv.t.replace(/\s+$/, '') + ' ' + pre; v.t = post; }
+    else v.t = (pre ? pre + ' ' : '') + post;
+  }
+  return ch;
+}
 function normVerses(ch){
   if (Array.isArray(ch)) return ch.map((v, i) => typeof v === 'string'
     ? { n:i + 1, t:v }
     : Object.assign(
         { n:Number(v.n ?? v.verse ?? v.number ?? i + 1), t:String(v.t ?? v.text ?? '') },
-        v.h ? { h:String(v.h) } : {}, v.p ? { p:true } : {}, +v.e > +v.n ? { e:+v.e } : {},
+        v.h ? { h:String(v.h) } : {}, v.pre ? { pre:String(v.pre) } : {}, v.p ? { p:true } : {}, +v.e > +v.n ? { e:+v.e } : {},
         Array.isArray(v.q) && v.q.length ? { q:v.q.map(x => +x === 0 ? 0 : +x === 2 ? 2 : 1) } : {},
         Array.isArray(v.fn) && v.fn.length ? { fn:v.fn.map(String) } : {}));
   if (ch && typeof ch === 'object') return Object.keys(ch).sort((a, b) => a - b).map(k => ({ n:Number(k), t:String(ch[k]) }));
   return [];
 }
 function normChapters(cs){
-  if (Array.isArray(cs)) return cs.map(normVerses);
+  if (Array.isArray(cs)) return cs.map(c => fixMk(normVerses(c)));
   const out = [];
-  Object.keys(cs || {}).map(Number).sort((a, b) => a - b).forEach(k => out[k - 1] = normVerses(cs[k]));
+  Object.keys(cs || {}).map(Number).sort((a, b) => a - b).forEach(k => out[k - 1] = fixMk(normVerses(cs[k])));
   return Array.from(out, c => c || []);
 }
 function normBible(j){
@@ -3982,7 +3995,7 @@ function paperHTML(book, ch, verses, view, idp){
     const lead = print && i === 0 && v.n === 1 && !dcOffOf(book);                 // câu 1: số chương chữ lớn, vẫn hiện số câu 1 đứng sau
     const poemAt = x => !!(x && Array.isArray(x.q) && x.q.length);
     const dc  = lead ? `<span class="dc${poemAt(v) || poemAt(verses[1]) ? ' dcp' : ''}">${esc(ch)}</span>` : '';
-    const num = `<sup class="vn">${v.n}${v.e > v.n ? '–' + v.e : ''}</sup>`;
+    const num = (v.pre ? richText(v.pre, vm) + ' ' : '') + `<sup class="vn">${v.n}${v.e > v.n ? '–' + v.e : ''}</sup>`;   // v.pre = chữ mở đầu đoạn đứng trước số câu (vd "Khi Na-a-man đã lìa khỏi Ê-li-sê, đi cách xa xa, 20 thì…")
     const attrs = `class="v" id="${idp}${v.n}" data-n="${v.n}"`;
     if (!print){
       close();
