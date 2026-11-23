@@ -1264,7 +1264,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.24a';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.24b';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3196,10 +3196,9 @@ $('#bsItems').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key
 function fixMk(ch){
   if (!Array.isArray(ch)) return ch;
   for (let i = 0; i < ch.length; i++){
-    const v = ch[i]; if (!v || typeof v.t !== 'string' || v.t.indexOf('⁣') < 0) continue;
-    const k = v.t.indexOf('⁣'), pre = v.t.slice(0, k).trim(), post = v.t.slice(k).replace(/⁣/g, '').trim();
-    const pv = i > 0 ? ch[i - 1] : null;
-    if (pre && pv && typeof pv.t === 'string'){ pv.t = pv.t.replace(/\s+$/, '') + ' ' + pre; v.t = post; }
+    const v = ch[i]; if (!v || typeof v.t !== 'string' || v.t.indexOf('\u2063') < 0) continue;
+    const k = v.t.indexOf('\u2063'), pre = v.t.slice(0, k).trim(), post = v.t.slice(k).replace(/\u2063/g, '').trim();
+    if (pre && v.h && !v.pre){ v.pre = pre; v.t = post; }          // dữ liệu cũ: chữ trước dấu ẩn = chữ mở đầu đoạn dưới tiêu đề (v.pre), số câu đứng giữa đoạn như sách giấy
     else v.t = (pre ? pre + ' ' : '') + post;
   }
   return ch;
