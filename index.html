@@ -167,16 +167,14 @@ select{min-width:0}
 .nf{position:relative;min-width:0}
 .top .navrow .nf input{height:36px;padding:0 4px 0 6px;border-radius:8px;font-size:16px;background:transparent;text-overflow:ellipsis;-webkit-appearance:none;appearance:none}
 .nf input::placeholder{color:var(--fg);opacity:1}
-.nf input:focus,.nf.vf input{border-color:var(--accent);outline:0}
-.nf.vf input::placeholder{color:var(--muted);opacity:.55}
-#kbProxy{position:fixed;top:70px;left:0;width:40px;height:30px;opacity:.01;font-size:16px;border:0;padding:0;margin:0;background:transparent;color:transparent;caret-color:transparent;pointer-events:none;z-index:-1;-webkit-user-select:text;user-select:text}
+.nf input:focus{border-color:var(--accent);outline:0}
 .nf input:focus::placeholder{color:var(--muted);opacity:.55}
 .nf input:disabled{opacity:.5}
 /* Số mờ cho biết tổng: ô Chương hiện "/30" (sách có 30 chương), ô Câu hiện "/24" (chương có 24 câu) */
 .nrg{position:absolute;right:4px;top:50%;transform:translateY(-50%);font:600 10px var(--sans);letter-spacing:0;color:var(--muted);opacity:.75;pointer-events:none;white-space:nowrap}
-.nf:focus-within .nrg,.nf.vf .nrg,.nf.bad .nrg,.nf.tight .nrg{display:none}
-.nf input:focus::placeholder,.nf.vf input::placeholder{font-size:12px;letter-spacing:-.02em;white-space:nowrap}
-.nf:focus-within input,.nf.vf input{padding-left:5px!important;padding-right:3px!important;text-overflow:clip!important}
+.nf:focus-within .nrg,.nf.bad .nrg,.nf.tight .nrg{display:none}
+.nf input:focus::placeholder{font-size:12px;letter-spacing:-.02em;white-space:nowrap}
+.nf:focus-within input{padding-left:5px!important;padding-right:3px!important;text-overflow:clip!important}
 html.sa:not(.mtop) .ntip{top:auto;bottom:calc(100% + 8px)}
 .ntip{position:absolute;top:calc(100% + 6px);left:0;z-index:60;padding:7px 12px;border-radius:12px;background:var(--card);border:1px solid var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.25);font:600 13px/1.35 var(--sans);color:var(--accent);white-space:nowrap;pointer-events:none}
 .ntip.r{left:auto;right:0}
@@ -1277,7 +1275,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.24d';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.24e';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -1606,9 +1604,8 @@ function closeBookPick(){
 function bkPickKey(e){ if (e.key === 'Escape'){ e.preventDefault(); e.stopPropagation(); closeBookPick(); } }
 function openBookPick(){
   if (bkPickEl || !bibleMeta.length) return;
-  /* Đang gõ ở ô Chương/Câu rồi bấm tên sách: tắt ô đang nhập (kể cả ô ẩn #kbProxy) → bàn phím và con trỏ không còn kẹt lại phía sau Mục lục */
+  /* Đang gõ ở ô Chương/Câu rồi bấm tên sách: tắt ô đang nhập → bàn phím số và con trỏ không còn kẹt lại phía sau Mục lục */
   try { const ae = document.activeElement; if (ae && ae !== document.body && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) ae.blur(); } catch (_) {}
-  try { const px = document.getElementById('kbProxy'); if (px) HTMLElement.prototype.blur.call(px); } catch (_) {}
   const cur = curBook ? curBook.name : S.book;
   let h = '';
   BK_TOC.forEach(([test, groups]) => {
@@ -6091,78 +6088,15 @@ planSum();
 })();
 
 /* ╔══════════════════════════════════════════════════════════════════════════════╗
-   ║ 🔒 VÙNG ĐÃ KHÓA (người dùng đã xác nhận chạy tốt trên iPhone) — THANH MENU Ở DƯỚI + BÀN PHÍM Ô CHƯƠNG/CÂU (iPhone, Màn hình chính)
+   ║ 🔒 VÙNG ĐÃ KHÓA (người dùng đã dùng và xác nhận hết lỗi trên iPhone, khóa ngày 2026.11.24e)
+   ║ THANH MENU Ở DƯỚI + BÀN PHÍM SỐ TRONG APP CHO Ô CHƯƠNG / CÂU (iPhone, Màn hình chính)
    ║ KHÔNG sửa, không "tối ưu", không dọn dẹp vùng này khi làm việc khác.
    ║ Chỉ được đụng vào khi người dùng nói rõ muốn sửa CHÍNH tính năng này.
-   ║ Nếu buộc phải sửa: chạy lại bộ thử bàn phím + lật trang trước & sau khi sửa.
-   ║ Gồm: ô ẩn #kbProxy, kbShown/place/fit/focusin, CSS .kbup/.kbanim/.kbtop, quy tắc mtop chỉ cho Màn hình chính.
+   ║ Nếu buộc phải sửa: chạy lại bộ thử bàn phím số (gõ chương → tự sang ô Câu → Xong, nút xóa, chạm ra ngoài đóng, menu Trên/Dưới, Safari, máy tính) + lật trang trước & sau khi sửa.
+   ║ Gồm: kbShown/place/fit/focusin (nâng thanh menu cho ô tìm kiếm…), CSS .kbup/.kbanim/.kbtop, quy tắc mtop chỉ cho Màn hình chính,
+   ║      bàn phím số #kpad (CSS #kpad / .kp / --kph và mã IIFE "BÀN PHÍM SỐ TRONG APP" bên dưới).
+   ║ (Cơ chế "ô nhập ẩn" cũ đã được XÓA ngày 2026.11.24e: bàn phím số trong app thay hoàn toàn. Đừng thêm lại.)
    ╚══════════════════════════════════════════════════════════════════════════════╝ */
-/* Ô Chương / Câu khi menu ở DƯỚI (iPhone, Màn hình chính): "ô nhập thay thế".
-   Gốc lỗi: ô thật nằm sát đáy nên iOS luôn tự đẩy/cuộn cả trang để khỏi bị bàn phím che. Không có cách nào chặn việc đó khi ô thật còn ở đáy.
-   Cách dứt điểm: khi chạm ô Chương/Câu, bàn phím được mở bằng một ô ẩn (#kbProxy) đặt ở phía trên màn hình (luôn nhìn thấy → iOS không có lý do đẩy trang).
-   Ký tự gõ vào ô ẩn được chép sang ô thật (niChap / niVerse) và phát lại đúng các sự kiện cũ nên mọi logic nhảy chương/câu giữ nguyên.
-   Trang chính và thanh menu đứng yên; thanh menu được nâng lên sát mép trên bàn phím như một lớp phủ (CSS .kbup). */
-(function(){
-  const de = document.documentElement, doc = document;
-  const nc = doc.getElementById('niChap'), nv = doc.getElementById('niVerse');
-  if (!nc || !nv) return;
-  const proxy = doc.createElement('input');
-  proxy.id = 'kbProxy'; proxy.type = 'text'; proxy.setAttribute('inputmode', 'numeric'); proxy.setAttribute('pattern', '[0-9]*');
-  proxy.setAttribute('enterkeyhint', 'done'); proxy.setAttribute('autocomplete', 'off'); proxy.setAttribute('aria-hidden', 'true'); proxy.tabIndex = -1;
-  doc.body.appendChild(proxy);
-  const nativeFocus = HTMLElement.prototype.focus, nativeBlur = HTMLElement.prototype.blur;
-  const actGet = Object.getOwnPropertyDescriptor(Document.prototype, 'activeElement').get;
-  let vT = null;
-  /* iPhone đời cũ (iOS 16 trở xuống, vd iPhone 8 Plus) mở từ Màn hình chính: bàn phím KHÔNG bật khi focus ô ẩn trong cú chạm → bỏ cơ chế ô ẩn, dùng ô thật (thanh menu tự bay lên bằng lớp .kbup/kbtop bên dưới).
-     Máy mới vẫn dùng ô ẩn; nếu lần focus ô ẩn không thành công thì tự tắt và nhớ lại (kt.kbproxy=off). */
-  const iosMajor = (() => { const m = /OS (\d+)[_.]/.exec(navigator.userAgent || ''); return m ? +m[1] : 99; })();
-  let proxyOff = false; try { proxyOff = localStorage.getItem('kt.kbproxy') === 'off'; } catch(e){}
-  const ok = () => !proxyOff && iosMajor >= 17 && typeof IS_IOS !== 'undefined' && IS_IOS && de.classList.contains('sa') && !de.classList.contains('mtop');
-  Object.defineProperty(doc, 'activeElement', { configurable: true, get(){ const a = actGet.call(doc); return (a === proxy && vT) ? vT : a; } });
-  const mark = (inp, on) => { const f = inp && inp.closest('.nf'); if (f) f.classList.toggle('vf', on); };
-  function vFocus(inp){
-    if (inp.disabled) return;
-    const prev = vT; vT = inp; proxy.value = inp.value;
-    if (actGet.call(doc) !== proxy) nativeFocus.call(proxy, { preventScroll: true });
-    if (actGet.call(doc) !== proxy){            // iOS không nhận ô ẩn → tắt cơ chế này, dùng ô thật ngay trong cú chạm này
-      proxyOff = true; try { localStorage.setItem('kt.kbproxy', 'off'); } catch(e){}
-      vT = null; mark(inp, false); if (prev) mark(prev, false);
-      nativeFocus.call(inp); return;
-    }
-    if (prev !== inp){
-      mark(prev, false); mark(inp, true);
-      /* Chuyển thẳng từ ô Chương sang ô Câu (hoặc ngược lại): ô cũ phải được “rời đi” đúng cách để số vừa gõ (vd chương 1) được chốt NGAY,
-         rồi ô mới mới lấy danh sách câu theo chương đó. Trước đây bước này bị bỏ qua nên chương không được chốt, câu 8 nhảy vào chương cũ. */
-      if (prev) prev.dispatchEvent(new Event('blur'));
-      inp.dispatchEvent(new Event('focus')); proxy.value = inp.value;
-    }
-  }
-  function vBlur(){
-    if (!vT) return;
-    const inp = vT; vT = null; mark(inp, false);
-    if (actGet.call(doc) === proxy) nativeBlur.call(proxy);
-    inp.dispatchEvent(new Event('blur'));
-  }
-  [nc, nv].forEach(inp => {
-    inp.focus = function(o){ if (ok()) vFocus(inp); else nativeFocus.call(inp, o); };
-    inp.blur = function(){ if (vT === inp) vBlur(); else if (!ok()) nativeBlur.call(inp); };
-    inp.addEventListener('touchend', e => { if (!ok() || inp.disabled) return; e.preventDefault(); vFocus(inp); }, { passive: false });
-  });
-  proxy.addEventListener('input', () => {
-    const t = vT; if (!t) return;
-    t.value = proxy.value; t.dispatchEvent(new Event('input', { bubbles: true }));
-    proxy.value = (vT || t).value;
-  });
-  proxy.addEventListener('keydown', e => {
-    if (!vT) return;
-    const ev = new KeyboardEvent('keydown', { key: e.key, bubbles: true, cancelable: true });
-    vT.dispatchEvent(ev); if (ev.defaultPrevented) e.preventDefault();
-    proxy.value = vT ? vT.value : '';
-  });
-  proxy.addEventListener('blur', () => { if (vT) vBlur(); });
-  doc.addEventListener('touchstart', e => { if (vT && !(e.target.closest && e.target.closest('.nf'))) vBlur(); }, { passive: true, capture: true });
-})();
-
 /* Thanh menu nằm dưới (Màn hình chính): khi bàn phím mở.
    Vì sao trang bị "đẩy lên": ô nhập nằm sát đáy; iOS thấy bàn phím sắp che ô đó nên TỰ ĐẨY CẢ TRANG lên (cuộn khung nhìn), sau đó mã mới kịp chỉnh lại → nội dung giật.
    Cách làm mới (menu ở dưới): ngay lúc ô nhận con trỏ (trước khi iOS tính toán), thanh menu tạm bay lên TRÊN (class kbtop) như khi menu ở trên.
@@ -6238,12 +6172,11 @@ planSum();
   document.addEventListener('focusout', () => { setTimeout(fit, 120); setTimeout(fit, 500); });
 })();
 
-/* ═══ 🔒 HẾT VÙNG KHÓA: BÀN PHÍM + THANH MENU Ở DƯỚI ═══ */
-/* ═══ 2026.11.24d · BÀN PHÍM SỐ TRONG APP cho ô Chương / Câu (thay bàn phím hệ thống khi menu ở DƯỚI, iPhone, Màn hình chính) ═══
+/* ═══ BÀN PHÍM SỐ TRONG APP cho ô Chương / Câu (thay bàn phím hệ thống khi menu ở DƯỚI, iPhone, Màn hình chính) — thêm 2026.11.24d ═══
    Lỗi cũ: chạm ô Chương/Câu → bàn phím hệ thống bật → iOS đẩy cả trang lên, tên sách + đầu trang bị che và không kéo xuống được.
    Cách sửa dứt điểm: ô Chương/Câu chuyển sang chế độ chỉ-đọc (inputmode=none) → iOS KHÔNG mở bàn phím, KHÔNG đẩy trang; con trỏ vẫn đứng trong ô nên toàn bộ logic nhảy chương/câu giữ nguyên.
    Số được gõ bằng bàn phím số của app (#kpad), mỗi lần bấm phát lại đúng sự kiện 'input' như khi gõ thật. Menu ở TRÊN / Safari / máy tính: không đổi gì.
-   Muốn quay lại bàn phím hệ thống: localStorage.setItem('kt.numpad','off').
+   Muốn quay lại bàn phím hệ thống (thanh menu tự nâng bằng lớp .kbup ở khối phía trên): localStorage.setItem('kt.numpad','off').
    Kèm lớp gỡ kẹt: nếu trang vẫn bị lệch sau khi đóng bàn phím (bất kỳ lý do gì) thì tự đưa về đầu. */
 (function(){
   const de = document.documentElement, doc = document;
@@ -6271,7 +6204,7 @@ planSum();
   };
   const syncRO = () => { const o = on(); inputs.forEach(i => { i.readOnly = o; i.setAttribute('inputmode', o ? 'none' : 'numeric'); }); if (!o) hide(); };
   syncRO(); new MutationObserver(syncRO).observe(de, { attributes:true, attributeFilter:['class'] });
-  /* focus()/blur() do vùng khóa cũ (ô ẩn #kbProxy) → ở chế độ bàn phím số dùng focus thật trên ô chỉ-đọc (không bật bàn phím) */
+  /* ở chế độ bàn phím số: focus()/blur() là focus thật trên ô chỉ-đọc (không bật bàn phím hệ thống) */
   inputs.forEach(inp => {
     const f0 = inp.focus, b0 = inp.blur;
     inp.focus = function(o){ if (on()) HTMLElement.prototype.focus.call(inp, { preventScroll:true }); else f0.call(inp, o); };
@@ -6280,7 +6213,7 @@ planSum();
   /* Ô nhận con trỏ → hiện bàn phím số; chặn mã nâng-thanh-theo-bàn-phím-hệ-thống (.kbup) vì không có bàn phím hệ thống */
   doc.addEventListener('focusin', e => { if (!on() || inputs.indexOf(e.target) < 0) return; e.stopImmediatePropagation(); show(); }, true);
   doc.addEventListener('focusout', e => { if (inputs.indexOf(e.target) < 0) return; setTimeout(() => { if (inputs.indexOf(doc.activeElement) < 0) hide(); }, 0); }, true);
-  /* Chạm ô Chương/Câu: không để mã ô-ẩn (iOS 17+) bật bàn phím hệ thống */
+  /* Chạm ô Chương/Câu: mở bàn phím số, không để iOS tự focus/bật bàn phím hệ thống */
   window.addEventListener('touchend', e => {
     if (!on()) return; const t = e.target; if (!t || !t.closest) return;
     const nf = t.closest('#nfChap, #nfVerse'); if (!nf) return;
@@ -6322,6 +6255,7 @@ planSum();
   ['focusout', 'touchend', 'orientationchange', 'pageshow'].forEach(ev => addEventListener(ev, () => { setTimeout(unpan, 60); setTimeout(unpan, 500); }, true));
   if (window.visualViewport){ visualViewport.addEventListener('resize', unpan); visualViewport.addEventListener('scroll', unpan); }
 })();
+/* ═══ 🔒 HẾT VÙNG KHÓA: BÀN PHÍM SỐ + THANH MENU Ở DƯỚI ═══ */
 /* §§ ▼▼▼ MỤC 3 · BỘ NHỚ LƯU TRỮ TRÊN MÁY — PStore: kho bền vững dữ liệu cá nhân ▼▼▼ */
 /* =========================================================
  *  PStore – KHO BỀN VỮNG CHO DỮ LIỆU CÁ NHÂN (localForage → IndexedDB)
