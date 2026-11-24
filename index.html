@@ -125,6 +125,17 @@ html.sa.kbtop:not(.mtop) body.pg:not(.searching) .top{top:calc(env(safe-area-ins
 html.sa.kbup:not(.mtop) .top,html.sa.kbup:not(.mtop) body:not(.pg) .top,html.sa.kbup:not(.mtop) body.pg:not(.searching) .top{transform:translate3d(0,calc(-1px * var(--kbu,0)),0)!important;-webkit-transform:translate3d(0,calc(-1px * var(--kbu,0)),0)!important;transition:none!important;z-index:60}
 /* 2026.11.22l (giữ chuyển động từ 22k, kéo dài ~1,6 giây): lúc bàn phím mở (class kbanim, ~0,7 giây) thanh menu TRƯỢT lên cùng nhịp với bàn phím thay vì bật vọt lên rồi tụt xuống; các lần hiệu chỉnh sau đó cũng trượt êm, không giật */
 html.sa.kbup.kbanim:not(.mtop) .top,html.sa.kbup.kbanim:not(.mtop) body:not(.pg) .top,html.sa.kbup.kbanim:not(.mtop) body.pg:not(.searching) .top{transition:transform .27s cubic-bezier(.25,.8,.3,1)!important;-webkit-transition:-webkit-transform .27s cubic-bezier(.25,.8,.3,1)!important}
+/* 2026.11.24d: BÀN PHÍM SỐ TRONG APP cho ô Chương / Câu (iPhone, Màn hình chính, menu ở DƯỚI).
+   Bàn phím hệ thống làm iOS đẩy/cuộn cả trang lên (che tên sách + đầu trang, không kéo xuống được). Dùng bàn phím số của chính app thì iOS không còn lý do đẩy trang.
+   Khi mở (class kp): thanh menu nâng lên sát mép trên bàn phím số bằng transform (giống .kbup), nội dung trang chính đứng yên. */
+#kpad{position:fixed;left:0;right:0;bottom:0;z-index:58;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);transform:translateY(100%);transition:transform .2s cubic-bezier(.25,.8,.3,1);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#kpad[hidden]{display:none}
+#kpad.in{transform:none}
+#kpad button{height:48px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:600 22px var(--sans);display:flex;align-items:center;justify-content:center;padding:0;margin:0;-webkit-appearance:none;appearance:none;-webkit-user-select:none;user-select:none}
+#kpad button.on{background:var(--hl,var(--line))}
+#kpad button.kpok{background:var(--accent);border-color:var(--accent);color:var(--card);font-size:17px}
+html.sa.kp:not(.mtop) .top,html.sa.kp:not(.mtop) body:not(.pg) .top,html.sa.kp:not(.mtop) body.pg:not(.searching) .top{transform:translate3d(0,calc(-1 * var(--kph,0px)),0)!important;-webkit-transform:translate3d(0,calc(-1 * var(--kph,0px)),0)!important;transition:transform .2s cubic-bezier(.25,.8,.3,1)!important;z-index:60}
+html.sa.kp body:not(.pg) main{padding-bottom:calc(var(--kph,0px) + env(safe-area-inset-bottom))}
 .rschip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--tabh) + env(safe-area-inset-bottom) + 14px);z-index:26;display:flex;align-items:center;max-width:calc(100vw - 24px);background:var(--card);color:var(--fg);border:1px solid var(--accent);border-radius:999px;box-shadow:0 4px 18px rgba(0,0,0,.18)}
 .rschip button{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
 .rschip .rsgo{padding:10px 6px 10px 16px;min-width:0;text-align:left;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -232,9 +243,9 @@ html[data-paper] .v.flash .vn{background:#000;color:#f4f3ee;box-shadow:0 0 0 2px
 .para{margin:0 0 .2em;text-indent:1.4em;-webkit-text-wrap:wrap;text-wrap:wrap}   /* 2026.11.22p: bỏ text-wrap:pretty — Chrome/Android làm dòng cuối của đoạn bị căn đều (vd "cho ……… cha." dạt hai đầu); chống chữ lẻ cuối đoạn đã có nbJoin ở dưới */   /* Kinh Thánh in: đoạn văn xuôi thụt đầu dòng, các đoạn sát nhau (không cách dòng rộng như trang web) */
 .hd + .para,.chhead + .para,.para:has(.dc){text-indent:0}
 .para:has(.dc){margin-bottom:.05em}   /* đoạn có số chương lớn: sát dòng kế để số chương cao đúng 2 dòng */   /* đoạn đầu chương / ngay sau tiêu đề mục: không thụt */
-/* Số chương lớn: cao đúng 2 dòng chữ, đỉnh số ngang đỉnh dòng 1, chân số ngang chân dòng 2; số câu 1 được lược bỏ (số chương thay cho số câu 1) như Kinh Thánh in */
+/* Số chương lớn: cao đúng 2 dòng chữ, đỉnh số ngang đỉnh dòng 1, chân số ngang chân dòng 2; số câu 1 vẫn hiện (nhỏ, sau số chương) để không chương nào bị mất câu 1 */
 .dc{float:left;font-size:3.5em;line-height:.78;font-weight:700;color:var(--accent);margin:.07em .11em 0 0;padding:0;font-variant-numeric:lining-nums;letter-spacing:-.01em;text-indent:0}
-.dc + .vn,.dc + .pl > .vn{display:none}
+/* 2026.11.24d: số câu 1 HIỆN lại, đứng ngay sau số chương lớn (trước đây bị ẩn bằng ".dc + .vn{display:none}" nên mọi chương trông như mất câu 1) */
 .dc.dcp{margin-right:.34em}   /* chương có thơ ở 2 dòng đầu: chừa thêm 1.5em (thụt âm của dòng thơ) để chữ không đè lên số */
 .para:has(.dcp){text-indent:-.8em}
 .vn{font-family:var(--serif);font-size:.6em;font-weight:700;vertical-align:super;line-height:0;margin:0 .2em 0 .14em;color:var(--accent);font-variant-numeric:lining-nums;letter-spacing:0;text-indent:0;white-space:nowrap}   /* số câu: chỉ số nhỏ đứng ngay trước chữ, cùng họ chữ với lời văn */
@@ -1266,7 +1277,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.24c';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.24d';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -6228,6 +6239,89 @@ planSum();
 })();
 
 /* ═══ 🔒 HẾT VÙNG KHÓA: BÀN PHÍM + THANH MENU Ở DƯỚI ═══ */
+/* ═══ 2026.11.24d · BÀN PHÍM SỐ TRONG APP cho ô Chương / Câu (thay bàn phím hệ thống khi menu ở DƯỚI, iPhone, Màn hình chính) ═══
+   Lỗi cũ: chạm ô Chương/Câu → bàn phím hệ thống bật → iOS đẩy cả trang lên, tên sách + đầu trang bị che và không kéo xuống được.
+   Cách sửa dứt điểm: ô Chương/Câu chuyển sang chế độ chỉ-đọc (inputmode=none) → iOS KHÔNG mở bàn phím, KHÔNG đẩy trang; con trỏ vẫn đứng trong ô nên toàn bộ logic nhảy chương/câu giữ nguyên.
+   Số được gõ bằng bàn phím số của app (#kpad), mỗi lần bấm phát lại đúng sự kiện 'input' như khi gõ thật. Menu ở TRÊN / Safari / máy tính: không đổi gì.
+   Muốn quay lại bàn phím hệ thống: localStorage.setItem('kt.numpad','off').
+   Kèm lớp gỡ kẹt: nếu trang vẫn bị lệch sau khi đóng bàn phím (bất kỳ lý do gì) thì tự đưa về đầu. */
+(function(){
+  const de = document.documentElement, doc = document;
+  const nc = doc.getElementById('niChap'), nv = doc.getElementById('niVerse');
+  if (!nc || !nv || typeof IS_IOS === 'undefined') return;
+  const inputs = [nc, nv];
+  const on = () => { try { return !!IS_IOS && de.classList.contains('sa') && !de.classList.contains('mtop') && localStorage.getItem('kt.numpad') !== 'off'; } catch(e){ return !!IS_IOS && de.classList.contains('sa') && !de.classList.contains('mtop'); } };
+  const pad = doc.createElement('div');
+  pad.id = 'kpad'; pad.hidden = true; pad.setAttribute('role', 'group'); pad.setAttribute('aria-label', 'Bàn phím số');
+  pad.innerHTML = ['1','2','3','4','5','6','7','8','9','del','0','ok'].map(k => k === 'del'
+    ? '<button type="button" data-k="del" aria-label="Xóa số cuối"><svg width="26" height="20" viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 1.5h14a2 2 0 012 2v13a2 2 0 01-2 2h-14L1.5 10z"/><path d="M12.5 6.5l7 7M19.5 6.5l-7 7"/></svg></button>'
+    : k === 'ok' ? '<button type="button" data-k="ok" class="kpok">Xong</button>' : '<button type="button" data-k="' + k + '">' + k + '</button>').join('');
+  doc.body.appendChild(pad);
+  let shown = false, hideT = 0;
+  const show = () => {
+    clearTimeout(hideT);
+    if (shown) return;
+    shown = true; pad.hidden = false; void pad.offsetHeight;
+    de.style.setProperty('--kph', pad.offsetHeight + 'px'); de.classList.add('kp'); pad.classList.add('in');
+  };
+  const hide = () => {
+    if (!shown) return;
+    shown = false; pad.classList.remove('in'); de.classList.remove('kp'); de.style.removeProperty('--kph');
+    clearTimeout(hideT); hideT = setTimeout(() => { if (!shown) pad.hidden = true; }, 230);
+  };
+  const syncRO = () => { const o = on(); inputs.forEach(i => { i.readOnly = o; i.setAttribute('inputmode', o ? 'none' : 'numeric'); }); if (!o) hide(); };
+  syncRO(); new MutationObserver(syncRO).observe(de, { attributes:true, attributeFilter:['class'] });
+  /* focus()/blur() do vùng khóa cũ (ô ẩn #kbProxy) → ở chế độ bàn phím số dùng focus thật trên ô chỉ-đọc (không bật bàn phím) */
+  inputs.forEach(inp => {
+    const f0 = inp.focus, b0 = inp.blur;
+    inp.focus = function(o){ if (on()) HTMLElement.prototype.focus.call(inp, { preventScroll:true }); else f0.call(inp, o); };
+    inp.blur = function(){ if (on()) HTMLElement.prototype.blur.call(inp); else b0.call(inp); };
+  });
+  /* Ô nhận con trỏ → hiện bàn phím số; chặn mã nâng-thanh-theo-bàn-phím-hệ-thống (.kbup) vì không có bàn phím hệ thống */
+  doc.addEventListener('focusin', e => { if (!on() || inputs.indexOf(e.target) < 0) return; e.stopImmediatePropagation(); show(); }, true);
+  doc.addEventListener('focusout', e => { if (inputs.indexOf(e.target) < 0) return; setTimeout(() => { if (inputs.indexOf(doc.activeElement) < 0) hide(); }, 0); }, true);
+  /* Chạm ô Chương/Câu: không để mã ô-ẩn (iOS 17+) bật bàn phím hệ thống */
+  window.addEventListener('touchend', e => {
+    if (!on()) return; const t = e.target; if (!t || !t.closest) return;
+    const nf = t.closest('#nfChap, #nfVerse'); if (!nf) return;
+    const inp = nf.querySelector('input'); if (!inp || inp.disabled) return;
+    e.stopPropagation(); if (e.cancelable) e.preventDefault();
+    if (doc.activeElement !== inp) inp.focus(); else show();
+  }, true);
+  const press = k => {
+    const inp = doc.activeElement; if (inputs.indexOf(inp) < 0) return;
+    if (k === 'ok'){ inp.blur(); return; }                       // Xong: giống bấm \"Xong\" của bàn phím → blur → nhảy nếu hợp lệ
+    inp.value = k === 'del' ? inp.value.slice(0, -1) : (inp.value + k).slice(0, 4);
+    inp.dispatchEvent(new Event('input', { bubbles:true }));
+  };
+  let rep = 0, repT = 0;
+  const stopRep = () => { clearTimeout(repT); clearInterval(rep); rep = 0; pad.querySelectorAll('.on').forEach(b => b.classList.remove('on')); };
+  pad.addEventListener('pointerdown', e => {
+    const b = e.target.closest && e.target.closest('button'); if (!b) return;
+    e.preventDefault(); stopRep(); b.classList.add('on'); press(b.dataset.k);
+    if (b.dataset.k === 'del') repT = setTimeout(() => { rep = setInterval(() => press('del'), 80); }, 420);   // giữ nút xóa = xóa liên tục
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => pad.addEventListener(ev, stopRep));
+  pad.addEventListener('touchstart', e => e.preventDefault(), { passive:false });
+  pad.addEventListener('contextmenu', e => e.preventDefault());
+  /* Chạm ra ngoài (không phải bàn phím số / ô Chương / ô Câu) → đóng */
+  doc.addEventListener('pointerdown', e => {
+    if (!shown) return; const t = e.target;
+    if (t && t.closest && (t.closest('#kpad') || t.closest('#nfChap') || t.closest('#nfVerse'))) return;
+    const a = doc.activeElement; if (inputs.indexOf(a) >= 0) a.blur(); else hide();
+  }, true);
+  addEventListener('pagehide', hide);
+  /* Gỡ kẹt: trang bị iOS đẩy lệch (cuộn khung nhìn) mà không kéo lại được → tự về đầu khi không còn ô nhập nào đang mở (không đụng khi đang gõ ghi chú) */
+  const unpan = () => {
+    try {
+      const a = doc.activeElement; if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && inputs.indexOf(a) < 0) return;
+      const vv = window.visualViewport; if (vv && innerHeight - vv.height > 100) return;
+      if (window.scrollY || de.scrollTop || doc.body.scrollTop || (vv && vv.offsetTop > 1)){ window.scrollTo(0, 0); de.scrollTop = 0; doc.body.scrollTop = 0; }
+    } catch(e){}
+  };
+  ['focusout', 'touchend', 'orientationchange', 'pageshow'].forEach(ev => addEventListener(ev, () => { setTimeout(unpan, 60); setTimeout(unpan, 500); }, true));
+  if (window.visualViewport){ visualViewport.addEventListener('resize', unpan); visualViewport.addEventListener('scroll', unpan); }
+})();
 /* §§ ▼▼▼ MỤC 3 · BỘ NHỚ LƯU TRỮ TRÊN MÁY — PStore: kho bền vững dữ liệu cá nhân ▼▼▼ */
 /* =========================================================
  *  PStore – KHO BỀN VỮNG CHO DỮ LIỆU CÁ NHÂN (localForage → IndexedDB)
