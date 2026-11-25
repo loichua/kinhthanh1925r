@@ -745,7 +745,8 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.viewing .lsread{border:0;border-radius:0;background:var(--card);padding:6px 4px 10px}
 .lspage .lspref{font:700 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);text-align:center;margin:2px 0 10px}
 .lspage .lspq{margin:0 0 14px;padding:12px 14px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font:italic calc(var(--fs) - 2px)/1.65 var(--serif);color:var(--fg)}
-.lspage .lsprule{width:56px;height:1px;border:0;margin:0 auto 16px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.8}
+.lspage .lsrtxt{margin-top:12px}
+.lspage .lspq .lsqm{color:var(--accent);font-size:1.4em;line-height:0;font-style:normal}.lspage .lspq .lsqm:first-child{margin-right:.08em}.lspage .lspq .lsqm:last-child{margin-left:.05em}
 .lspage .lsrtxt{font-size:var(--fs);line-height:1.75;text-align:justify;hyphens:auto}
 .lsbody textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
 .lsbtns{flex:none;display:flex;gap:8px;padding:10px 20px 14px}
@@ -1275,7 +1276,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.24e';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26a';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2515,7 +2516,7 @@ function lsMode(m){
   $('.lshead', lsEl).appendChild($('#lsTools'));                  // luôn đưa nút Xuất Word về hàng nhãn trước (tránh bị xóa theo vùng xem khi vẽ lại)
   if (v){
     const o = lsCur.old, long = (lsCur.quote || '').length > 150;
-    $('#lsRead').innerHTML = `<div class="lspage"><div class="lsphead"><div class="lspref">${esc($('#lsRef').textContent)}</div></div><p class="lspq${long ? ' clamp' : ''}" id="lsPq">${esc(lsCur.quote || '')}</p>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<hr class="lsprule"><div class="lsrtxt">${esc(lsTa.value.trim())}</div></div>` + (o ? `<div class="lsrmeta">Cập nhật ${esc(bmWhen(o.at))}</div>` : '');
+    $('#lsRead').innerHTML = `<div class="lspage"><div class="lsphead"><div class="lspref">${esc($('#lsRef').textContent)}</div></div><p class="lspq${long ? ' clamp' : ''}" id="lsPq"><span class="lsqm">“</span>${esc(lsCur.quote || '')}<span class="lsqm">”</span></p>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<div class="lsrtxt">${esc(lsTa.value.trim())}</div></div>` + (o ? `<div class="lsrmeta">Cập nhật ${esc(bmWhen(o.at))}</div>` : '');
     $('.lsphead', $('#lsRead')).appendChild($('#lsTools'));       // xem: nút Xuất Word nằm cùng hàng với địa chỉ câu, đỡ tốn một dòng
     const mb = $('#lsMore'); if (mb) mb.onclick = () => { const q = $('#lsPq'), open = q.classList.toggle('clamp') === false; mb.textContent = open ? 'Thu gọn câu gốc ▴' : 'Xem đủ câu gốc ▾'; };
     $('#lsRead').scrollTop = 0; try { lsTa.blur(); } catch(e){}
