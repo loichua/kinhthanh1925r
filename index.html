@@ -753,6 +753,72 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lsbtns{flex:none;display:flex;gap:8px;padding:10px 20px 14px}
 .lsbtns .btn{flex:1;white-space:nowrap}
 .lsbtns .primary{flex:1.6}
+/* ===== Trình soạn thảo giàu định dạng (kiểu Word) + thẻ Kinh Thánh đối chiếu ===== */
+#lsText{display:none!important}
+.lspanel{position:relative}
+.lsed{flex:1;min-height:0;display:flex;flex-direction:column}
+.lsed[hidden]{display:none}
+.rtb{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:4px 2px;padding:6px 6px;border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;background:var(--accent-soft)}
+.rtg{display:flex;align-items:center;gap:2px;padding-right:6px;margin-right:4px;border-right:1px solid var(--line)}
+.rtg:last-child{border-right:0;margin-right:0;padding-right:0}
+.rtb button,.rtcol{min-width:32px;height:32px;padding:0 7px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--fg);font:600 14px var(--sans);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.rtb button:hover,.rtcol:hover{background:var(--card);border-color:var(--line)}
+.rtb button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.rtb select{height:32px;max-width:132px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--fg);font:500 13px var(--sans);padding:0 4px}
+.rtcol input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;border:0;padding:0}
+.rtcol span{font-weight:700;line-height:1;margin-top:-4px}
+.rtcol i{position:absolute;left:7px;right:7px;bottom:5px;height:3px;border-radius:2px;background:#8a5a1f}
+.rtb .rtpri{background:var(--accent);color:#fff;border-color:var(--accent);padding:0 12px;white-space:nowrap}
+.rtb .rtpri:hover{filter:brightness(1.08);background:var(--accent)}
+.rtbib{margin-left:auto}
+.lsrich{flex:1;min-height:200px;overflow:auto;overscroll-behavior:contain;padding:14px 18px;border:1px solid var(--line);border-radius:0 0 12px 12px;background:var(--bg);color:var(--fg);font-family:var(--serif,Georgia,serif);font-size:17px;line-height:1.7;outline:none;position:relative;word-break:break-word}
+.lsrich:focus{box-shadow:inset 0 0 0 2px var(--accent)}
+.lsrich.empty::before{content:attr(data-ph);color:var(--muted);position:absolute;left:18px;right:18px;top:14px;pointer-events:none;text-indent:0;text-align:left}
+.lsrich p,.lsrtxt p{margin:0 0 .75em}
+.lsrich>p{text-indent:1.4em}
+.lsrich li,.lsrich blockquote p,.lsrich h1,.lsrich h2,.lsrich h3{text-indent:0}
+.lsrich>p[style*="text-align:center"],.lsrich>p[style*="text-align:right"]{text-indent:0}
+.lsrich h1,.lsrtxt h1{font:700 1.5em/1.3 var(--serif,Georgia,serif);color:var(--accent);margin:.6em 0 .35em}
+.lsrich h2,.lsrtxt h2{font:700 1.25em/1.3 var(--serif,Georgia,serif);color:var(--accent);margin:.6em 0 .3em}
+.lsrich h3,.lsrtxt h3{font:700 1.08em/1.3 var(--serif,Georgia,serif);margin:.5em 0 .25em}
+.lsrich blockquote,.lsrtxt blockquote{margin:.4em 0 .9em;padding:8px 14px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+.lsrich blockquote p,.lsrtxt blockquote p{text-indent:0;margin:0 0 .35em}
+.lsrich ul,.lsrich ol,.lsrtxt ul,.lsrtxt ol{margin:0 0 .75em;padding-left:1.7em}
+.lsrich hr,.lsrtxt hr{border:0;border-top:1px solid var(--accent);opacity:.5;margin:1em auto;width:40%}
+.lspage .lsrtxt>p{text-indent:1.4em}
+.lspage .lsrtxt>p[style*="text-align:center"],.lspage .lsrtxt>p[style*="text-align:right"]{text-indent:0}
+.lspage .lsrtxt{white-space:normal}
+@media (max-width:820px){.rtb{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.rtb::-webkit-scrollbar{display:none}.rtb .adv{display:none}.rtbib{order:-1;margin-left:0;border-right:1px solid var(--line)!important;margin-right:4px!important;padding-right:6px!important}}
+@media (min-width:900px){
+  .lspanel:not(.viewing){max-width:920px}
+  .lspanel.bible{max-width:1320px;padding-right:430px}
+  .lsbible{top:0;right:0;bottom:0;width:430px;border-left:1px solid var(--line)}
+}
+.lsbible{position:absolute;z-index:3;display:flex;flex-direction:column;gap:8px;padding:12px 14px;background:var(--card);box-shadow:-10px 0 30px rgba(0,0,0,.12)}
+.lsbible[hidden]{display:none}
+@media (max-width:899px){.lsbible{left:0;right:0;bottom:0;height:66%;border-radius:16px 16px 0 0;border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(0,0,0,.28)}}
+.lsbh{display:flex;align-items:center;justify-content:space-between;font:700 15px var(--sans);color:var(--accent)}
+.lsbc{display:flex;gap:6px}
+.lsbc input,.lsbc select{flex:1;min-width:0;height:38px;padding:0 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--fg);font:15px var(--sans)}
+.lsbc select:first-child{flex:2}
+.lsbv{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:6px 4px}
+.lsbhint{margin:14px 12px;color:var(--muted);font:14px/1.5 var(--sans)}
+.lsbv .bv{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--fg);padding:6px 10px;border-radius:8px;font:16px/1.6 var(--serif,Georgia,serif);cursor:pointer}
+.lsbv .bv sup{font:700 11px var(--sans);color:var(--accent);margin-right:5px}
+.lsbv .bv:hover{background:var(--accent-soft)}
+.lsbv .bv.sel{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.lsbf{flex:none;display:flex;flex-direction:column;gap:6px}
+.lsbs{font:600 13px var(--sans);color:var(--muted)}
+.lsbn{font:13px var(--sans);color:var(--fg);display:flex;align-items:center;gap:6px}
+.lsbb{display:flex;gap:8px}.lsbb .btn{flex:1;padding:9px 6px;font-size:14px}
+.fnd{position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.fnd>div{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:18px;box-shadow:0 16px 48px rgba(0,0,0,.35)}
+.fnd h3{margin:0 0 6px;font:700 17px var(--sans);color:var(--fg)}
+.fnd p{margin:0 0 10px;font:13px/1.5 var(--sans);color:var(--muted)}
+.fnd .fnr{display:flex;align-items:center;gap:6px}
+.fnd input{flex:1;min-width:0;height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:16px var(--sans)}
+.fnd .fnx{font:600 14px var(--sans);color:var(--muted)}
+.fnd .fnb{display:flex;gap:8px;margin-top:14px}.fnd .fnb .btn{flex:1}
 
 /* §§ ▼▼▼ MỤC 5 · GHI CHÚ & SOẠN THẢO — CSS chế độ xem bài học ▼▼▼ */
 /* ===== Chế độ XEM bài học: cửa sổ bung rộng hơn, thu gọn phần menu để nhường chỗ cho nội dung ===== */
@@ -1204,8 +1270,31 @@ html[data-paper] .reader.print{text-align:justify}
     <div class="lsgrip"></div>
     <div class="lstop"><div class="lsref" id="lsRef"></div><p class="lsverse" id="lsVerse"></p><button type="button" class="lsvt" id="lsVT" hidden>Xem đủ câu ▾</button></div>
     <div class="lsbody">
-      <div class="lshead"><label class="lslabel" for="lsText" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button></span></div>
-      <textarea id="lsText" placeholder="Điều Chúa dạy bạn qua đoạn này…" autocomplete="off"></textarea>
+      <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button></span></div>
+      <textarea id="lsText" hidden aria-hidden="true" tabindex="-1" autocomplete="off"></textarea>
+      <div class="lsed" id="lsEd">
+        <div class="rtb" id="lsTb" role="toolbar" aria-label="Công cụ soạn thảo">
+          <div class="rtg"><button type="button" data-c="undo" title="Hoàn tác (Ctrl+Z)">↶</button><button type="button" data-c="redo" title="Làm lại (Ctrl+Y)">↷</button></div>
+          <div class="rtg adv">
+            <select data-s="block" title="Kiểu đoạn"><option value="p">Đoạn văn</option><option value="h1">Tiêu đề 1</option><option value="h2">Tiêu đề 2</option><option value="h3">Tiêu đề 3</option><option value="blockquote">Trích dẫn</option></select>
+            <select data-s="font" title="Phông chữ"><option value="">Phông chữ</option><option>Times New Roman</option><option>Arial</option><option>Calibri</option><option>Cambria</option><option>Georgia</option><option>Garamond</option><option>Palatino Linotype</option><option>Verdana</option><option>Tahoma</option><option>Courier New</option></select>
+            <select data-s="size" title="Cỡ chữ (pt)"><option value="">Cỡ</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>16</option><option>18</option><option>20</option><option>24</option><option>28</option><option>32</option><option>36</option></select>
+          </div>
+          <div class="rtg"><button type="button" data-c="bold" title="Đậm (Ctrl+B)"><b>B</b></button><button type="button" data-c="italic" title="Nghiêng (Ctrl+I)"><i>I</i></button><button type="button" data-c="underline" title="Gạch chân (Ctrl+U)"><u>U</u></button><button type="button" class="adv" data-c="strikeThrough" title="Gạch ngang"><s>S</s></button></div>
+          <div class="rtg adv">
+            <label class="rtcol" title="Màu chữ"><span>A</span><i id="rtFcBar"></i><input type="color" data-k="foreColor" value="#8a5a1f" aria-label="Màu chữ"></label>
+            <label class="rtcol" title="Tô nổi chữ"><span>🖍</span><i id="rtHlBar"></i><input type="color" data-k="hiliteColor" value="#ffe066" aria-label="Màu tô nổi"></label>
+            <button type="button" data-c="subscript" title="Chỉ số dưới">x₂</button><button type="button" data-c="superscript" title="Chỉ số trên">x²</button>
+          </div>
+          <div class="rtg adv"><button type="button" data-c="justifyLeft" title="Căn trái">⯇</button><button type="button" data-c="justifyCenter" title="Căn giữa">☰</button><button type="button" data-c="justifyRight" title="Căn phải">⯈</button><button type="button" data-c="justifyFull" title="Căn đều hai bên">☷</button></div>
+          <div class="rtg"><button type="button" data-c="insertUnorderedList" title="Danh sách gạch đầu dòng">•≡</button><button type="button" data-c="insertOrderedList" title="Danh sách đánh số">1.≡</button></div>
+          <div class="rtg adv"><button type="button" data-c="outdent" title="Giảm thụt lề">⇤</button><button type="button" data-c="indent" title="Tăng thụt lề">⇥</button>
+            <select data-s="line" title="Giãn dòng"><option value="">Giãn dòng</option><option value="1">1,0</option><option value="1.15">1,15</option><option value="1.5">1,5</option><option value="2">2,0</option><option value="2.5">2,5</option></select></div>
+          <div class="rtg adv"><button type="button" data-c="insertHorizontalRule" title="Chèn đường kẻ ngang">—</button><button type="button" data-c="removeFormat" title="Xóa định dạng">Tx</button></div>
+          <div class="rtg rtbib"><button type="button" id="lsBibBtn" class="rtpri" title="Mở Kinh Thánh để đối chiếu và chèn trích dẫn">📖 Kinh Thánh</button></div>
+        </div>
+        <div class="lsrich" id="lsRich" contenteditable="true" spellcheck="true" lang="vi" role="textbox" aria-multiline="true" aria-label="Nội dung bài học" data-ph="Điều Chúa dạy bạn qua đoạn này…"></div>
+      </div>
       <div class="lscount" id="lsCount"></div>
       <div class="lsread" id="lsRead" hidden></div>
       <div class="lslinks" id="lsLinks" hidden></div>
@@ -1218,6 +1307,17 @@ html[data-paper] .reader.print{text-align:justify}
       <button class="btn primary" id="lsSave">Lưu ghi chú</button>
       <button class="btn primary" id="lsEdit" hidden>✎ Sửa</button>
     </div>
+  <aside class="lsbible" id="lsBible" hidden aria-label="Kinh Thánh đối chiếu">
+    <div class="lsbh"><b>📖 Kinh Thánh</b><button type="button" id="lsbX" class="sbtn" aria-label="Đóng thẻ Kinh Thánh">✕</button></div>
+    <div class="lsbc"><input id="lsbQ" type="search" placeholder="Gõ địa chỉ, ví dụ: Gia-cơ 1:5-8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go"><button type="button" id="lsbGo" class="sbtn">Mở</button></div>
+    <div class="lsbc"><select id="lsbBook" aria-label="Sách"></select><select id="lsbCh" aria-label="Chương"></select></div>
+    <div class="lsbv" id="lsbList"><p class="lsbhint">Chọn sách và chương, rồi chạm vào các câu cần trích.</p></div>
+    <div class="lsbf">
+      <div class="lsbs" id="lsbSel">Chưa chọn câu nào</div>
+      <label class="lsbn"><input type="checkbox" id="lsbNum"> Kèm số câu</label>
+      <div class="lsbb"><button type="button" id="lsbRef" class="btn">Chèn địa chỉ</button><button type="button" id="lsbIns" class="btn primary">Chèn trích dẫn</button></div>
+    </div>
+  </aside>
   </div>
 </div>
 
@@ -1277,7 +1377,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26f';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26h';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2095,7 +2195,7 @@ $('#nextChap').onclick = () => stepChapter(1);
   addEventListener('keydown', e => {                                                // máy tính: phím ← →
     if ((e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') || e.altKey || e.ctrlKey || e.metaKey) return;
     const a = document.activeElement;
-    if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    if (a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable)) return;
     if (free()) flip(e.key === 'ArrowRight' ? 1 : -1);
   });
 })();
@@ -2507,20 +2607,20 @@ function openLessons(){
 }
 const lsEl = $('#lsSheet'), lsTa = $('#lsText');
 let lsCur = null;
-function lsClose(){ const back = lsCur && lsCur.back; lsEl.classList.remove('open'); if (back) setTimeout(openLessons, 240); setTimeout(() => { lsEl.hidden = true; }, 220); try { lsTa.blur(); } catch(e){} }
+function lsClose(){ const back = lsCur && lsCur.back; lsEl.classList.remove('open'); if (back) setTimeout(openLessons, 240); setTimeout(() => { lsEl.hidden = true; }, 220); try { lsTa.blur(); lsRich.blur(); } catch(e){} }
 /* Hai chế độ: 'view' = xem bài học hoàn chỉnh · 'edit' = soạn thảo */
 function lsMode(m){
   if (!lsCur) return;
   const v = m === 'view'; lsCur.mode = m;
-  lsTa.hidden = v; $('.lspanel', lsEl).classList.toggle('viewing', v); $('#lsRead').hidden = !v; $('#lsSave').hidden = v; $('#lsEdit').hidden = !v;
+  $('#lsEd').hidden = v; if (v) lsBibleClose(); $('.lspanel', lsEl).classList.toggle('viewing', v); $('#lsRead').hidden = !v; $('#lsSave').hidden = v; $('#lsEdit').hidden = !v;
   $('#lsLbl').textContent = v ? 'Bài học của bạn' : 'Bài học cá nhân';
   $('.lshead', lsEl).appendChild($('#lsTools'));                  // luôn đưa nút Xuất Word về hàng nhãn trước (tránh bị xóa theo vùng xem khi vẽ lại)
   if (v){
     const o = lsCur.old, long = (lsCur.quote || '').length > 150;
-    $('#lsRead').innerHTML = `<div class="lspage"><div class="lsphead"><div class="lspref">${esc($('#lsRef').textContent)}</div></div><p class="lspq${long ? ' clamp' : ''}" id="lsPq"><span class="lsqm">“</span>${esc(lsCur.quote || '')}<span class="lsqm">”</span></p>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<div class="lsrtxt">${lsHtml(lsTa.value)}</div></div>` + (o ? `<div class="lsrmeta">Cập nhật ${esc(bmWhen(o.at))}</div>` : '');
+    $('#lsRead').innerHTML = `<div class="lspage"><div class="lsphead"><div class="lspref">${esc($('#lsRef').textContent)}</div></div><p class="lspq${long ? ' clamp' : ''}" id="lsPq"><span class="lsqm">“</span>${esc(lsCur.quote || '')}<span class="lsqm">”</span></p>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<div class="lsrtxt">${lsViewHtml()}</div></div>` + (o ? `<div class="lsrmeta">Cập nhật ${esc(bmWhen(o.at))}</div>` : '');
     $('.lsphead', $('#lsRead')).appendChild($('#lsTools'));       // xem: nút Xuất Word nằm cùng hàng với địa chỉ câu, đỡ tốn một dòng
     const mb = $('#lsMore'); if (mb) mb.onclick = () => { const q = $('#lsPq'), open = q.classList.toggle('clamp') === false; mb.textContent = open ? 'Thu gọn câu gốc ▴' : 'Xem đủ câu gốc ▾'; };
-    $('#lsRead').scrollTop = 0; try { lsTa.blur(); } catch(e){}
+    $('#lsRead').scrollTop = 0; try { lsTa.blur(); lsRich.blur(); } catch(e){}
   }
 }
 function lsShareText(){
@@ -2548,32 +2648,37 @@ window.addEventListener('openLesson', e => {
   }
   $('#lsRef').textContent = `${bookDisplay(book)} ${ch}:${key}`;
   $('#lsVerse').textContent = quote; lsVerseFit();
-  lsTa.value = old ? old.text : ''; lsCountUpdate();
+  lsLoad(old);
   $('#lsDel').hidden = !old;
   lsRender();
   lsMode(old ? 'view' : 'edit');                                // bài học cũ: mở chế độ xem · bài học mới: mở chế độ soạn
   lsEl.hidden = false; void lsEl.offsetWidth; lsEl.classList.add('open');
   /* iPhone chỉ bật bàn phím khi focus() chạy NGAY trong cú chạm — trước đây chờ 280ms nên bàn phím không hiện. Focus ngay, giữ thêm một lần dự phòng. */
   if (!old){
-    try { lsTa.focus({ preventScroll:true }); } catch(e){}
-    setTimeout(() => { try { if (!lsEl.hidden && document.activeElement !== lsTa) lsTa.focus({ preventScroll:true }); } catch(e){} }, 280);
+    lsFocus();
+    setTimeout(() => { try { if (!lsEl.hidden && document.activeElement !== lsRich) lsFocus(); } catch(e){} }, 280);
   }
 });
 lsEl.addEventListener('click', e => { if (e.target === lsEl) lsClose(); });
 $('#lsClose').onclick = lsClose;
 function lsPersist(){                                         // lưu ghi chú đang soạn; trả về true nếu có lưu
-  const t = lsTa.value.trim(); if (!t || !lsCur) return false;
-  const { book, ch, n, ns, old } = lsCur;
-  if (old){ if (old.text === t) return true; old.text = t; old.at = Date.now(); } else { const o = { book, ch, n, ns, text:t, at:Date.now() }; LS.unshift(o); lsCur.old = o; $('#lsDel').hidden = false; }
-  saveLS(); return true;
+  if (!lsCur) return false;
+  if (lsDirty) lsSyncNow();
+  const t = lsTa.value.trim(); if (!t) return false;
+  const { book, ch, n, ns, old } = lsCur, html = lsCur.html || '';
+  if (old){
+    if (!lsDirty) return true;
+    if (old.text === t && (old.html || '') === html){ lsDirty = false; return true; }
+    old.text = t; if (html) old.html = html; else delete old.html; old.at = Date.now();
+  } else { const o = { book, ch, n, ns, text:t, at:Date.now() }; if (html) o.html = html; LS.unshift(o); lsCur.old = o; $('#lsDel').hidden = false; }
+  lsDirty = false; saveLS(); return true;
 }
 $('#lsSave').onclick = () => {
-  if (!lsPersist()){ toast('Hãy viết nội dung ghi chú'); lsTa.focus(); return; }
+  if (!lsPersist()){ toast('Hãy viết nội dung ghi chú'); lsFocus(); return; }
   toast('✍️ Đã lưu vào Bài học cá nhân'); lsMode('view'); lsRender();      // lưu xong chuyển ngay sang xem nội dung hoàn chỉnh
 };
 $('#lsEdit').onclick = () => {
-  lsMode('edit'); lsTa.focus();
-  try { const n = lsTa.value.length; lsTa.setSelectionRange(n, n); } catch(e){}
+  lsMode('edit'); lsFocus(true);
 };
 function lsCountUpdate(){ const t = lsTa.value.trim(), w = t ? t.split(/\s+/).length : 0; $('#lsCount').textContent = w ? w + ' chữ · ' + t.length + ' ký tự' : ''; }
 function lsVerseFit(){                                           // câu dài: thu gọn 3 dòng cho rộng chỗ soạn, bấm để xem đủ
@@ -2602,6 +2707,389 @@ $('#lsDel').onclick = () => {
   if (!lsCur || !lsCur.old || !confirm('Xóa ghi chú này?')) return;
   LS = LS.filter(x => x !== lsCur.old); saveLS(); toast('Đã xóa ghi chú'); lsClose();
 };
+
+
+/* =====================================================================================================
+   TRÌNH SOẠN THẢO GIÀU ĐỊNH DẠNG (kiểu Word) cho bài học cá nhân
+   - Ghi chú vẫn lưu chữ thường ở `text` (dùng cho tìm kiếm, chia sẻ, sao chép, liên kết câu) và thêm `html` (đã làm sạch) nếu có định dạng.
+   - Ghi chú cũ (chỉ có `text`) mở ra bình thường, không mất gì.
+   ===================================================================================================== */
+const lsRich = $('#lsRich');
+let lsDirty = false, lsRange = null;
+const RT_FONTS = ['Times New Roman', 'Arial', 'Calibri', 'Cambria', 'Georgia', 'Garamond', 'Palatino Linotype', 'Verdana', 'Tahoma', 'Courier New'];
+const rtHex = c => {                                                // màu hợp lệ → #rrggbb, không hợp lệ → ''
+  c = String(c || '').trim().toLowerCase();
+  let m = /^#([0-9a-f]{3})$/.exec(c); if (m) return '#' + m[1].replace(/./g, x => x + x);
+  m = /^#([0-9a-f]{6})(?:[0-9a-f]{2})?$/.exec(c); if (m) return '#' + m[1];
+  m = /^rgba?\(\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*[, ]\s*(\d{1,3})(?:\s*[,/]\s*([\d.]+%?))?\s*\)$/.exec(c);
+  if (m){ if (m[4] !== undefined && parseFloat(m[4]) === 0) return ''; return '#' + [m[1], m[2], m[3]].map(x => Math.min(255, +x).toString(16).padStart(2, '0')).join(''); }
+  return '';
+};
+const rtStyleOf = el => { const o = {}; String(el.getAttribute && el.getAttribute('style') || '').split(';').forEach(p => { const i = p.indexOf(':'); if (i > 0) o[p.slice(0, i).trim().toLowerCase()] = p.slice(i + 1).trim(); }); return o; };
+const rtPt = v => { const m = /^([\d.]+)\s*(px|pt)$/i.exec(String(v || '').trim()); if (!m) return 0; const pt = m[2].toLowerCase() === 'px' ? +m[1] * 0.75 : +m[1]; return pt >= 8 && pt <= 72 ? Math.round(pt * 2) / 2 : 0; };
+function rtFontOf(v){ const f = String(v || '').split(',')[0].replace(/["']/g, '').trim().toLowerCase(); return RT_FONTS.find(x => x.toLowerCase() === f) || ''; }
+/* Làm sạch HTML (dán từ Word/web, hoặc do trình duyệt sinh ra): chỉ giữ thẻ & kiểu chữ an toàn */
+function rtClean(html){
+  const doc = new DOMParser().parseFromString('<body>' + String(html || ''), 'text/html');
+  const inl = (n, ctx) => {                                         // → chuỗi HTML inline đã làm sạch
+    let out = '';
+    n.childNodes.forEach(c => {
+      if (c.nodeType === 3){ out += esc(c.nodeValue.replace(/[ ​]/g, ' ').replace(/[\r\n\t]+/g, ' ')); return; }
+      if (c.nodeType !== 1) return;
+      const tg = c.tagName;
+      if (/^(SCRIPT|STYLE|HEAD|META|LINK|TITLE|NOSCRIPT|TEMPLATE|IFRAME|OBJECT|EMBED|SVG|IMG|CANVAS|VIDEO|AUDIO|INPUT|BUTTON|SELECT|TEXTAREA)$/.test(tg)) return;
+      if (tg === 'BR'){ out += '<br>'; return; }
+      const st = rtStyleOf(c); let open = '', close = '';
+      const wrap = (t) => { open += '<' + t + '>'; close = '</' + t + '>' + close; };
+      if (/^(B|STRONG)$/.test(tg) || /^(bold|[6-9]00)$/.test(st['font-weight'] || '')) wrap('b');
+      if (/^(I|EM|CITE)$/.test(tg) || /italic|oblique/.test(st['font-style'] || '')) wrap('i');
+      const td = (st['text-decoration'] || '') + ' ' + (st['text-decoration-line'] || '');
+      if (tg === 'U' || /underline/.test(td)) wrap('u');
+      if (/^(S|STRIKE|DEL)$/.test(tg) || /line-through/.test(td)) wrap('s');
+      if (tg === 'SUB' || /^sub$/.test(st['vertical-align'] || '')) wrap('sub');
+      if (tg === 'SUP' || /^super$/.test(st['vertical-align'] || '')) wrap('sup');
+      let sp = '';
+      const col = rtHex(st.color || (tg === 'FONT' ? c.getAttribute('color') : '')); if (col && col !== '#000000') sp += 'color:' + col + ';';
+      const bg = rtHex(st['background-color'] || st.background || ''); if (bg && bg !== '#ffffff') sp += 'background-color:' + bg + ';';
+      const ff = rtFontOf(st['font-family'] || (tg === 'FONT' ? c.getAttribute('face') : '')); if (ff) sp += 'font-family:' + ff + ';';
+      const fs = rtPt(st['font-size']); if (fs) sp += 'font-size:' + fs + 'pt;';
+      const inner = /^(DIV|P|H[1-6]|LI|UL|OL|BLOCKQUOTE|TR|TD|TH|TABLE|TBODY|PRE)$/.test(tg) ? inl(c, ctx) + '<br>' : inl(c, ctx);
+      out += open + (sp ? '<span style="' + sp + '">' + inner + '</span>' : inner) + close;
+    });
+    return out;
+  };
+  const blkStyle = el => {
+    const st = rtStyleOf(el); let s = '';
+    const al = (st['text-align'] || el.getAttribute('align') || '').toLowerCase(); if (/^(center|right|justify)$/.test(al)) s += 'text-align:' + al + ';';
+    const ml = parseFloat(st['margin-left'] || st['padding-left'] || 0); if (ml >= 20 && ml <= 400) s += 'margin-left:' + Math.round(ml / 40) * 40 + 'px;';
+    const lh = parseFloat(st['line-height'] || 0); if (lh >= 1 && lh <= 3 && !/px|pt|em/i.test(st['line-height'] || '')) s += 'line-height:' + Math.round(lh * 100) / 100 + ';';
+    return s ? ' style="' + s + '"' : '';
+  };
+  const trimBr = h => h.replace(/(<br>)+$/, '');
+  const list = el => {                                              // UL/OL (cả danh sách lồng nhau do trình duyệt tạo khi thụt lề)
+    const t = el.tagName === 'OL' ? 'ol' : 'ul', items = [];
+    el.childNodes.forEach(li => {
+      if (li.nodeType !== 1) return;
+      if (li.tagName === 'UL' || li.tagName === 'OL'){ const sub = list(li); if (items.length) items[items.length - 1].sub += sub; else items.push({ h:'', sub }); return; }
+      if (li.tagName !== 'LI') return;
+      let h = '', sub = '';
+      li.childNodes.forEach(c => { if (c.nodeType === 1 && /^(UL|OL)$/.test(c.tagName)) sub += list(c); else { const w = document.createElement('div'); w.appendChild(c.cloneNode(true)); h += inl(w, {}); } });
+      items.push({ h:trimBr(h), sub });
+    });
+    return '<' + t + '>' + items.map(x => '<li>' + x.h + x.sub + '</li>').join('') + '</' + t + '>';
+  };
+  let out = '', buf = '';
+  const flush = () => { if (buf.replace(/<br>/g, '').trim() !== '' || /<br>/.test(buf)) out += '<p>' + trimBr(buf) + '</p>'; buf = ''; };
+  const walk = (parent, into) => {
+    parent.childNodes.forEach(c => {
+      if (c.nodeType === 3){ buf += esc(c.nodeValue.replace(/[ ​]/g, ' ').replace(/[\r\n\t]+/g, ' ')); return; }
+      if (c.nodeType !== 1) return;
+      const tg = c.tagName;
+      if (/^(SCRIPT|STYLE|HEAD|META|LINK|TITLE|NOSCRIPT|TEMPLATE|IFRAME|OBJECT|EMBED|SVG|IMG|CANVAS|VIDEO|AUDIO|INPUT|BUTTON|SELECT|TEXTAREA)$/.test(tg)) return;
+      if (tg === 'HR'){ flush(); out += '<hr>'; return; }
+      if (tg === 'UL' || tg === 'OL'){ flush(); out += list(c); return; }
+      if (tg === 'BLOCKQUOTE'){ flush(); const save = out; out = ''; walk(c); flush(); const q = out; out = save + '<blockquote>' + (q || '<p><br></p>') + '</blockquote>'; return; }
+      if (/^(H[1-6])$/.test(tg) && Array.from(c.children).some(x => /^(UL|OL|P|DIV|BLOCKQUOTE)$/.test(x.tagName))){ flush(); walk(c); flush(); return; }
+      if (/^(H[1-6])$/.test(tg)){ flush(); const k = tg === 'H1' ? 'h1' : tg === 'H2' ? 'h2' : 'h3'; out += '<' + k + blkStyle(c) + '>' + trimBr(inl(c, {})) + '</' + k + '>'; return; }
+      if (/^(P|DIV|PRE|ADDRESS|SECTION|ARTICLE|TABLE|TBODY|THEAD|TR|TD|TH|CENTER|FIGURE|FIGCAPTION|MAIN|HEADER|FOOTER)$/.test(tg)){
+        const hasBlock = Array.from(c.children).some(x => /^(P|DIV|H[1-6]|UL|OL|BLOCKQUOTE|HR|TABLE|TR|TD|TH|PRE|SECTION|ARTICLE)$/.test(x.tagName));
+        flush();
+        if (hasBlock && tg !== 'PRE'){ walk(c); flush(); }
+        else { const h = trimBr(inl(c, {})); const al = tg === 'CENTER' ? ' style="text-align:center;"' : blkStyle(c); if (h.replace(/<br>/g, '').trim() !== '' || /<br>/.test(inl(c, {})) || tg === 'P' || tg === 'DIV') out += '<p' + al + '>' + (h || '<br>') + '</p>'; }
+        return;
+      }
+      buf += inl({ childNodes: [c] }, {});
+    });
+  };
+  walk(doc.body); flush();
+  return out;
+}
+function rtText(html){                                               // HTML đã làm sạch → chữ thường (đoạn cách nhau dòng trống, danh sách có ký hiệu)
+  const doc = new DOMParser().parseFromString('<body>' + html, 'text/html'), parts = [];
+  const txt = el => { const c = el.cloneNode(true); c.querySelectorAll('br').forEach(b => b.replaceWith('\n')); c.querySelectorAll('ul,ol').forEach(x => x.remove()); return c.textContent.replace(/[ \t]+\n/g, '\n').trim(); };
+  const lst = (el, lv) => { let n = 0; el.childNodes.forEach(li => { if (li.nodeType !== 1) return; if (li.tagName === 'UL' || li.tagName === 'OL'){ lst(li, lv + 1); return; } if (li.tagName !== 'LI') return; n++; const t = txt(li); parts.push({ s: '  '.repeat(lv) + (el.tagName === 'OL' ? n + '. ' : '• ') + t, tight: true }); li.querySelectorAll(':scope > ul, :scope > ol').forEach(s => lst(s, lv + 1)); }); };
+  const go = p => p.childNodes.forEach(el => {
+    if (el.nodeType !== 1) return;
+    if (el.tagName === 'UL' || el.tagName === 'OL') lst(el, 0);
+    else if (el.tagName === 'BLOCKQUOTE') go(el);
+    else if (el.tagName === 'HR') return;
+    else { const t = txt(el); if (t) parts.push({ s: t }); }
+  });
+  go(doc.body);
+  return parts.map((x, i) => (i ? (x.tight && parts[i - 1].tight ? '\n' : '\n\n') : '') + x.s).join('').trim();
+}
+const rtPlainToHtml = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => '<p>' + esc(x) + '</p>').join('');
+function rtView(html){                                               // hiển thị: ngoặc cong, dấu …
+  const doc = new DOMParser().parseFromString('<body>' + html, 'text/html');
+  const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT); let n; while ((n = w.nextNode())) n.nodeValue = lsTypo(n.nodeValue);
+  return doc.body.innerHTML;
+}
+function lsViewHtml(){ return lsCur && lsCur.html ? rtView(lsCur.html) : lsHtml(lsTa.value); }
+function lsSyncNow(){                                                // đồng bộ khung soạn → chữ thường + HTML
+  if (!lsCur || !lsCur.edReady) return;
+  const h = rtClean(lsRich.innerHTML), t = rtText(h);
+  lsCur.html = t ? h : '';
+  lsTa.value = t;
+  lsRich.classList.toggle('empty', !t && !/<(ul|ol|hr)/.test(h));
+}
+function lsSaveRange(){ try { const s = getSelection(); if (s.rangeCount){ const r = s.getRangeAt(0); if (lsRich.contains(r.commonAncestorContainer)) lsRange = r.cloneRange(); } } catch(e){} }
+function lsSync(){ lsDirty = true; lsSyncNow(); lsSaveRange(); lsTa.dispatchEvent(new Event('input')); lsToolState(); }
+function lsLoad(old){                                                // nạp ghi chú vào khung soạn
+  const h = old ? (old.html ? rtClean(old.html) : rtPlainToHtml(old.text)) : '';
+  lsRich.innerHTML = h || '<p><br></p>';
+  lsCur.html = old && old.html ? h : '';
+  lsTa.value = old ? old.text : '';
+  lsCur.edReady = true; lsDirty = false; lsRange = null;
+  lsRich.classList.toggle('empty', !(old && old.text));
+  lsBibleClose(); lsCountUpdate();
+}
+function lsFocus(end){
+  try {
+    lsRich.focus({ preventScroll:true });
+    if (end){ const r = document.createRange(); r.selectNodeContents(lsRich); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  } catch(e){}
+}
+function lsRestore(){
+  lsRich.focus({ preventScroll:true });
+  if (lsRange){ try { const s = getSelection(); s.removeAllRanges(); s.addRange(lsRange); } catch(e){} }
+}
+document.addEventListener('selectionchange', () => {
+  if (document.activeElement !== lsRich) return;                  // sau khi bấm sang nút/ô chọn, trình duyệt đặt lại con trỏ về đầu: bỏ qua để không mất vị trí đang soạn
+  const s = getSelection(); if (!s.rangeCount) return;
+  const r = s.getRangeAt(0); if (lsRich.contains(r.commonAncestorContainer)){ lsRange = r.cloneRange(); lsToolState(); }
+});
+function lsToolState(){
+  if (lsEl.hidden) return;
+  $$('#lsTb button[data-c]').forEach(b => { let on = false; try { on = document.queryCommandState(b.dataset.c); } catch(e){} b.classList.toggle('on', !!on); });
+  try { const v = String(document.queryCommandValue('formatBlock') || '').toLowerCase().replace(/[<>]/g, ''), sel = $('#lsTb [data-s="block"]'); if (sel) sel.value = /^(h1|h2|h3|blockquote)$/.test(v) ? v : 'p'; } catch(e){}
+}
+function lsBlocksInSel(){
+  const out = new Set(), r = lsRange; if (!r) return [];
+  lsRich.querySelectorAll('p,h1,h2,h3,li,blockquote').forEach(b => { try { if (r.intersectsNode(b)) out.add(b); } catch(e){} });
+  return [...out];
+}
+function lsExec(cmd, val){
+  lsRestore();
+  if (cmd === 'indent' || cmd === 'outdent'){                          // đoạn thường: tự thụt lề 40px/lần; trong danh sách: dùng lệnh gốc (lồng danh sách)
+    const n = lsRange && lsRange.startContainer, el = n && (n.nodeType === 3 ? n.parentElement : n);
+    if (!(el && el.closest && el.closest('li'))){
+      lsBlocksInSel().filter(b => !/^(LI|BLOCKQUOTE)$/.test(b.tagName)).forEach(b => { const cur = parseInt(b.style.marginLeft) || 0, nx = Math.max(0, Math.min(400, cur + (cmd === 'indent' ? 40 : -40))); b.style.marginLeft = nx ? nx + 'px' : ''; });
+      lsSync(); return;
+    }
+  }
+  try { document.execCommand('styleWithCSS', false, true); document.execCommand('defaultParagraphSeparator', false, 'p'); } catch(e){}
+  if (/^insert(Un)?orderedList$/.test(cmd)){ try { const v = String(document.queryCommandValue('formatBlock') || '').toLowerCase(); if (/^h[1-6]$/.test(v) || v === 'blockquote') document.execCommand('formatBlock', false, 'p'); } catch(e){} }   // danh sách không đặt trong tiêu đề
+  const r0 = lsRange; let atEnd = false;                             // con trỏ đang ở cuối đoạn? (một số trình duyệt đẩy con trỏ về đầu sau khi tạo danh sách)
+  try { if (r0 && r0.collapsed){ const n = r0.startContainer, el = n.nodeType === 3 ? n.parentElement : n, bk = el && el.closest && el.closest('li,p,h1,h2,h3'); if (bk){ const t = document.createRange(); t.selectNodeContents(bk); t.setStart(r0.startContainer, r0.startOffset); atEnd = t.toString() === ''; } } } catch(e){}
+  try { document.execCommand(cmd, false, val); } catch(e){}
+  if (atEnd && /^(insert(Un)?orderedList|formatBlock)$/.test(cmd)){ try { const sl = getSelection(), a = sl.anchorNode, el = a && (a.nodeType === 3 ? a.parentElement : a), bk = el && el.closest && el.closest('li,p,h1,h2,h3'); if (bk && lsRich.contains(bk)){ const r = document.createRange(); r.selectNodeContents(bk); r.collapse(false); sl.removeAllRanges(); sl.addRange(r); } } catch(e){} }
+  lsSync();
+}
+function lsSetSize(pt){
+  lsRestore();
+  try { document.execCommand('styleWithCSS', false, false); document.execCommand('fontSize', false, '7'); } catch(e){}
+  lsRich.querySelectorAll('font[size="7"]').forEach(f => { const s = document.createElement('span'); s.style.fontSize = pt + 'pt'; while (f.firstChild) s.appendChild(f.firstChild); f.replaceWith(s); });
+  lsRich.querySelectorAll('span[style*="font-size"] span[style*="font-size"]').forEach(x => { if (x.parentElement.childNodes.length === 1) x.parentElement.style.fontSize = ''; });
+  lsSync();
+}
+function lsInsertBlock(html){                                        // chèn khối (trích dẫn) ngay sau đoạn đang đứng, không để trình duyệt chép kiểu chữ vào
+  lsRestore();
+  const tpl = document.createElement('template'); tpl.innerHTML = rtClean(html);
+  let n = lsRange && lsRange.endContainer, top = null;
+  while (n && n !== lsRich){ if (n.parentNode === lsRich){ top = n; break; } n = n.parentNode; }
+  const empty = top && top.tagName === 'P' && !top.textContent.trim() && !top.querySelector('img,hr');
+  if (top) top.after(tpl.content); else lsRich.appendChild(tpl.content);
+  if (empty) top.remove();
+  const last = lsRich.lastElementChild; if (!last || last.tagName !== 'P' || last.textContent.trim()){ const e = document.createElement('p'); e.innerHTML = '<br>'; lsRich.appendChild(e); }
+  try { const r = document.createRange(), t = lsRich.lastElementChild; r.selectNodeContents(t); r.collapse(true); const sl = getSelection(); sl.removeAllRanges(); sl.addRange(r); lsRange = r.cloneRange(); } catch(e){}
+  lsSync();
+}
+function lsInsertHTML(html){
+  lsRestore();
+  if (!lsRange){ lsFocus(true); }
+  try { document.execCommand('insertHTML', false, html); } catch(e){}
+  lsSync();
+}
+$('#lsTb').addEventListener('mousedown', e => { if (!e.target.closest('select,input')) e.preventDefault(); });
+$('#lsTb').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.id === 'lsBibBtn'){ lsBibleToggle(); return; }
+  if (b.dataset.c) lsExec(b.dataset.c);
+});
+$('#lsTb').addEventListener('change', e => {
+  const s = e.target.closest('select'), k = e.target.dataset.k;
+  if (k){ const c = rtHex(e.target.value) || '#000000'; (k === 'foreColor' ? $('#rtFcBar') : $('#rtHlBar')).style.background = c; lsExec(k, c); return; }
+  if (!s) return; const v = s.value, t = s.dataset.s;
+  if (t === 'block'){ lsExec('formatBlock', v === 'p' ? 'p' : v); return; }
+  if (t === 'font'){ if (v) lsExec('fontName', v); s.value = ''; return; }
+  if (t === 'size'){ if (v) lsSetSize(+v); s.value = ''; return; }
+  if (t === 'line'){ if (v){ lsRestore(); lsBlocksInSel().forEach(x => { x.style.lineHeight = v; }); lsSync(); } s.value = ''; }
+});
+$('#lsTb').addEventListener('input', e => { const k = e.target.dataset.k; if (k) (k === 'foreColor' ? $('#rtFcBar') : $('#rtHlBar')).style.background = e.target.value; });
+lsRich.addEventListener('input', lsSync);
+lsRich.addEventListener('paste', e => {
+  e.preventDefault();
+  const cd = e.clipboardData; if (!cd) return;
+  const h = cd.getData('text/html'), t = cd.getData('text/plain');
+  let html = h ? rtClean(h) : rtPlainToHtml(t);
+  if (!html && t) html = rtPlainToHtml(t);
+  const one = /^<p(?: style="[^"]*")?>((?:(?!<\/?p[ >]).)*)<\/p>$/.exec(html);
+  if (one) html = one[1];
+  if (html) lsInsertHTML(html);
+});
+lsRich.addEventListener('drop', e => { e.preventDefault(); const t = e.dataTransfer && e.dataTransfer.getData('text/plain'); if (t) lsInsertHTML(rtPlainToHtml(t).replace(/^<p>|<\/p>$/g, '')); });
+lsRich.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 's' || e.key === 'S')){ e.preventDefault(); $('#lsSave').click(); }
+});
+
+/* ---- Thẻ Kinh Thánh: xem sách/chương/câu khác ngay trong cửa sổ soạn, chèn trích dẫn vào bài ---- */
+const lsB = { tok:0, rec:null, sel:new Set(), last:0, ready:false };
+const lsbEl = $('#lsBible'), lsbBook = $('#lsbBook'), lsbCh = $('#lsbCh'), lsbList = $('#lsbList');
+function lsbMeta(){ return bibleMeta.find(m => m.name === lsbBook.value) || null; }
+function lsbFill(){
+  if (lsB.ready || !bibleMeta.length) return;
+  lsbBook.innerHTML = bibleMeta.map(m => `<option value="${esc(m.name)}">${esc(bookDisplay(m.name))}</option>`).join('');
+  lsB.ready = true;
+}
+function lsbFillCh(sel){
+  const m = lsbMeta(), n = m && m.chapterCount || 1;
+  lsbCh.innerHTML = Array.from({ length:n }, (_, i) => `<option value="${i + 1}">Chương ${i + 1}</option>`).join('');
+  lsbCh.value = String(Math.min(Math.max(1, sel || 1), n));
+}
+async function lsbLoad(pick){
+  const tk = ++lsB.tok, name = lsbBook.value, ch = +lsbCh.value;
+  lsB.sel = new Set(); lsB.last = 0; lsbUpdate();
+  lsbList.innerHTML = '<p class="lsbhint">Đang tải…</p>';
+  let rec = null; try { rec = curBook && curBook.name === name ? curBook : await dbGet('books', name); } catch(e){}
+  if (tk !== lsB.tok) return;
+  lsB.rec = rec;
+  const vs = rec && rec.chapters && rec.chapters[ch - 1];
+  if (!vs || !vs.length){ lsbList.innerHTML = '<p class="lsbhint">Sách hoặc chương này chưa có trong máy.</p>'; return; }
+  lsbList.innerHTML = vs.map(v => `<button type="button" class="bv" data-n="${v.n}"><sup>${v.n}${v.e > v.n ? '–' + v.e : ''}</sup>${esc(rpClean(v.t))}</button>`).join('');
+  lsbList.scrollTop = 0;
+  if (pick && pick.length){ pick.forEach(n => lsB.sel.add(n)); lsbPaint(); const f = lsbList.querySelector(`.bv[data-n="${pick[0]}"]`); if (f) lsbList.scrollTop = Math.max(0, f.offsetTop - 8); }
+}
+function lsbPaint(){ $$('#lsbList .bv').forEach(b => b.classList.toggle('sel', lsB.sel.has(+b.dataset.n))); lsbUpdate(); }
+function lsbLabel(){ const ns = [...lsB.sel].sort((a, b) => a - b); return ns.length ? `${bookDisplay(lsbBook.value)} ${lsbCh.value}:${compressRange(ns)}` : ''; }
+function lsbUpdate(){ const l = lsbLabel(); $('#lsbSel').textContent = l ? 'Đã chọn: ' + l : 'Chưa chọn câu nào'; $('#lsbIns').disabled = !l; $('#lsbRef').disabled = !l; }
+function lsBibleOpen(){
+  lsbFill(); if (!lsB.ready) return toast('Chưa có dữ liệu Kinh Thánh trong máy');
+  const first = lsbEl.hidden && !lsbList.querySelector('.bv');
+  lsbEl.hidden = false; $('.lspanel', lsEl).classList.add('bible');
+  if (first && lsCur){ lsbBook.value = lsCur.book; lsbFillCh(lsCur.ch); lsbLoad(lsCur.ns); }
+}
+function lsBibleClose(){ lsbEl.hidden = true; const p = $('.lspanel', lsEl); if (p) p.classList.remove('bible'); }
+function lsBibleToggle(){ lsbEl.hidden ? lsBibleOpen() : lsBibleClose(); }
+$('#lsbX').onclick = () => { lsBibleClose(); lsFocus(); };
+lsbBook.onchange = () => { lsbFillCh(1); lsbLoad(); };
+lsbCh.onchange = () => lsbLoad();
+lsbList.addEventListener('click', e => {
+  const b = e.target.closest('.bv'); if (!b) return;
+  const n = +b.dataset.n;
+  if (e.shiftKey && lsB.last){ const a = Math.min(lsB.last, n), z = Math.max(lsB.last, n); $$('#lsbList .bv').forEach(x => { const k = +x.dataset.n; if (k >= a && k <= z) lsB.sel.add(k); }); }
+  else if (lsB.sel.has(n)) lsB.sel.delete(n); else lsB.sel.add(n);
+  lsB.last = n; lsbPaint();
+});
+function lsbGoAddr(){
+  const q = $('#lsbQ').value.trim(); if (!q) return;
+  const r = refsIn(q)[0]; if (!r) return toast('Chưa nhận ra địa chỉ này. Ví dụ: Gia-cơ 1:5-8');
+  lsbBook.value = r.name; lsbFillCh(r.c1);
+  const hi = r.c2 === r.c1 ? r.v2 : r.v1, pick = []; for (let k = r.v1; k <= hi && pick.length < 80; k++) pick.push(k);
+  lsbLoad(pick);
+}
+$('#lsbGo').onclick = lsbGoAddr;
+$('#lsbQ').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); lsbGoAddr(); } });
+const lsbNarrow = () => matchMedia('(max-width:899px)').matches;      // điện thoại: thẻ phủ cả phần nút Lưu → chèn xong tự đóng
+$('#lsbRef').onclick = () => { const l = lsbLabel(); if (!l) return; lsInsertHTML(esc(l)); if (lsbNarrow()) lsBibleClose(); };
+$('#lsbIns').onclick = () => {
+  const ns = [...lsB.sel].sort((a, b) => a - b), l = lsbLabel(); if (!ns.length || !lsB.rec) return;
+  const vs = lsB.rec.chapters[+lsbCh.value - 1] || [], num = $('#lsbNum').checked;
+  const body = ns.map(k => { const v = vs.find(x => x.n === k); return v ? (num ? `<sup>${k}</sup>` : '') + esc(rpClean(v.t)) : ''; }).filter(Boolean).join(' ');
+  lsInsertBlock(`<blockquote><p><i>“${body}”</i></p><p style="text-align:right;"><b>(${esc(l)})</b></p></blockquote>`);
+  toast('Đã chèn trích dẫn ' + l); if (lsbNarrow()) lsBibleClose();
+};
+
+/* ---- Hộp đặt tên tệp khi lưu ---- */
+function lsCleanName(s){ return String(s || '').replace(/[\\/:*?"<>|\u0000-\u001f]/g, ' ').replace(/\.(docx|pdf|json)$/i, '').replace(/\s+/g, ' ').replace(/^[\s.]+|[\s.]+$/g, '').slice(0, 120); }
+function askFileName(def, ext){
+  return new Promise(res => {
+    const o = document.createElement('div'); o.className = 'fnd';
+    o.innerHTML = `<div role="dialog" aria-modal="true" aria-label="Đặt tên tệp"><h3>Đặt tên tệp</h3><p>Gõ tên bạn muốn cho tệp. Có thể dùng dấu cách và tiếng Việt có dấu.</p><div class="fnr"><input type="text" id="fnIn" autocomplete="off" spellcheck="false" maxlength="120"><span class="fnx">${esc(ext)}</span></div><div class="fnb"><button type="button" class="btn" data-a="x">Hủy</button><button type="button" class="btn primary" data-a="ok">Lưu tệp</button></div></div>`;
+    const inp = o.querySelector('#fnIn'); inp.value = def;
+    const done = v => { o.remove(); res(v); };
+    const ok = () => { const n = lsCleanName(inp.value); if (!n){ inp.focus(); return; } done(n); };
+    o.addEventListener('click', e => { if (e.target === o) done(null); const b = e.target.closest('[data-a]'); if (!b) return; b.dataset.a === 'ok' ? ok() : done(null); });
+    o.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); ok(); } else if (e.key === 'Escape'){ e.preventDefault(); e.stopPropagation(); done(null); } }, true);
+    document.body.appendChild(o);
+    setTimeout(() => { try { inp.focus(); inp.select(); } catch(e){} }, 30);
+  });
+}
+
+/* ---- Chuyển HTML của bài học sang đoạn văn Word (.docx): giữ đậm/nghiêng/gạch chân/màu/cỡ/phông/căn lề/danh sách/trích dẫn ---- */
+function rtDocx(html){
+  const doc = new DOMParser().parseFromString('<body>' + html, 'text/html');
+  const run = (t, f) => {
+    const font = f.font || 'Times New Roman', parts = String(t).split('\t');
+    const rp = `<w:rPr><w:rFonts w:ascii="${font}" w:hAnsi="${font}" w:cs="${font}"/>${f.b ? '<w:b/>' : ''}${f.i ? '<w:i/>' : ''}${f.s ? '<w:strike/>' : ''}${f.color ? `<w:color w:val="${f.color}"/>` : ''}<w:sz w:val="${f.sz}"/><w:szCs w:val="${f.sz}"/>${f.u ? '<w:u w:val="single"/>' : ''}${f.bg ? `<w:shd w:val="clear" w:color="auto" w:fill="${f.bg}"/>` : ''}${f.sup ? '<w:vertAlign w:val="superscript"/>' : f.sub ? '<w:vertAlign w:val="subscript"/>' : ''}<w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr>`;
+    return `<w:r>${rp}${parts.map((p, i) => (i ? '<w:tab/>' : '') + (p ? `<w:t xml:space="preserve">${wx(p)}</w:t>` : '')).join('')}</w:r>`;
+  };
+  const hx = c => String(c || '').replace('#', '').toUpperCase();
+  const inl = (node, f) => {
+    let out = '';
+    node.childNodes.forEach(c => {
+      if (c.nodeType === 3){ const t = lsTypo(c.nodeValue); if (t) out += run(t, f); return; }
+      if (c.nodeType !== 1) return;
+      if (c.tagName === 'BR'){ out += '<w:r><w:br/></w:r>'; return; }
+      if (c.tagName === 'UL' || c.tagName === 'OL') return;
+      const g = Object.assign({}, f), tg = c.tagName, st = rtStyleOf(c);
+      if (tg === 'B') g.b = 1; if (tg === 'I') g.i = 1; if (tg === 'U') g.u = 1; if (tg === 'S') g.s = 1; if (tg === 'SUB') g.sub = 1; if (tg === 'SUP') g.sup = 1;
+      if (st.color) g.color = hx(st.color); if (st['background-color']) g.bg = hx(st['background-color']);
+      if (st['font-family']) g.font = rtFontOf(st['font-family']) || g.font;
+      const pt = rtPt(st['font-size']); if (pt) g.sz = Math.round(pt * 2);
+      out += inl(c, g);
+    });
+    return out;
+  };
+  const pprOf = (el, base) => {
+    const st = rtStyleOf(el), o = Object.assign({}, base);
+    const al = st['text-align']; if (al === 'center' || al === 'right') o.align = al; else if (al === 'justify') o.align = 'both';
+    const ml = parseFloat(st['margin-left'] || 0); if (ml > 0) o.left = (o.left || 0) + Math.round(ml * 15);
+    const lh = parseFloat(st['line-height'] || 0); if (lh >= 1) o.line = Math.round(lh * 240);
+    return o;
+  };
+  const emptyP = el => !el.textContent.trim() && !el.querySelector('hr');
+  let body = '';
+  const para = (el, base, f) => { const o = pprOf(el, base); o.rx = emptyP(el) ? '' : inl(el, f); return wPara('', o); };
+  const lst = (el, lv) => {
+    let n = 0;
+    el.childNodes.forEach(li => {
+      if (li.nodeType !== 1) return;
+      if (li.tagName === 'UL' || li.tagName === 'OL'){ lst(li, lv + 1); return; }
+      if (li.tagName !== 'LI') return;
+      n++;
+      const mark = (el.tagName === 'OL' ? n + '.' : lv % 2 ? '–' : '•') + '\t', f = { sz:26 };
+      const c = li.cloneNode(true); c.querySelectorAll('ul,ol').forEach(x => x.remove());
+      body += wPara('', { line:372, after:80, left:720 + lv * 360, hang:360, rx:run(mark, f) + inl(c, f) });
+      li.childNodes.forEach(x => { if (x.nodeType === 1 && /^(UL|OL)$/.test(x.tagName)) lst(x, lv + 1); });
+    });
+  };
+  const blocks = (parent, inQuote) => {
+    const kids = Array.from(parent.children);
+    kids.forEach((el, k) => {
+      const tg = el.tagName, last = k === kids.length - 1;
+      if (tg === 'P'){
+        if (inQuote){ const o = pprOf(el, { line:350, left:240, right:200, shade:'F6EEDD', bar:'B08840', after:last ? 360 : 0, before:0, align:'left' }); o.rx = emptyP(el) ? '' : inl(el, { sz:25 }); body += wPara('', o); }
+        else { const base = { line:372, after:160, align:'left' }, o = pprOf(el, base); if (!o.align || o.align === 'left'){ if (!o.left) o.first = 567; } body += wPara('', Object.assign(o, { rx:emptyP(el) ? '' : inl(el, { sz:26 }) })); }
+      }
+      else if (/^H[1-3]$/.test(tg)){ const sz = tg === 'H1' ? 36 : tg === 'H2' ? 30 : 27; body += para(el, { line:340, before:240, after:120, keep:true }, { sz, b:1, color:'5C3A12' }); }
+      else if (tg === 'BLOCKQUOTE') blocks(el, true);
+      else if (tg === 'UL' || tg === 'OL') lst(el, 0);
+      else if (tg === 'HR') body += wPara('', { sz:8, line:240, before:120, after:160, left:2900, right:2900, border:true, borderSz:8 });
+    });
+  };
+  blocks(doc.body, false);
+  return body;
+}
 
 /* Xuất ghi chú ra file Word (.docx) – tự dựng file .docx trong trình duyệt, không cần thư viện */
 const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++){ let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
@@ -2636,13 +3124,13 @@ function wPara(text, o){
   const sz = o.sz || 26, gold = 'B08840';
   const rpr = sc => { const sp = o.spc; return `<w:rPr><w:rFonts w:ascii="${o.font || 'Times New Roman'}" w:hAnsi="${o.font || 'Times New Roman'}" w:cs="${o.font || 'Times New Roman'}"/>${o.b ? '<w:b/>' : ''}${o.i ? '<w:i/>' : ''}${o.caps ? '<w:caps/>' : ''}${o.color ? `<w:color w:val="${o.color}"/>` : ''}${sp ? `<w:spacing w:val="${sp}"/>` : ''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr>`; };
   const runOf = (t, sc, br) => `<w:r>${rpr(sc)}${br ? '<w:br/>' : ''}<w:t xml:space="preserve">${wx(t)}</w:t></w:r>`;
-  const runs = String(text).split('\n').map((ln, k) => {
+  const runs = o.rx != null ? o.rx : String(text).split('\n').map((ln, k) => {
     return runOf(ln, false, k);
   }).join('');
   const bar = o.bar ? `<w:left w:val="single" w:sz="24" w:space="12" w:color="${o.bar}"/>` : '';
   const bot = o.border ? `<w:bottom w:val="single" w:sz="${o.borderSz || 6}" w:space="4" w:color="${o.borderColor || 'C9A96A'}"/>` : '';
   const pbdr = (bar || bot) ? `<w:pBdr>${bar}${bot}</w:pBdr>` : '';
-  const ind = (o.left || o.right || o.first) ? `<w:ind w:left="${o.left || 0}" w:right="${o.right || 0}"${o.first ? ` w:firstLine="${o.first}"` : ''}/>` : '';
+  const ind = (o.left || o.right || o.first || o.hang) ? `<w:ind w:left="${o.left || 0}" w:right="${o.right || 0}"${o.first ? ` w:firstLine="${o.first}"` : ''}${o.hang ? ` w:hanging="${o.hang}"` : ''}/>` : '';
   const ppr = `<w:pPr>${o.keep ? '<w:keepNext/>' : ''}${pbdr}${o.shade ? `<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>` : ''}<w:spacing w:before="${o.before || 0}" w:after="${o.after == null ? 120 : o.after}" w:line="${o.line || 320}" w:lineRule="auto"/>${ind}<w:jc w:val="${o.align || 'left'}"/></w:pPr>`;
   return `<w:p>${ppr}${runs}</w:p>`;
 }
@@ -2668,7 +3156,8 @@ function docxFile(items, title, fname){                               // items: 
       body += wPara('(' + ref + ')', { b:true, sz:22, color:'8A5A1F', left:240, right:200, shade:'F6EEDD', bar:'B08840', line:300, before:0, after:360, align:'right' });
     } else body += wPara(ref, { b:true, sz:28, color:'8A5A1F', before:i ? 600 : 0, after:200, keep:true });
     body += wPara('Bài học cá nhân', { b:true, caps:true, sz:22, color:'8A5A1F', spc:50, before:120, after:160, border:true, borderColor:'E2D3B3', borderSz:4, keep:true });
-    String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
+    if (it.html) body += rtDocx(it.html);
+    else String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
       body += wPara(lsTypo(para), { sz:26, line:372, after:160, first:567, align:'left' });
     });
     body += rule(160, 240);
@@ -2690,11 +3179,13 @@ function docxFile(items, title, fname){                               // items: 
   ]);
   return new File([zip], fname, { type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
 }
-$('#lsWord').onclick = () => {
+$('#lsWord').onclick = async () => {
+  lsSyncNow();
   const t = lsTa.value.trim(); if (!t) return toast('Hãy viết nội dung ghi chú trước khi xuất');
   const c = lsCur; if (!c) return;
-  const name = 'bai-hoc-' + (fold(`${c.book} ${c.ch}:${c.key}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ghi-chu');
-  saveSmart([docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, at:c.old ? c.old.at : Date.now() }], 'Bài học cá nhân', name + '.docx')]).then(st => { if (st === 'default') toast('📄 Đã tạo file Word'); }, e => toast('Không xuất được file Word: ' + (e.message || e)));
+  const def = 'bai-hoc-' + (fold(`${c.book} ${c.ch}:${c.key}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ghi-chu');
+  const name = await askFileName(def, '.docx'); if (!name) return;
+  saveSmart([docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, html:c.html || '', at:c.old ? c.old.at : Date.now() }], 'Bài học cá nhân', name + '.docx')]).then(st => { if (st === 'default') toast('📄 Đã tạo file Word'); }, e => toast('Không xuất được file Word: ' + (e.message || e)));
 };
 $('#lsShare').onclick = async () => {
   if (!lsTa.value.trim()){ toast('Chưa có nội dung để chia sẻ'); return; }
@@ -5414,7 +5905,7 @@ async function pgFlip(dir, dur){                                        // chạ
   let rsT; addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(() => { if (!pg.busy && !st && !window.ktKbFocus) pgRefresh(); }, 180); });
   addEventListener('keydown', e => {
     if (!pgOn() || e.altKey || e.ctrlKey || e.metaKey) return;
-    const a = document.activeElement; if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    const a = document.activeElement; if (a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable)) return;
     if (e.repeat){ if (/^(ArrowRight|ArrowLeft|PageDown|PageUp| )$/.test(e.key)) e.preventDefault(); return; }
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); pgFlip(1); }
     else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); pgFlip(-1); }
