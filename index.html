@@ -571,8 +571,6 @@ html:has(.overlay:not([hidden])),body:has(.overlay:not([hidden])){overflow:hidde
 #settings .srow .seg button{padding:10px 14px;font-size:15px}
 #settings .fld span{font-size:14px;color:var(--muted);color:color-mix(in srgb,var(--fg) 72%,var(--card))}
 #settings .fld select{height:50px;font-size:17px}
-/* Ánh sáng ấm: lớp phủ vàng cam nhạt toàn trang, không cản chạm/vuốt */
-html[data-warm]::after{content:"";position:fixed;inset:0;background:rgba(255,165,50,.14);pointer-events:none;z-index:9999}
 .seg.tg button[data-v="0"].on{background:#6f6a60;color:#fff}
 .seg.tg button[data-v="1"].on{background:#2e7d32;color:#fff}
 .fszctl{display:flex;align-items:center;gap:12px}
@@ -1327,9 +1325,6 @@ html[data-paper] .reader.print{text-align:justify}
           <button data-v="auto">Tự động</button><button data-v="light">Sáng</button><button data-v="dark">Tối</button>
         </div>
       </div>
-      <div class="srow"><div class="stxt"><b>Ánh sáng ấm</b><span>Phủ lớp vàng cam nhạt, dịu mắt — dùng được cho nền Kem và nền Đen</span></div>
-        <div class="seg tg" id="warmSeg"><button data-v="0">Tắt</button><button data-v="1">Bật</button></div>
-      </div>
       <div class="srow col fszwrap">
         <div class="stxt"><b>Cỡ chữ</b><span>Bấm A+ để chữ to hơn, A− để nhỏ lại</span></div>
         <div class="fszctl">
@@ -1664,14 +1659,6 @@ const S = { theme:'light', fs:20, font:'Lora', book:null, chapter:1, wake:false,
 try { Object.assign(S, JSON.parse(localStorage.getItem('kt.settings') || '{}')); } catch(e){}
 /* Mở app luôn ở giao diện sáng: người dùng cũ đang để 'Tự động' (theo máy, hay bị tối) được chuyển về 'Sáng' một lần; muốn tối vẫn chọn trong Cài đặt */
 try { if (!localStorage.getItem('kt.themeLight')){ if (S.theme === 'auto') S.theme = 'light'; localStorage.setItem('kt.themeLight', '1'); localStorage.setItem('kt.settings', JSON.stringify(S)); } } catch(e){}
-/* Ánh sáng ấm: trạng thái lưu riêng trong localStorage 'kt.warm' */
-let WARM = false;
-try { WARM = localStorage.getItem('kt.warm') === '1'; } catch(e){}
-function applyWarm(){
-  document.documentElement.toggleAttribute('data-warm', WARM);
-  $$('#warmSeg button').forEach(b => b.classList.toggle('on', (b.dataset.v === '1') === WARM));
-}
-try { document.documentElement.toggleAttribute('data-warm', WARM); } catch(e){}
 const saveS = () => { try { localStorage.setItem('kt.settings', JSON.stringify(S)); } catch(e){} };
 
 function applyTheme(){
@@ -5724,7 +5711,6 @@ $$('#fullSeg button').forEach(b => { b.classList.toggle('on', (b.dataset.v === '
   paint();
 })();
 $$('#themeSeg button').forEach(b => b.onclick = () => { S.theme = b.dataset.v; saveS(); applyTheme(); });
-$$('#warmSeg button').forEach(b => b.onclick = () => { WARM = b.dataset.v === '1'; try { localStorage.setItem('kt.warm', WARM ? '1' : '0'); } catch(e){} applyWarm(); });
 let wakeLock = null;
 async function setWake(on){
   try {
@@ -7655,7 +7641,7 @@ PStore.init();
 /* §§ ▼▼▼ DÙNG CHUNG — Khởi động ▼▼▼ */
 /* ============ KHỞI ĐỘNG ============ */
 (async function init(){
-  applyTheme(); applyWarm(); applyFont(); applyFs(); applyView(); updateOnline();
+  applyTheme(); applyFont(); applyFs(); applyView(); updateOnline();
   $$('#wakeSeg button').forEach(b => b.classList.toggle('on', (b.dataset.v === '1') === S.wake));
   setupPWA();
   if (await PStore.bootRestore()) return;      // localStorage bị xóa mà kho localForage còn dữ liệu → nạp lại rồi tải lại app
