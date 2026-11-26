@@ -837,6 +837,7 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 [data-theme=dark] .rtb button.on,[data-theme=dark] .rtb .rtpri{color:#1a1409}
 .lsrich.empty::before{content:attr(data-placeholder);position:absolute;top:14px;left:18px;color:var(--muted);opacity:.7;pointer-events:none}
 @media (min-width:900px){.lsrich.empty::before{top:20px;left:28px}}
+#lsMetaTitle::placeholder{color:transparent}   /* điện thoại: đã có nhãn TIÊU ĐỀ phía trên nên không cần chữ mờ */
 /* §§ 2026.11.26q — MỤC 5 · khung soạn ghi chú trên MÁY TÍNH (≥900px): rộng, thoáng như trang giấy; chỉ ảnh hưởng máy tính, điện thoại giữ nguyên */
 @media (min-width:900px){
   .lspanel:not(.viewing):not(.m) .lstop{padding:10px max(20px,calc((100% - 1100px) / 2));max-height:30%}
@@ -873,15 +874,6 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 }
 
 /* Điện thoại (lớp .m do mã bên dưới gắn): soạn toàn màn hình, thanh tiêu đề trên, thanh công cụ nằm ngay trên bàn phím */
-/* §§ 2026.11.26q — ĐIỆN THOẠI: phần đầu gọn một hàng = ô Tiêu đề + MỘT nút nhỏ lịch để hiện/ẩn ngày soạn (bỏ ô “Bài học số” và ô chọn ngày; số bài và ngày vẫn tự lưu như cũ) */
-#lsMetaTitle::placeholder{color:var(--muted);opacity:.65;font-weight:600}
-.lspanel.m:not(.viewing) .lsmeta{flex-wrap:nowrap;align-items:center;gap:0 10px;padding-top:6px;padding-bottom:6px}
-.lspanel.m:not(.viewing) .lsmeta .lsmtt{flex:1 1 auto;min-width:0;font-size:0;gap:0}
-.lspanel.m:not(.viewing) .lsmeta .lsmtt input[type=text]{height:42px;font-size:19px;padding:0 2px}
-.lspanel.m:not(.viewing) .lsmeta label:not(.lsmtt):not(.lsmchk){display:none}
-.lspanel.m:not(.viewing) .lsmeta .lsmchk{flex:none;font-size:0;gap:0}
-.lspanel.m:not(.viewing) .lsmeta .lsmchk input[type=checkbox]{-webkit-appearance:none;appearance:none;width:40px;height:40px;margin:0;border:1px solid var(--line);border-radius:12px;background:var(--card) no-repeat center/22px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a5a1f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E");cursor:pointer}
-.lspanel.m:not(.viewing) .lsmeta .lsmchk input[type=checkbox]:checked{background-color:var(--accent);border-color:var(--accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E")}
 .lssheet.m-edit{bottom:auto;height:100%;height:100dvh;background:var(--card)}
 .lspanel.m:not(.viewing){width:100%;max-width:none;height:100%;border-radius:0;transform:none;transition:none;padding:0}
 .lspanel.m:not(.viewing)>.lsgrip,.lspanel.m:not(.viewing)>.lsbtns,.lspanel.m:not(.viewing) .lshead,.lspanel.m:not(.viewing) .lsnote,.lspanel.m:not(.viewing) .lscount{display:none}
@@ -1460,7 +1452,7 @@ html[data-paper] .reader.print{text-align:justify}
         <label class="lsmtt">Tiêu đề <input type="text" id="lsMetaTitle" maxlength="160" autocomplete="off" placeholder="Tiêu đề bài học…"></label>
         <label>Bài học số <input type="number" id="lsMetaNo" min="1" max="9999" inputmode="numeric" autocomplete="off"></label>
         <label>Ngày soạn <input type="date" id="lsMetaDate"></label>
-        <label class="lsmchk"><input type="checkbox" id="lsMetaShow" title="Hiện / ẩn ngày soạn" aria-label="Hiện hoặc ẩn ngày soạn"> Hiện ngày soạn</label>
+        <label class="lsmchk"><input type="checkbox" id="lsMetaShow"> Hiện ngày soạn</label>
       </div>
       <textarea id="lsText" hidden aria-hidden="true" tabindex="-1" autocomplete="off"></textarea>
       <div class="lsed" id="lsEd">
@@ -1569,7 +1561,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; điện thoại: phần đầu gọn một hàng (tiêu đề + nút lịch hiện/ẩn ngày); Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word
+const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
