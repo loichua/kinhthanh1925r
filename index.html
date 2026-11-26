@@ -940,6 +940,32 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.viewing .lsbtns{gap:6px;padding:6px 16px 10px}
 .lspanel.viewing .lsbtns .btn{padding:8px 6px;min-height:40px;font-size:14px}
 
+/* §§ ▼▼▼ MỤC 5 · GHI CHÚ & SOẠN THẢO — MẪU C · GIÁO ÁN (2026.11.26l): trang xem bài học + ô số bài / ngày soạn ▼▼▼ */
+.lsverse{font-weight:700}   /* câu Kinh Thánh gốc in đậm */
+.lsmeta{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font:600 12.5px var(--sans);color:var(--muted)}
+.lsmeta label{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.lsmeta input[type=number],.lsmeta input[type=date]{width:auto;height:34px;padding:0 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);font:600 16px var(--sans)}
+.lsmeta input[type=number]{width:66px;text-align:center}
+.lsmeta input[type=date]{min-width:146px}
+.lsmeta input[type=checkbox]{width:19px;height:19px;margin:0;accent-color:var(--accent)}
+.lsmeta .lsmchk{color:var(--fg)}
+.lspanel.viewing .lsmeta{display:none}
+.lspanel.m:not(.viewing) .lsmeta{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--card);padding:7px calc(env(safe-area-inset-right) + 16px) 7px calc(env(safe-area-inset-left) + 16px)}
+.lspanel.m.kbd:not(.viewing) .lsmeta{display:none}
+.lspanel:not(.viewing) #lsDateTg{display:none}
+/* Trang xem: tiêu đề + gạch nâu, khối Kinh Thánh / Ngày soạn / Câu gốc, vạch xám mảnh, rồi nội dung (đúng bố cục Mẫu C) */
+.lspage.mc .lsphead{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin:0 0 2px}
+.lspage.mc .lsphead .lstools{order:-1;justify-content:flex-end;flex-wrap:wrap}
+.mcT{margin:0;padding:2px 0 8px;font:700 calc(var(--fs) + 1px)/1.25 var(--serif);letter-spacing:.02em;text-transform:uppercase;color:var(--fg);border-bottom:2px solid var(--accent)}
+.mcRows{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 14px;margin:12px 0 0;font-family:var(--serif);font-size:calc(var(--fs) - 1px);line-height:1.55}
+.mcL{font-weight:700;color:var(--accent);white-space:nowrap}
+.mcV{min-width:0;color:var(--fg);overflow-wrap:anywhere}
+.mcQ{font-weight:700;font-style:italic;text-align:left}
+.mcQ.clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.mcRule{height:0;margin:12px 0 4px;border-top:1px solid var(--line)}
+.lspage.mc .lsrtxt{margin-top:12px}
+.lspage.mc .lsrtxt>p,.lspage.mc .lsrtxt p{text-indent:0;margin:0 0 .6em}
+.lspage.mc .lsrtxt>p:last-child{margin-bottom:0}
 .lstabs{display:flex;gap:6px;margin:0 0 10px}
 .lstabs button{flex:1;padding:8px 6px;border:1px solid var(--line);border-radius:10px;background:none;color:var(--muted);font:600 13px var(--sans)}
 .lstabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -1381,7 +1407,12 @@ html[data-paper] .reader.print{text-align:justify}
     </div>
     <div class="lstop"><div class="lsref" id="lsRef"></div><p class="lsverse" id="lsVerse"></p><button type="button" class="lsvt" id="lsVT" hidden>Xem đủ câu ▾</button></div>
     <div class="lsbody">
-      <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button></span></div>
+      <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button><button type="button" class="sbtn" id="lsDateTg">📅 Ẩn ngày</button></span></div>
+      <div class="lsmeta" id="lsMeta">
+        <label>Bài học số <input type="number" id="lsMetaNo" min="1" max="9999" inputmode="numeric" autocomplete="off"></label>
+        <label>Ngày soạn <input type="date" id="lsMetaDate"></label>
+        <label class="lsmchk"><input type="checkbox" id="lsMetaShow"> Hiện ngày soạn</label>
+      </div>
       <textarea id="lsText" hidden aria-hidden="true" tabindex="-1" autocomplete="off"></textarea>
       <div class="lsed" id="lsEd">
         <div class="rtb" id="lsTb" role="toolbar" aria-label="Công cụ soạn thảo">
@@ -1489,7 +1520,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26k';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26l';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word)
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2526,6 +2557,19 @@ let LS = []; try { LS = JSON.parse(localStorage.getItem('kt.lessons') || '[]'); 
 const saveLS = () => { try { localStorage.setItem('kt.lessons', JSON.stringify(LS)); } catch(e){ toast('Không lưu được bài học'); } lsBadge(); };
 function lsBadge(){ const b = $('#lsBadge'); if (!b) return; b.hidden = !LS.length; b.textContent = LS.length > 99 ? '99+' : LS.length; }
 lsBadge();
+/* MẪU C · GIÁO ÁN (2026.11.26l): mỗi bài học có SỐ BÀI (no), NGÀY SOẠN (cr, mốc thời gian) và cờ ẩn ngày soạn (hd=1). Bài cũ chưa có thì tự đánh số theo thứ tự thời gian. */
+const lsPad2 = n => String(n).padStart(2, '0');
+const lsFmtDate = tm => { const d = new Date(tm); return isNaN(d) ? '' : lsPad2(d.getDate()) + '/' + lsPad2(d.getMonth() + 1) + '/' + d.getFullYear(); };
+const lsOrderOf = x => +x.cr || +x.at || 0;
+const lsNoMax = () => LS.reduce((m, y) => Math.max(m, +y.no || 0), 0);
+const lsNoNext = () => lsNoMax() + LS.filter(y => !(+y.no > 0)).length + 1;
+function lsNoOf(x){                                              // số bài của một ghi chú (bài chưa có số: tính tạm theo thứ tự thời gian)
+  if (x && +x.no > 0) return +x.no;
+  const miss = LS.filter(y => !(+y.no > 0)).sort((a, b) => lsOrderOf(a) - lsOrderOf(b)), i = miss.indexOf(x);
+  return lsNoMax() + (i < 0 ? miss.length + 1 : i + 1);
+}
+const lsPrefHide = () => { try { return localStorage.getItem('kt.lsHideDate') === '1'; } catch(e){ return false; } };   // nhớ lựa chọn ẩn/hiện ngày soạn cho bài mới
+(function(){ const miss = LS.filter(y => !(+y.no > 0)); if (!miss.length) return; let n = lsNoMax(); miss.sort((a, b) => lsOrderOf(a) - lsOrderOf(b)).forEach(x => { x.no = ++n; }); try { localStorage.setItem('kt.lessons', JSON.stringify(LS)); } catch(e){} })();
 /* Hành trình đọc: ghi lại chương đã đọc mỗi ngày (kt.reads) */
 let RD = {}; try { RD = JSON.parse(localStorage.getItem('kt.reads') || '{}'); } catch(e){}
 const dayKey = (t = Date.now()) => { const d = new Date(t); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
@@ -2721,22 +2765,28 @@ const lsEl = $('#lsSheet'), lsTa = $('#lsText');
 let lsCur = null;
 function lsClose(){ const back = lsCur && lsCur.back; lsEl.classList.remove('open'); if (back) setTimeout(openLessons, 240); setTimeout(() => { lsEl.hidden = true; }, 220); try { lsTa.blur(); lsRich.blur(); } catch(e){} }
 /* Hai chế độ: 'view' = xem bài học hoàn chỉnh · 'edit' = soạn thảo */
+function lsMetaFill(){                                            // đổ số bài, ngày soạn, hộp “Hiện ngày soạn” và nhãn nút ẩn/hiện ngày
+  if (!lsCur) return;
+  $('#lsMetaNo').value = lsCur.no; $('#lsMetaDate').value = dayKey(lsCur.cr); $('#lsMetaShow').checked = !lsCur.hd;
+  $('#lsDateTg').textContent = lsCur.hd ? '📅 Hiện ngày' : '📅 Ẩn ngày';
+}
 function lsMode(m){
   if (!lsCur) return;
   const v = m === 'view'; lsCur.mode = m;
   $('#lsEd').hidden = v; if (v) lsBibleClose(); $('.lspanel', lsEl).classList.toggle('viewing', v); $('#lsRead').hidden = !v; $('#lsSave').hidden = v; $('#lsEdit').hidden = !v;
   $('#lsLbl').textContent = v ? 'Bài học của bạn' : 'Bài học cá nhân';
+  lsMetaFill();
   $('.lshead', lsEl).appendChild($('#lsTools'));                  // luôn đưa nút Xuất Word về hàng nhãn trước (tránh bị xóa theo vùng xem khi vẽ lại)
   if (v){
-    const o = lsCur.old, long = (lsCur.quote || '').length > 150;
-    $('#lsRead').innerHTML = `<div class="lspage"><div class="lsphead"><div class="lspref">${esc($('#lsRef').textContent)}</div></div><p class="lspq${long ? ' clamp' : ''}" id="lsPq"><span class="lsqm">“</span>${esc(lsCur.quote || '')}<span class="lsqm">”</span></p>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<div class="lsrtxt">${lsViewHtml()}</div></div>` + (o ? `<div class="lsrmeta">Cập nhật ${esc(bmWhen(o.at))}</div>` : '');
-    $('.lsphead', $('#lsRead')).appendChild($('#lsTools'));       // xem: nút Xuất Word nằm cùng hàng với địa chỉ câu, đỡ tốn một dòng
+    const quote = lsCur.quote || '', long = quote.length > 220, showDate = !lsCur.hd;
+    $('#lsRead').innerHTML = `<div class="lspage mc"><div class="lsphead"><h2 class="mcT">BÀI HỌC SỐ ${esc(String(lsCur.no))}</h2></div><div class="mcRows"><span class="mcL">Kinh Thánh:</span><span class="mcV">${esc($('#lsRef').textContent)}</span>${showDate ? `<span class="mcL">Ngày soạn:</span><span class="mcV">${esc(lsFmtDate(lsCur.cr))}</span>` : ''}<span class="mcL">Câu gốc:</span><span class="mcV mcQ${long ? ' clamp' : ''}" id="lsPq">${quote ? '“' + esc(quote) + '”' : '—'}</span></div>${long ? '<button type="button" class="lsmore" id="lsMore">Xem đủ câu gốc ▾</button>' : ''}<div class="mcRule"></div><div class="lsrtxt">${lsViewHtml()}</div></div>`;
+    $('.lsphead', $('#lsRead')).appendChild($('#lsTools'));       // xem: nhóm nút (Sao chép · Xuất Word · Ẩn/Hiện ngày) nằm hàng trên tiêu đề
     const mb = $('#lsMore'); if (mb) mb.onclick = () => { const q = $('#lsPq'), open = q.classList.toggle('clamp') === false; mb.textContent = open ? 'Thu gọn câu gốc ▴' : 'Xem đủ câu gốc ▾'; };
     $('#lsRead').scrollTop = 0; try { lsTa.blur(); lsRich.blur(); } catch(e){}
   }
 }
 function lsShareText(){
-  const c = lsCur; return `${c.book} ${c.ch}:${c.key}\n“${c.quote}”\n\n${lsTa.value.trim()}`;
+  const c = lsCur; return `BÀI HỌC SỐ ${c.no}\nKinh Thánh: ${bookDisplay(c.book)} ${c.ch}:${c.key}\n` + (c.hd ? '' : `Ngày soạn: ${lsFmtDate(c.cr)}\n`) + `Câu gốc: “${c.quote}”\n\n${lsTa.value.trim()}`;
 }
 window.addEventListener('openLesson', e => {
   const d = e.detail || {}, book = d.book, ch = d.ch, ns = (d.ns || [d.n]).filter(Boolean);
@@ -2749,6 +2799,7 @@ window.addEventListener('openLesson', e => {
   if (!quote && same) quote = ns.map(k => { const el = $('#v' + k); return el ? el.textContent.replace(/^\s*\d+\s*/, '').replace(/\s+/g, ' ').trim() : ''; }).filter(Boolean).join(' ');
   const old = LS.find(x => x.book === book && x.ch === ch && compressRange(x.ns || [x.n]) === key);
   lsCur = { book, ch, n, ns, key, quote, old, back:!!d.back };
+  lsCur.no = old ? lsNoOf(old) : lsNoNext(); lsCur.cr = old ? (+old.cr || +old.at || Date.now()) : Date.now(); lsCur.hd = old ? (old.hd ? 1 : 0) : (lsPrefHide() ? 1 : 0);
   if (!same){                                                      // đang đọc sách khác: lấy đúng câu từ kho dữ liệu rồi điền vào
     const me = lsCur;
     dbGet('books', book).then(rec => {
@@ -2780,9 +2831,9 @@ function lsPersist(){                                         // lưu ghi chú �
   const { book, ch, n, ns, old } = lsCur, html = lsCur.html || '';
   if (old){
     if (!lsDirty) return true;
-    if (old.text === t && (old.html || '') === html){ lsDirty = false; return true; }
-    old.text = t; if (html) old.html = html; else delete old.html; old.at = Date.now();
-  } else { const o = { book, ch, n, ns, text:t, at:Date.now() }; if (html) o.html = html; LS.unshift(o); lsCur.old = o; $('#lsDel').hidden = false; }
+    if (old.text === t && (old.html || '') === html && lsNoOf(old) === lsCur.no && (+old.cr || +old.at) === lsCur.cr && (old.hd ? 1 : 0) === (lsCur.hd ? 1 : 0)){ lsDirty = false; return true; }
+    old.text = t; if (html) old.html = html; else delete old.html; old.no = lsCur.no; old.cr = lsCur.cr; if (lsCur.hd) old.hd = 1; else delete old.hd; old.at = Date.now();
+  } else { const o = { book, ch, n, ns, text:t, at:Date.now(), no:lsCur.no, cr:lsCur.cr }; if (lsCur.hd) o.hd = 1; if (html) o.html = html; LS.unshift(o); lsCur.old = o; $('#lsDel').hidden = false; }
   lsDirty = false; saveLS(); return true;
 }
 $('#lsSave').onclick = () => {
@@ -3183,7 +3234,7 @@ function rtDocx(html){
       const tg = el.tagName, last = k === kids.length - 1;
       if (tg === 'P'){
         if (inQuote){ const o = pprOf(el, { line:350, left:240, right:200, shade:'F6EEDD', bar:'B08840', after:last ? 360 : 0, before:0, align:'left' }); o.rx = emptyP(el) ? '' : inl(el, { sz:25 }); body += wPara('', o); }
-        else { const base = { line:372, after:160, align:'both' }, o = pprOf(el, base); if (o.align === 'both' && !o.left) o.first = 567; body += wPara('', Object.assign(o, { rx:emptyP(el) ? '' : inl(el, { sz:26 }) })); }
+        else { const base = { line:372, after:160, align:'both' }, o = pprOf(el, base); body += wPara('', Object.assign(o, { rx:emptyP(el) ? '' : inl(el, { sz:26 }) })); }
       }
       else if (/^H[1-3]$/.test(tg)){ const sz = tg === 'H1' ? 36 : tg === 'H2' ? 30 : 27; body += para(el, { line:340, before:240, after:120, keep:true }, { sz, b:1, color:'5C3A12' }); }
       else if (tg === 'BLOCKQUOTE') blocks(el, true);
@@ -3235,7 +3286,8 @@ function wPara(text, o){
   const bot = o.border ? `<w:bottom w:val="single" w:sz="${o.borderSz || 6}" w:space="4" w:color="${o.borderColor || 'C9A96A'}"/>` : '';
   const pbdr = (bar || bot) ? `<w:pBdr>${bar}${bot}</w:pBdr>` : '';
   const ind = (o.left || o.right || o.first || o.hang) ? `<w:ind w:left="${o.left || 0}" w:right="${o.right || 0}"${o.first ? ` w:firstLine="${o.first}"` : ''}${o.hang ? ` w:hanging="${o.hang}"` : ''}/>` : '';
-  const ppr = `<w:pPr>${o.keep ? '<w:keepNext/>' : ''}${pbdr}${o.shade ? `<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>` : ''}<w:spacing w:before="${o.before || 0}" w:after="${o.after == null ? 120 : o.after}" w:line="${o.line || 320}" w:lineRule="auto"/>${ind}<w:jc w:val="${o.align || 'left'}"/></w:pPr>`;
+  const tabs = o.tab ? `<w:tabs><w:tab w:val="left" w:pos="${o.tab}"/></w:tabs>` : '';
+  const ppr = `<w:pPr>${o.keep ? '<w:keepNext/>' : ''}${o.pb ? '<w:pageBreakBefore/>' : ''}${pbdr}${o.shade ? `<w:shd w:val="clear" w:color="auto" w:fill="${o.shade}"/>` : ''}${tabs}<w:spacing w:before="${o.before || 0}" w:after="${o.after == null ? 120 : o.after}" w:line="${o.line || 320}" w:lineRule="auto"/>${ind}<w:jc w:val="${o.align || 'left'}"/></w:pPr>`;
   return `<w:p>${ppr}${runs}</w:p>`;
 }
 /* Tên sách để in ra Word: theo ĐÚNG tên sách trong file Kinh Thánh của app (giữ nguyên dấu gạch, dấu cách, số đầu tên),
@@ -3247,31 +3299,38 @@ function bookDisplay(name){
    Chỉ đổi cách HIỂN THỊ / XUẤT FILE, không đổi chữ đã lưu trong ghi chú. */
 const lsTypo = s => String(s ?? '').normalize('NFC').replace(/\.{3}/g, '…').replace(/(^|[\s(\[{—–-])"/g, '$1“').replace(/"/g, '”');
 const lsHtml = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => '<p>' + esc(lsTypo(x)) + '</p>').join('');
-function docxFile(items, title, fname){                               // items: [{ref, quote, text, at}]
-  const when = t => { const d = new Date(t); return d.toLocaleDateString('vi-VN') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
-  const rule = (after, before) => wPara('', { sz:8, line:240, before:before || 0, after, left:2900, right:2900, border:true, borderSz:8 });   // vạch vàng ngắn ở giữa trang
-  const multi = items.length > 1;
+/* Chạy chữ có định dạng riêng (dùng cho khối Kinh Thánh / Ngày soạn / Câu gốc) */
+function wRun(tx, f){
+  f = f || {}; const font = f.font || 'Times New Roman', sz = f.sz || 26;
+  return `<w:r><w:rPr><w:rFonts w:ascii="${font}" w:hAnsi="${font}" w:cs="${font}"/>${f.b ? '<w:b/>' : ''}${f.i ? '<w:i/>' : ''}${f.color ? `<w:color w:val="${f.color}"/>` : ''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr><w:t xml:space="preserve">${wx(tx)}</w:t></w:r>`;
+}
+/* MẪU C · GIÁO ÁN: BÀI HỌC SỐ n (gạch chân nâu) → Kinh Thánh / Ngày soạn (tùy chọn ẩn) / Câu gốc (in đậm) → vạch xám → nội dung căn đều, không thụt đầu dòng */
+function docxFile(items, title, fname){                               // items: [{ref, quote, text, html, at, no, cr, hd}]
+  const rule = (after, before) => wPara('', { sz:8, line:240, before:before || 0, after, left:2900, right:2900, border:true, borderSz:8 });   // vạch vàng ngắn ở giữa trang (trang bìa khi xuất nhiều bài)
+  const multi = items.length > 1, BROWN = '5C3A12';
+  const noOf = (it, i) => (+it.no > 0 ? +it.no : i + 1);
   let body = '';
-  if (multi) body += wPara(title, { b:true, sz:44, color:'5C3A12', align:'center', after:80 }) + wPara(`${items.length} bài chia sẻ · xuất ngày ${new Date().toLocaleDateString('vi-VN')}`, { i:true, sz:22, color:'7A6E60', align:'center', after:120 }) + rule(480);
+  if (multi) body += wPara(title, { b:true, sz:44, color:BROWN, align:'center', after:80 }) + wPara(`${items.length} bài chia sẻ · xuất ngày ${lsFmtDate(Date.now())}`, { i:true, sz:22, color:'7A6E60', align:'center', after:120 }) + rule(480);
   items.forEach((it, i) => {
-    const ref = it.ref;
-    if (it.quote) {
-      body += wPara('“' + it.quote + '”', { i:true, sz:25, color:'3E3A33', left:240, right:200, shade:'F6EEDD', bar:'B08840', line:350, before:i ? 600 : 80, after:0, align:'left', keep:true });
-      body += wPara('(' + ref + ')', { b:true, sz:22, color:'8A5A1F', left:240, right:200, shade:'F6EEDD', bar:'B08840', line:300, before:0, after:360, align:'right' });
-    } else body += wPara(ref, { b:true, sz:28, color:'8A5A1F', before:i ? 600 : 0, after:200, keep:true });
-    body += wPara('Bài học cá nhân', { b:true, caps:true, sz:22, color:'8A5A1F', spc:50, before:120, after:160, border:true, borderColor:'E2D3B3', borderSz:4, keep:true });
+    body += wPara('BÀI HỌC SỐ ' + noOf(it, i), { b:true, sz:32, color:'1C1A16', spc:20, before:0, after:200, line:300, border:true, borderColor:BROWN, borderSz:12, keep:true, pb:multi });
+    const rows = [['Kinh Thánh:', wRun(it.ref, { sz:26 })]];
+    if (!it.hd && it.cr) rows.push(['Ngày soạn:', wRun(lsFmtDate(it.cr), { sz:26 })]);
+    if (it.quote) rows.push(['Câu gốc:', wRun('“' + it.quote + '”', { b:1, i:1, sz:26 })]);
+    rows.forEach((r, k) => {
+      const last = k === rows.length - 1;
+      body += wPara('', { left:1700, hang:1700, tab:1700, line:340, before:0, after:last ? 0 : 60, keep:!last, rx:wRun(r[0], { b:1, color:BROWN, sz:24 }) + '<w:r><w:tab/></w:r>' + r[1] });
+    });
+    body += wPara('', { sz:8, line:240, before:140, after:300, border:true, borderSz:4, borderColor:'BDBDBD' });
     if (it.html) body += rtDocx(it.html);
     else String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
-      body += wPara(lsTypo(para), { sz:26, line:372, after:160, first:567, align:'both' });
+      body += wPara(lsTypo(para), { sz:26, line:372, after:160, align:'both' });
     });
-    body += rule(160, 240);
-    if (it.at) body += wPara('Cập nhật ' + when(it.at), { i:true, sz:20, color:'7A6E60', align:'right', before:60, after:0 });
   });
   const NS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
   const doc = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${NS}><w:body>${body}<w:sectPr><w:headerReference w:type="default" r:id="rId1"/><w:footerReference w:type="default" r:id="rId2"/><w:footerReference w:type="first" r:id="rId2"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:titlePg/></w:sectPr></w:body></w:document>`;
   const enc = new TextEncoder();
   const hrp = '<w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/><w:color w:val="7A6E60"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr>';
-  const hdr = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:hdr ${NS}><w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="4" w:space="4" w:color="E2D3B3"/></w:pBdr><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/><w:i/><w:color w:val="7A6E60"/><w:spacing w:val="20"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr><w:t xml:space="preserve">${wx(multi ? title : (items[0].ref + ' · ' + title))}</w:t></w:r></w:p></w:hdr>`;
+  const hdr = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:hdr ${NS}><w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="4" w:space="4" w:color="E2D3B3"/></w:pBdr><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/><w:i/><w:color w:val="7A6E60"/><w:spacing w:val="20"/><w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr><w:t xml:space="preserve">${wx(multi ? title : ('Bài học số ' + (+items[0].no > 0 ? +items[0].no : 1) + ' · ' + items[0].ref))}</w:t></w:r></w:p></w:hdr>`;
   const ftr = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:ftr ${NS}><w:p><w:pPr><w:jc w:val="center"/></w:pPr><w:r>${hrp}<w:t xml:space="preserve">— </w:t></w:r><w:r>${hrp}<w:fldChar w:fldCharType="begin"/></w:r><w:r>${hrp}<w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r>${hrp}<w:fldChar w:fldCharType="separate"/></w:r><w:r>${hrp}<w:t>1</w:t></w:r><w:r>${hrp}<w:fldChar w:fldCharType="end"/></w:r><w:r>${hrp}<w:t xml:space="preserve"> —</w:t></w:r></w:p></w:ftr>`;
   const zip = zipStore([
     { name:'[Content_Types].xml', data:enc.encode('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/></Types>') },
@@ -3283,13 +3342,25 @@ function docxFile(items, title, fname){                               // items: 
   ]);
   return new File([zip], fname, { type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
 }
+/* Ô số bài · ngày soạn · hộp “Hiện ngày soạn” (khung soạn) và nút Ẩn/Hiện ngày (trang xem) */
+$('#lsMetaNo').addEventListener('input', e => { if (!lsCur) return; const v = parseInt(e.target.value, 10); if (v >= 1 && v <= 9999){ lsCur.no = v; lsDirty = true; } });
+$('#lsMetaNo').addEventListener('blur', e => { if (lsCur) e.target.value = lsCur.no; });
+$('#lsMetaDate').addEventListener('change', e => { if (!lsCur) return; const tm = e.target.value ? new Date(e.target.value + 'T12:00:00').getTime() : NaN; if (!isNaN(tm)){ lsCur.cr = tm; lsDirty = true; } else e.target.value = dayKey(lsCur.cr); });
+$('#lsMetaShow').addEventListener('change', e => { if (!lsCur) return; lsCur.hd = e.target.checked ? 0 : 1; lsDirty = true; try { localStorage.setItem('kt.lsHideDate', lsCur.hd ? '1' : '0'); } catch(err){} lsMetaFill(); });
+$('#lsDateTg').onclick = () => {                                      // trang xem: ẩn/hiện ngày soạn rồi vẽ lại trang + lưu ngay (không đổi “cập nhật”)
+  if (!lsCur) return;
+  lsCur.hd = lsCur.hd ? 0 : 1;
+  try { localStorage.setItem('kt.lsHideDate', lsCur.hd ? '1' : '0'); } catch(err){}
+  if (lsCur.old){ if (lsCur.hd) lsCur.old.hd = 1; else delete lsCur.old.hd; saveLS(); }
+  lsMode('view'); toast(lsCur.hd ? '📅 Đã ẩn ngày soạn' : '📅 Đã hiện ngày soạn');
+};
 $('#lsWord').onclick = async () => {
   lsSyncNow();
   const t = lsTa.value.trim(); if (!t) return toast('Hãy viết nội dung ghi chú trước khi xuất');
   const c = lsCur; if (!c) return;
-  const def = 'bai-hoc-' + (fold(`${c.book} ${c.ch}:${c.key}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ghi-chu');
+  const def = 'bai-hoc-so-' + c.no + '-' + (fold(`${c.book} ${c.ch}:${c.key}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ghi-chu');
   const name = await askFileName(def, '.docx'); if (!name) return;
-  saveSmart([docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, html:c.html || '', at:c.old ? c.old.at : Date.now() }], 'Bài học cá nhân', name + '.docx')]).then(st => { if (st === 'default') toast('📄 Đã tạo file Word'); }, e => toast('Không xuất được file Word: ' + (e.message || e)));
+  saveSmart([docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, html:c.html || '', at:c.old ? c.old.at : Date.now(), no:c.no, cr:c.cr, hd:c.hd }], 'Bài học cá nhân', name + '.docx')]).then(st => { if (st === 'default') toast('📄 Đã tạo file Word'); }, e => toast('Không xuất được file Word: ' + (e.message || e)));
 };
 $('#lsShare').onclick = async () => {
   if (!lsTa.value.trim()){ toast('Chưa có nội dung để chia sẻ'); return; }
