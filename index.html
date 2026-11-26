@@ -834,10 +834,10 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .rtb select[data-s="block"]{min-width:100px}
 @media (min-width:900px){.lspanel:not(.viewing)>.lsgrip{display:none}}
 .rtg.mob,.lsmbar,.lsmenu{display:none}
+.xl{font-style:normal}
 [data-theme=dark] .rtb button.on,[data-theme=dark] .rtb .rtpri{color:#1a1409}
 .lsrich.empty::before{content:attr(data-placeholder);position:absolute;top:14px;left:18px;color:var(--muted);opacity:.7;pointer-events:none}
 @media (min-width:900px){.lsrich.empty::before{top:20px;left:28px}}
-#lsMetaTitle::placeholder{color:transparent}   /* điện thoại: đã có nhãn TIÊU ĐỀ phía trên nên không cần chữ mờ */
 /* §§ 2026.11.26q — MỤC 5 · khung soạn ghi chú trên MÁY TÍNH (≥900px): rộng, thoáng như trang giấy; chỉ ảnh hưởng máy tính, điện thoại giữ nguyên */
 @media (min-width:900px){
   .lspanel:not(.viewing):not(.m) .lstop{padding:10px max(20px,calc((100% - 1100px) / 2));max-height:30%}
@@ -873,11 +873,12 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
   .lspanel:not(.viewing):not(.m) .lsbody{overflow-y:auto}
 }
 
-/* Điện thoại (lớp .m do mã bên dưới gắn): soạn toàn màn hình, thanh tiêu đề trên, thanh công cụ nằm ngay trên bàn phím */
+/* Điện thoại (lớp .m do mã bên dưới gắn): xem và soạn đều toàn màn hình, cùng một thanh tiêu đề; khi soạn, thanh công cụ nằm ngay trên bàn phím */
 .lssheet.m-edit{bottom:auto;height:100%;height:100dvh;background:var(--card)}
-.lspanel.m:not(.viewing){width:100%;max-width:none;height:100%;border-radius:0;transform:none;transition:none;padding:0}
-.lspanel.m:not(.viewing)>.lsgrip,.lspanel.m:not(.viewing)>.lsbtns,.lspanel.m:not(.viewing) .lshead,.lspanel.m:not(.viewing) .lsnote,.lspanel.m:not(.viewing) .lscount{display:none}
-.lspanel.m:not(.viewing) .lsmbar{flex:none;display:flex;align-items:center;gap:4px;min-height:54px;padding:calc(env(safe-area-inset-top) + 5px) calc(env(safe-area-inset-right) + 10px) 5px calc(env(safe-area-inset-left) + 4px);border-bottom:1px solid var(--line);background:var(--card)}
+.lspanel.m,.lspanel.m.viewing{width:100%;max-width:none;height:100%;border-radius:0;transform:none;transition:none;padding:0}
+.lspanel.m>.lsgrip{display:none}
+.lspanel.m>.lsbtns,.lspanel.m.viewing .lstools,.lspanel.m:not(.viewing) .lshead,.lspanel.m:not(.viewing) .lsnote,.lspanel.m:not(.viewing) .lscount{display:none}
+.lspanel.m .lsmbar{flex:none;display:flex;align-items:center;gap:4px;min-height:54px;padding:calc(env(safe-area-inset-top) + 5px) calc(env(safe-area-inset-right) + 10px) 5px calc(env(safe-area-inset-left) + 4px);border-bottom:1px solid var(--line);background:var(--card)}
 .lsmi{flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;color:var(--fg);display:grid;place-items:center}
 .lsmi:active,.lsmi[aria-expanded=true]{background:var(--accent-soft)}
 .lsmbar .lsmi .rti{width:22px;height:22px}
@@ -889,19 +890,19 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lsmsave:active{filter:brightness(.9)}
 [data-theme=dark] .lsmsave{color:#1a1409}
 .lsmenu:not([hidden]){position:absolute;z-index:6;top:calc(env(safe-area-inset-top) + 54px);right:calc(env(safe-area-inset-right) + 8px);width:232px;display:flex;flex-direction:column;padding:6px;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:0 12px 36px rgba(0,0,0,.28)}
-.lsmenu button{min-height:46px;padding:0 12px;border:0;border-radius:9px;background:none;color:var(--fg);font:600 15px var(--sans);text-align:left}
+.lsmenu button{display:flex;align-items:center;gap:12px;min-height:46px;padding:0 12px;border:0;border-radius:9px;background:none;color:var(--fg);font:600 15px var(--sans);text-align:left}
 .lsmenu button:active{background:var(--accent-soft)}
+.lsmenu button[hidden]{display:none}
+.lsmenu .rti{width:20px;height:20px;flex:none}
 .lsmenu button.danger{color:var(--danger)}
 .lsmenu p{margin:4px 0 0;padding:8px 12px 4px;border-top:1px solid var(--line);font:11.5px/1.4 var(--sans);color:var(--muted)}
 
-.lspanel.m:not(.viewing) .lstop{position:relative;max-height:34%;padding:9px calc(env(safe-area-inset-right) + 16px) 9px calc(env(safe-area-inset-left) + 16px)}
+.lspanel.m:not(.viewing) .lstop{display:flex;align-items:flex-start;gap:4px;max-height:34%;padding:8px calc(env(safe-area-inset-right) + 8px) 8px calc(env(safe-area-inset-left) + 16px)}
 .lspanel.m:not(.viewing) .lsref,.lspanel.m:not(.viewing) .lsvt{display:none}
-.lspanel.m:not(.viewing) .lsverse{max-height:none;font-size:15px;line-height:1.55;text-align:left;hyphens:manual}
-.lspanel.m:not(.viewing) .lstop:not(.open) .lsverse{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.lspanel.m.kbd:not(.viewing) .lstop:not(.open) .lsverse{-webkit-line-clamp:1}
+.lspanel.m:not(.viewing) .lsverse{flex:1;min-width:0;max-height:none;margin:0;font-size:15px;line-height:24px;text-align:left;hyphens:manual}
+.lspanel.m:not(.viewing) .lstop:not(.open) .lsverse{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden}
 .lsmfold{display:none}
-.lspanel.m:not(.viewing) .lstop.cut .lsmfold{display:block;margin:2px 0 -4px auto;padding:4px 0 4px 12px;border:0;background:none;color:var(--accent);font:700 12px var(--sans)}
-.lspanel.m.kbd:not(.viewing) .lstop:not(.open) .lsmfold{display:none}
+.lspanel.m:not(.viewing) .lstop.cut .lsmfold{display:block;flex:none;width:32px;height:24px;padding:0;border:0;background:none;color:var(--accent);font:700 13px var(--sans)}
 
 .lspanel.m:not(.viewing) .lsbody{padding:0}
 .lspanel.m:not(.viewing) .lsed{display:contents}
@@ -922,33 +923,27 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.m:not(.viewing) .rtb button:active:not(.on):not(.rtpri){background:var(--accent-soft)}
 .lspanel.m:not(.viewing) .rtb button.on{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
 .lspanel.m:not(.viewing) .rtb .rtpri{flex:none;order:-2;gap:4px;padding:0 8px;margin-right:2px;font-size:12.5px}
+.lspanel.m:not(.viewing) .rtb:not(.more) .rtpri{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
 .lspanel.m:not(.viewing) .rtb [data-c="undo"]{order:2}
 .lspanel.m:not(.viewing) .rtb [data-c="redo"]{order:3}
 .lspanel.m:not(.viewing) .rtb:not(.more) .rtg.mob button{order:4}
 .lspanel.m:not(.viewing) .rtg.mob{display:flex}
 .lspanel.m:not(.viewing) .rtb:not(.more) .rtg.mob{display:contents}
-.lspanel.m:not(.viewing) .rtb.more{flex-wrap:wrap;align-content:flex-start;gap:6px;max-height:62%;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
-.lspanel.m:not(.viewing) .rtb.more .rtg{flex:1 1 auto;gap:2px;margin:0;padding:2px;border:1px solid var(--line)!important;border-radius:11px;background:var(--card)}
-.lspanel.m:not(.viewing) .rtb.more .rtg.adv{display:flex}
-.lspanel.m:not(.viewing) .rtb.more button.adv{display:inline-flex}
-.lspanel.m:not(.viewing) .rtb.more .rtg button,.lspanel.m:not(.viewing) .rtb.more .rtcol{flex:1 0 34px;min-width:34px;height:36px;order:0}
+.lspanel.m:not(.viewing) .rtb.more{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:40px;gap:4px;max-height:62%;padding-top:2px;padding-left:calc(env(safe-area-inset-left) + 12px);padding-right:calc(env(safe-area-inset-right) + 12px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;background:var(--card);box-shadow:0 -6px 18px rgba(0,0,0,.08)}
 .lspanel.m.kbd:not(.viewing) .rtb.more{max-height:50%}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(1){order:8}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(2){order:1;flex-basis:100%}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(3){order:2}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(4){order:3}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(5){order:4}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(6){order:5}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(7){order:6;flex:3 1 186px}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(7) select{flex:1 0 108px}
-.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(8){order:7}
-.lspanel.m:not(.viewing) .rtb.more .rtg.rtbib,.lspanel.m:not(.viewing) .rtb.more .rtg.mob{flex:1 1 40%;padding:0;border:0!important;background:none}
-.lspanel.m:not(.viewing) .rtb.more .rtg.rtbib{order:-2}
-.lspanel.m:not(.viewing) .rtb.more .rtg.mob{order:-1}
-.lspanel.m:not(.viewing) .rtb.more .rtpri{margin:0}
-.lspanel.m:not(.viewing) .rtb.more .rtg.mob button{border-color:var(--line);background:var(--card)}
-.lspanel.m:not(.viewing) .rtb.more .rtg.mob button[aria-expanded=true]{background:var(--accent-soft);color:var(--accent)}
-.lspanel.m:not(.viewing) .rtb select{flex:1 1 0;min-width:0;max-width:none;height:36px;font-size:16px;border-color:transparent}
+.lspanel.m:not(.viewing) .rtb.more .rtg{display:contents}
+.lspanel.m:not(.viewing) .rtb.more .rtg.rtbib{display:none}
+.lspanel.m:not(.viewing) .rtb.more button,.lspanel.m:not(.viewing) .rtb.more .rtcol{display:inline-flex;align-items:center;justify-content:center;width:100%;min-width:0;height:40px;margin:0}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob{display:flex;grid-column:1/-1;order:0;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob::before{content:'Định dạng';font:700 14px var(--sans);color:var(--fg)}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob button{flex:none;width:auto;height:36px;padding:0 4px 0 16px;border:0;background:none;color:var(--accent);font:700 15px var(--sans)}
+.lspanel.m:not(.viewing) .rtb.more select{order:1;grid-column:span 2;width:100%;min-width:0;max-width:none;height:40px;padding:0 6px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:16px}
+.lspanel.m:not(.viewing) .rtb.more [data-c="bold"],.lspanel.m:not(.viewing) .rtb.more [data-c="italic"],.lspanel.m:not(.viewing) .rtb.more [data-c="underline"],.lspanel.m:not(.viewing) .rtb.more [data-c="strikeThrough"],.lspanel.m:not(.viewing) .rtb.more [data-c="subscript"],.lspanel.m:not(.viewing) .rtb.more [data-c="superscript"]{order:2}
+.lspanel.m:not(.viewing) .rtb.more .rtcol,.lspanel.m:not(.viewing) .rtb.more [data-c^="justify"]{order:3}
+.lspanel.m:not(.viewing) .rtb.more [data-c^="insert"],.lspanel.m:not(.viewing) .rtb.more [data-c="outdent"],.lspanel.m:not(.viewing) .rtb.more [data-c="indent"],.lspanel.m:not(.viewing) .rtb.more [data-c="removeFormat"]{order:4}
+.lspanel.m:not(.viewing) .rtb.more select[data-s="line"]{order:5;grid-column:span 4}
+.lspanel.m:not(.viewing) .rtb.more [data-c="undo"]{order:6}
+.lspanel.m:not(.viewing) .rtb.more [data-c="redo"]{order:7}
 @media (max-width:359px){.lspanel.m:not(.viewing) .rtb .rtpri span{display:none}}
 .lspanel.m .lsbible{padding-bottom:calc(env(safe-area-inset-bottom) + 12px)}
 .lspanel.m .lsbc select{height:42px;font-size:16px}
@@ -990,8 +985,20 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lsmeta input[type=checkbox]{width:19px;height:19px;margin:0;accent-color:var(--accent)}
 .lsmeta .lsmchk{color:var(--fg)}
 .lspanel.viewing .lsmeta{display:none}
-.lspanel.m:not(.viewing) .lsmeta{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--card);padding:7px calc(env(safe-area-inset-right) + 16px) 7px calc(env(safe-area-inset-left) + 16px)}
-.lspanel.m.kbd:not(.viewing) .lsmeta{display:none}
+.lspanel.m:not(.viewing) .lsmeta{align-items:center;gap:8px 6px;margin:0;padding:4px calc(env(safe-area-inset-right) + 14px) 10px calc(env(safe-area-inset-left) + 14px);border:0;border-bottom:1px solid var(--line);background:var(--card)}
+.lspanel.m:not(.viewing) .lsmeta .lsmtt{font-size:0;gap:0}
+.lspanel.m:not(.viewing) .lsmeta input[type=text]{height:44px;border-bottom:1px solid var(--line);font-size:19px}
+.lspanel.m:not(.viewing) .lsmeta input[type=text]:focus{border-bottom-color:var(--accent);box-shadow:0 1px 0 0 var(--accent)}
+.lspanel.m:not(.viewing) #lsMetaTitle::placeholder{color:var(--muted);opacity:.6;font-weight:600}
+.lspanel.m:not(.viewing) .lsmeta label:not(.lsmtt){gap:5px;height:36px;padding:0 9px;border:1px solid var(--line);border-radius:18px;background:var(--bg)}
+.lspanel.m:not(.viewing) .lsmeta .xl{display:none}
+.lspanel.m:not(.viewing) .lsmeta .lsmdt{flex:1 1 104px;min-width:0;max-width:190px}
+.lspanel.m:not(.viewing) .lsmeta input[type=number],.lspanel.m:not(.viewing) .lsmeta input[type=date]{height:32px;padding:0;border:0;border-radius:0;background:transparent;font-size:16px}
+.lspanel.m:not(.viewing) .lsmeta input[type=number]{width:34px}
+.lspanel.m:not(.viewing) .lsmeta input[type=date]{-webkit-appearance:none;appearance:none;width:100%;min-width:0;text-align:left}
+.lspanel.m:not(.viewing) .lsmeta input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}
+.lspanel.m:not(.viewing) .lsmeta input[type=checkbox]{width:17px;height:17px}
+.lspanel.m.kbd:not(.viewing) .lsmeta,.lspanel.m.fmt:not(.viewing) .lsmeta,.lspanel.m.fmt:not(.viewing) .lstop,.lspanel.m.fmt:not(.viewing) .lslinks{display:none}
 .lspanel:not(.viewing) #lsDateTg{display:none}
 /* Trang xem: tiêu đề + gạch nâu, khối Kinh Thánh / Ngày soạn / Câu gốc, vạch xám mảnh, rồi nội dung (đúng bố cục Mẫu C) */
 .lspage.mc .lsphead{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin:0 0 2px}
@@ -1006,6 +1013,25 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspage.mc .lsrtxt{margin-top:12px}
 .lspage.mc .lsrtxt>p,.lspage.mc .lsrtxt p{text-indent:0;margin:0 0 .6em}
 .lspage.mc .lsrtxt>p:last-child{margin-bottom:0}
+/* Trang xem trên điện thoại: chỉ còn nội dung; các nút nằm trong thanh tiêu đề và menu ⋯ */
+.lspanel.m.viewing .lsbody{padding:0}
+.lspanel.m.viewing .lsread{margin:0;max-height:none;padding:16px calc(env(safe-area-inset-right) + 18px) calc(env(safe-area-inset-bottom) + 28px) calc(env(safe-area-inset-left) + 18px)}
+.lspanel.m.viewing .lspage.mc{padding:0;border:0;box-shadow:none;background:none}
+.lspanel.m.viewing .lspage.mc .lsphead{margin:0}
+.lspanel.m.viewing .lslinks{padding:8px calc(env(safe-area-inset-right) + 14px) calc(env(safe-area-inset-bottom) + 8px) calc(env(safe-area-inset-left) + 14px);margin:0}
+@media (max-width:359px){
+  .lspanel.m:not(.viewing) .lsmeta{column-gap:5px}
+  .lspanel.m:not(.viewing) .lsmeta label:not(.lsmtt){padding:0 7px}
+  .lspanel.m:not(.viewing) .lsmeta .lsmdt{flex-basis:90px}
+  .lspanel.m:not(.viewing) .lsmeta input[type=date]::-webkit-calendar-picker-indicator{display:none}
+  .lspanel.m:not(.viewing) .lsmeta input[type=date]{font-size:14px}
+}
+@media (max-width:599px){
+  .lspanel.m.viewing .mcT{font-size:var(--fs)}
+  .lspanel.m.viewing .mcRows{gap:2px 10px;font-size:calc(var(--fs) - 3px)}
+  .lspanel.m.viewing .mcQ{grid-column:1/-1;margin-top:2px;font-size:var(--fs)}
+  .lspanel.m.viewing .lspage.mc .lsrtxt>p:not([style*="text-align"]){text-align:left}
+}
 .lstabs{display:flex;gap:6px;margin:0 0 10px}
 .lstabs button{flex:1;padding:8px 6px;border:1px solid var(--line);border-radius:10px;background:none;color:var(--muted);font:600 13px var(--sans)}
 .lstabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -1439,20 +1465,21 @@ html[data-paper] .reader.print{text-align:justify}
       <button type="button" class="lsmsave" id="lsmSave">Lưu</button>
     </div>
     <div class="lsmenu" id="lsmMenu" role="menu" hidden>
-      <button type="button" role="menuitem" data-go="lsCopy">📋 Sao chép</button>
-      <button type="button" role="menuitem" data-go="lsWord">📄 Xuất Word</button>
-      <button type="button" role="menuitem" data-go="lsShare">📤 Chia sẻ</button>
-      <button type="button" role="menuitem" data-go="lsDel" class="danger">🗑 Xóa ghi chú</button>
-      <p>📍 Ghi chú được lưu trong máy.</p>
+      <button type="button" role="menuitem" data-go="lsCopy"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>Sao chép</span></button>
+      <button type="button" role="menuitem" data-go="lsWord"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Xuất Word</span></button>
+      <button type="button" role="menuitem" data-go="lsShare"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M8 7.500 12 3.500l4 4"/><path d="M6 11H5v9h14v-9h-1"/></svg><span>Chia sẻ</span></button>
+      <button type="button" role="menuitem" data-go="lsDateTg"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span id="lsmDate">Ẩn ngày soạn</span></button>
+      <button type="button" role="menuitem" data-go="lsDel" class="danger"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span>Xóa ghi chú</span></button>
+      <p>Ghi chú được lưu trong máy.</p>
     </div>
     <div class="lstop"><div class="lsref" id="lsRef"></div><p class="lsverse" id="lsVerse"></p><button type="button" class="lsvt" id="lsVT" hidden>Xem đủ câu ▾</button></div>
     <div class="lsbody">
       <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button><button type="button" class="sbtn" id="lsDateTg">📅 Ẩn ngày</button></span></div>
       <div class="lsmeta" id="lsMeta">
         <label class="lsmtt">Tiêu đề <input type="text" id="lsMetaTitle" maxlength="160" autocomplete="off" placeholder="Tiêu đề bài học…"></label>
-        <label>Bài học số <input type="number" id="lsMetaNo" min="1" max="9999" inputmode="numeric" autocomplete="off"></label>
-        <label>Ngày soạn <input type="date" id="lsMetaDate"></label>
-        <label class="lsmchk"><input type="checkbox" id="lsMetaShow"> Hiện ngày soạn</label>
+        <label class="lsmno"><span>Bài<i class="xl"> học số</i></span> <input type="number" id="lsMetaNo" min="1" max="9999" inputmode="numeric" autocomplete="off"></label>
+        <label class="lsmdt"><span class="xl">Ngày soạn</span> <input type="date" id="lsMetaDate" aria-label="Ngày soạn"></label>
+        <label class="lsmchk"><input type="checkbox" id="lsMetaShow"> <span>Hiện ngày<i class="xl"> soạn</i></span></label>
       </div>
       <textarea id="lsText" hidden aria-hidden="true" tabindex="-1" autocomplete="off"></textarea>
       <div class="lsed" id="lsEd">
@@ -1561,7 +1588,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word
+const APP_VERSION = '2026.11.26r';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem)
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3652,7 +3679,7 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
   return out.join(',');
 }
 
-/* ---- Giao diện soạn ghi chú (2026.11.26k): toàn màn hình trên điện thoại, bám theo bàn phím. Chỉ lo phần hiển thị; mọi nút mới đều gọi lại nút gốc. ---- */
+/* ---- Giao diện bài học trên điện thoại (2026.11.26r): xem và soạn toàn màn hình, bám theo bàn phím. Chỉ lo phần hiển thị; mọi nút mới đều gọi lại nút gốc. ---- */
 (function(){
   const panel = $('.lspanel', lsEl), top = $('.lstop', lsEl), verse = $('#lsVerse'), tb = $('#lsTb');
   const menu = $('#lsmMenu'), moreBtn = $('#lsmMore'), fmtBtn = $('#lsFmtBtn'), sub = $('#lsmSub');
@@ -3660,13 +3687,24 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
   const fold_ = document.createElement('button'); fold_.type = 'button'; fold_.className = 'lsmfold'; top.appendChild(fold_);
   let baseW = 0, baseH = 0, raf = 0;
   const editing = () => !lsEl.hidden && !panel.classList.contains('viewing');
-  const foldLabel = () => { fold_.textContent = top.classList.contains('open') ? 'Thu gọn ▴' : 'Xem đủ câu ▾'; };
+  const foldLabel = () => { const open = top.classList.contains('open'); fold_.textContent = open ? '▴' : '▾'; fold_.setAttribute('aria-label', open ? 'Thu gọn câu gốc' : 'Xem đủ câu gốc'); };
   const measureVerse = () => {                                        // chỉ hiện nút bung câu khi câu thực sự bị cắt
     if (!panel.classList.contains('m') || top.classList.contains('open')) return;
     top.classList.toggle('cut', verse.scrollHeight > verse.clientHeight + 2);
   };
-  const setMenu = open => { menu.hidden = !open; moreBtn.setAttribute('aria-expanded', String(open)); if (open) $('[data-go="lsDel"]', menu).hidden = $('#lsDel').hidden; };
-  const setFmt = open => { tb.classList.toggle('more', open); fmtBtn.setAttribute('aria-expanded', String(open)); tb.scrollTop = 0; tb.scrollLeft = 0; };
+  const viewing = () => panel.classList.contains('viewing');
+  const setMenu = open => {
+    menu.hidden = !open; moreBtn.setAttribute('aria-expanded', String(open)); if (!open) return;
+    $('[data-go="lsDel"]', menu).hidden = $('#lsDel').hidden;
+    $('[data-go="lsDateTg"]', menu).hidden = !viewing();               // khi soạn đã có ô “Hiện ngày” ngay trên màn hình
+    $('#lsmDate').textContent = lsCur && lsCur.hd ? 'Hiện ngày soạn' : 'Ẩn ngày soạn';
+  };
+  const setFmt = open => { tb.classList.toggle('more', open); panel.classList.toggle('fmt', open); fmtBtn.textContent = open ? 'Xong' : 'Aa'; fmtBtn.setAttribute('aria-expanded', String(open)); tb.scrollTop = 0; tb.scrollLeft = 0; };
+  function paintBar(){                                                 // thanh tiêu đề đổi theo chế độ: xem → “Sửa” · soạn → “Lưu”
+    const v = viewing(), t = v ? 'Sửa' : 'Lưu', st = v ? 'Bài học của bạn' : ($('#lsCount').textContent || 'Bài học cá nhân');
+    if ($('#lsmSave').textContent !== t) $('#lsmSave').textContent = t;
+    if (sub.textContent !== st) sub.textContent = st;
+  }
   function keepCaret(){                                               // bàn phím che mất dòng đang gõ → cuộn khung soạn cho thấy con trỏ
     if (!panel.classList.contains('kbd') || document.activeElement !== lsRich) return;
     const s = getSelection(); if (!s.rangeCount || !s.isCollapsed) return;
@@ -3679,9 +3717,10 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
   }
   function layout(){
     raf = 0;
-    const m = mq.matches, on = m && editing();
-    panel.classList.toggle('m', m); lsEl.classList.toggle('m-edit', on);
+    const m = mq.matches, on = m && !lsEl.hidden;
+    panel.classList.toggle('m', m); lsEl.classList.toggle('m-edit', on); paintBar();
     if (!on){ lsEl.style.top = lsEl.style.height = ''; panel.classList.remove('kbd'); setMenu(false); setFmt(false); return; }
+    if (viewing()) setFmt(false);
     if (vv){
       if (baseW !== innerWidth){ baseW = innerWidth; baseH = 0; }
       baseH = Math.max(baseH, vv.height, innerHeight);
@@ -3704,11 +3743,11 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
     if (lsEl.hidden) return;
     top.classList.remove('open', 'cut'); foldLabel(); setMenu(false); setFmt(false); lsRich.scrollTop = 0; layout(); later();
   });
-  new MutationObserver(() => { if (panel.classList.contains('viewing')) setMenu(false); layout(); }).observe($('#lsEd'), { attributes:true, attributeFilter:['hidden'] });
+  new MutationObserver(() => { setMenu(false); layout(); }).observe($('#lsEd'), { attributes:true, attributeFilter:['hidden'] });
   new MutationObserver(() => { if (lsEl.hidden){ lsEl.style.top = lsEl.style.height = ''; setMenu(false); setFmt(false); } }).observe(lsEl, { attributes:true, attributeFilter:['hidden'] });
   const mirror = (src, fn) => { const run = () => fn(src.textContent); new MutationObserver(run).observe(src, { childList:true, characterData:true, subtree:true }); run(); };
   mirror($('#lsRef'), t => { $('#lsmRef').textContent = t; });
-  mirror($('#lsCount'), t => { sub.textContent = t || 'Bài học cá nhân'; });
+  mirror($('#lsCount'), () => paintBar());
   mirror(verse, () => { top.classList.remove('open', 'cut'); foldLabel(); queue(); });
   const emptyCheck = () => lsRich.classList.toggle('empty', !lsRich.textContent.replace(/​/g, '').trim() && !lsRich.querySelector('li,hr,blockquote,h1,h2,h3'));
   new MutationObserver(emptyCheck).observe(lsRich, { childList:true, characterData:true, subtree:true }); emptyCheck();
@@ -3719,7 +3758,7 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
     top.classList.toggle('open'); top.classList.add('cut'); top.scrollTop = 0; foldLabel(); queue();
   });
   $('#lsmClose').onclick = () => { setMenu(false); $('#lsClose').click(); };
-  $('#lsmSave').onclick = () => { setMenu(false); $('#lsSave').click(); };
+  $('#lsmSave').onclick = () => { setMenu(false); $(viewing() ? '#lsEdit' : '#lsSave').click(); };
   moreBtn.onclick = () => setMenu(menu.hidden);
   menu.addEventListener('click', e => {
     const b = e.target.closest('[data-go]'); if (!b) return;
