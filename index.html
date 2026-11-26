@@ -758,19 +758,19 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel{position:relative}
 .lsed{flex:1;min-height:0;display:flex;flex-direction:column}
 .lsed[hidden]{display:none}
-.rtb{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:4px 2px;padding:6px 6px;border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;background:var(--accent-soft)}
-.rtg{display:flex;align-items:center;gap:2px;padding-right:6px;margin-right:4px;border-right:1px solid var(--line)}
+.rtb{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:2px;padding:5px 6px;border:1px solid var(--line);border-bottom:0;border-radius:12px 12px 0 0;background:var(--bg)}
+.rtg{display:flex;align-items:center;gap:1px;padding-right:5px;margin-right:3px;border-right:1px solid var(--line)}
 .rtg:last-child{border-right:0;margin-right:0;padding-right:0}
-.rtb button,.rtcol{min-width:32px;height:32px;padding:0 7px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--fg);font:600 14px var(--sans);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
+.rtb button,.rtcol{min-width:30px;height:30px;padding:0 6px;border:1px solid transparent;border-radius:7px;background:transparent;color:var(--fg);font:600 14px var(--sans);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
 .rtb button:hover,.rtcol:hover{background:var(--card);border-color:var(--line)}
 .rtb button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-.rtb select{height:32px;max-width:132px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--fg);font:500 13px var(--sans);padding:0 4px}
+.rtb select{height:30px;max-width:124px;border:1px solid var(--line);border-radius:7px;background:var(--card);color:var(--fg);font:500 13px var(--sans);padding:0 4px}
 .rtcol input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;border:0;padding:0}
 .rtcol span{font-weight:700;line-height:1;margin-top:-4px}
 .rtcol i{position:absolute;left:7px;right:7px;bottom:5px;height:3px;border-radius:2px;background:#8a5a1f}
 .rtb .rtpri{background:var(--accent);color:#fff;border-color:var(--accent);padding:0 12px;white-space:nowrap}
 .rtb .rtpri:hover{filter:brightness(1.08);background:var(--accent)}
-.rtbib{margin-left:auto}
+.rtbib{order:-1;margin-left:0;margin-right:4px;border-right:1px solid var(--line)!important;padding-right:8px!important}
 .lsrich{flex:1;min-height:200px;overflow:auto;overscroll-behavior:contain;padding:14px 18px;border:1px solid var(--line);border-radius:0 0 12px 12px;background:var(--bg);color:var(--fg);font-family:var(--serif,Georgia,serif);font-size:17px;line-height:1.7;outline:none;position:relative;word-break:break-word}
 .lsrich:focus{box-shadow:inset 0 0 0 2px var(--accent)}
 .lsrich p,.lsrtxt p{margin:0 0 .75em}
@@ -787,7 +787,7 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspage .lsrtxt>p{text-align:justify;text-justify:inter-word}
 .lspage .lsrtxt>p[style*="text-align:center"],.lspage .lsrtxt>p[style*="text-align:right"]{text-indent:0}
 .lspage .lsrtxt{white-space:normal}
-@media (max-width:820px){.rtb{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.rtb::-webkit-scrollbar{display:none}.rtb .adv{display:none}.rtbib{order:-1;margin-left:0;border-right:1px solid var(--line)!important;margin-right:4px!important;padding-right:6px!important}}
+@media (max-width:820px){.rtb{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.rtb::-webkit-scrollbar{display:none}.rtb .adv{display:none}}
 @media (min-width:900px){
   .lspanel:not(.viewing){max-width:none;width:100%;height:100vh;height:100dvh;border-radius:0}
   .lspanel.bible{padding-right:440px}
@@ -795,14 +795,18 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
   .lspanel:not(.viewing) .lsbody{padding-left:max(20px,calc((100% - 1180px) / 2));padding-right:max(20px,calc((100% - 1180px) / 2))}
   .lspanel:not(.viewing) .lsbtns{padding-left:max(20px,calc((100% - 1180px) / 2));padding-right:max(20px,calc((100% - 1180px) / 2))}
   .lsrich{font-size:18px;padding:20px 28px}
+  .lspanel:not(.viewing) .lsbtns{justify-content:flex-end;gap:8px;padding-top:10px;padding-bottom:12px;border-top:1px solid var(--line);margin-top:6px}
+  .lspanel:not(.viewing) .lsbtns .btn,.lspanel:not(.viewing) .lsbtns .primary{flex:none;min-width:104px;min-height:38px;padding:8px 22px;font-size:14px;border-radius:10px}
+  .lspanel:not(.viewing) .lsbtns .primary{min-width:140px}
+  .lspanel:not(.viewing) .lsbtns #lsDel{margin-right:auto}
 }
 .lsbible{position:absolute;z-index:3;display:flex;flex-direction:column;gap:8px;padding:12px 14px;background:var(--card);box-shadow:-10px 0 30px rgba(0,0,0,.12)}
 .lsbible[hidden]{display:none}
 @media (max-width:899px){.lsbible{left:0;right:0;bottom:0;height:66%;border-radius:16px 16px 0 0;border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(0,0,0,.28)}}
 .lsbh{display:flex;align-items:center;justify-content:space-between;font:700 15px var(--sans);color:var(--accent)}
 .lsbc{display:flex;gap:6px}
-.lsbc input,.lsbc select{flex:1;min-width:0;height:38px;padding:0 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--fg);font:15px var(--sans)}
-.lsbc select:first-child{flex:2}
+.lsbc select{flex:1;min-width:0;height:36px;padding:0 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:500 14px var(--sans)}
+.lsbc3 select:first-child{flex:1.2}
 .lsbv{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:6px 4px}
 .lsbhint{margin:14px 12px;color:var(--muted);font:14px/1.5 var(--sans)}
 .lsbv .bv{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--fg);padding:6px 10px;border-radius:8px;font:16px/1.6 var(--serif,Georgia,serif);cursor:pointer}
@@ -812,7 +816,7 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lsbf{flex:none;display:flex;flex-direction:column;gap:6px}
 .lsbs{font:600 13px var(--sans);color:var(--muted)}
 .lsbn{font:13px var(--sans);color:var(--fg);display:flex;align-items:center;gap:6px}
-.lsbb{display:flex;gap:8px}.lsbb .btn{flex:1;padding:9px 6px;font-size:14px}
+.lsbb{display:flex;gap:8px}.lsbb .btn{flex:1;padding:8px 6px;font-size:13.5px;min-height:38px}
 .fnd{position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:16px}
 .fnd>div{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:18px;box-shadow:0 16px 48px rgba(0,0,0,.35)}
 .fnd h3{margin:0 0 6px;font:700 17px var(--sans);color:var(--fg)}
@@ -1311,9 +1315,9 @@ html[data-paper] .reader.print{text-align:justify}
     </div>
   <aside class="lsbible" id="lsBible" hidden aria-label="Kinh Thánh đối chiếu">
     <div class="lsbh"><b>📖 Kinh Thánh</b><button type="button" id="lsbX" class="sbtn" aria-label="Đóng thẻ Kinh Thánh">✕</button></div>
-    <div class="lsbc"><input id="lsbQ" type="search" placeholder="Gõ địa chỉ, ví dụ: Gia-cơ 1:5-8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go"><button type="button" id="lsbGo" class="sbtn">Mở</button></div>
-    <div class="lsbc"><select id="lsbBook" aria-label="Sách"></select><select id="lsbCh" aria-label="Chương"></select></div>
-    <div class="lsbv" id="lsbList"><p class="lsbhint">Chọn sách và chương, rồi chạm vào các câu cần trích.</p></div>
+    <div class="lsbc"><select id="lsbBook" aria-label="Sách"></select></div>
+    <div class="lsbc lsbc3"><select id="lsbCh" aria-label="Chương"></select><select id="lsbFrom" aria-label="Từ câu"></select><select id="lsbTo" aria-label="Đến câu"></select></div>
+    <div class="lsbv" id="lsbList"><p class="lsbhint">Chọn Sách, Chương và Câu cần trích. Cũng có thể chạm trực tiếp vào các câu trong danh sách.</p></div>
     <div class="lsbf">
       <div class="lsbs" id="lsbSel">Chưa chọn câu nào</div>
       <label class="lsbn"><input type="checkbox" id="lsbNum"> Kèm số câu</label>
@@ -1379,7 +1383,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26i';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26j';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2932,7 +2936,7 @@ lsRich.addEventListener('keydown', e => {
 
 /* ---- Thẻ Kinh Thánh: xem sách/chương/câu khác ngay trong cửa sổ soạn, chèn trích dẫn vào bài ---- */
 const lsB = { tok:0, rec:null, sel:new Set(), last:0, ready:false };
-const lsbEl = $('#lsBible'), lsbBook = $('#lsbBook'), lsbCh = $('#lsbCh'), lsbList = $('#lsbList');
+const lsbEl = $('#lsBible'), lsbBook = $('#lsbBook'), lsbCh = $('#lsbCh'), lsbList = $('#lsbList'), lsbFrom = $('#lsbFrom'), lsbTo = $('#lsbTo');
 function lsbMeta(){ return bibleMeta.find(m => m.name === lsbBook.value) || null; }
 function lsbFill(){
   if (lsB.ready || !bibleMeta.length) return;
@@ -2946,18 +2950,32 @@ function lsbFillCh(sel){
 }
 async function lsbLoad(pick){
   const tk = ++lsB.tok, name = lsbBook.value, ch = +lsbCh.value;
-  lsB.sel = new Set(); lsB.last = 0; lsbUpdate();
+  lsB.sel = new Set(); lsB.last = 0; lsbFrom.innerHTML = lsbTo.innerHTML = ''; lsbUpdate();
   lsbList.innerHTML = '<p class="lsbhint">Đang tải…</p>';
   let rec = null; try { rec = curBook && curBook.name === name ? curBook : await dbGet('books', name); } catch(e){}
   if (tk !== lsB.tok) return;
   lsB.rec = rec;
   const vs = rec && rec.chapters && rec.chapters[ch - 1];
   if (!vs || !vs.length){ lsbList.innerHTML = '<p class="lsbhint">Sách hoặc chương này chưa có trong máy.</p>'; return; }
+  lsbFrom.innerHTML = '<option value="">Từ câu</option>' + vs.map(v => `<option value="${v.n}">Câu ${v.n}</option>`).join('');
+  lsbTo.innerHTML = '<option value="">Đến câu</option>' + vs.map(v => `<option value="${v.n}">Câu ${v.n}</option>`).join('');
   lsbList.innerHTML = vs.map(v => `<button type="button" class="bv" data-n="${v.n}"><sup>${v.n}${v.e > v.n ? '–' + v.e : ''}</sup>${esc(rpClean(v.t))}</button>`).join('');
   lsbList.scrollTop = 0;
   if (pick && pick.length){ pick.forEach(n => lsB.sel.add(n)); lsbPaint(); const f = lsbList.querySelector(`.bv[data-n="${pick[0]}"]`); if (f) lsbList.scrollTop = Math.max(0, f.offsetTop - 8); }
 }
-function lsbPaint(){ $$('#lsbList .bv').forEach(b => b.classList.toggle('sel', lsB.sel.has(+b.dataset.n))); lsbUpdate(); }
+function lsbPaint(){
+  $$('#lsbList .bv').forEach(b => b.classList.toggle('sel', lsB.sel.has(+b.dataset.n)));
+  const ns = [...lsB.sel].sort((a, b) => a - b);                    // ô "Từ câu / Đến câu" luôn khớp với các câu đang chọn
+  lsbFrom.value = ns.length ? String(ns[0]) : ''; lsbTo.value = ns.length > 1 ? String(ns[ns.length - 1]) : '';
+  lsbUpdate();
+}
+function lsbRange(a, b){                                            // chọn các câu từ a đến b rồi cuộn tới câu đầu
+  lsB.sel = new Set(); $$('#lsbList .bv').forEach(x => { const k = +x.dataset.n; if (k >= a && k <= b) lsB.sel.add(k); });
+  lsB.last = a; lsbPaint();
+  const f = lsbList.querySelector(`.bv[data-n="${a}"]`); if (f) lsbList.scrollTop = Math.max(0, f.offsetTop - 8);
+}
+lsbFrom.onchange = () => { const f = +lsbFrom.value; if (!f){ lsB.sel = new Set(); lsbPaint(); return; } let t = +lsbTo.value || f; if (t < f) t = f; lsbRange(f, t); };
+lsbTo.onchange = () => { const t = +lsbTo.value, f = +lsbFrom.value; if (!t){ if (f) lsbRange(f, f); return; } lsbRange(f && f <= t ? f : t, t); };
 function lsbLabel(){ const ns = [...lsB.sel].sort((a, b) => a - b); return ns.length ? `${bookDisplay(lsbBook.value)} ${lsbCh.value}:${compressRange(ns)}` : ''; }
 function lsbUpdate(){ const l = lsbLabel(); $('#lsbSel').textContent = l ? 'Đã chọn: ' + l : 'Chưa chọn câu nào'; $('#lsbIns').disabled = !l; $('#lsbRef').disabled = !l; }
 function lsbSaveFocus(){ lsSaveRange(); if (matchMedia('(max-width:899px)').matches){ try { lsRich.blur(); const a = document.activeElement; if (a && a !== document.body && a.blur) a.blur(); } catch(e){} } }   // điện thoại: bỏ con trỏ khỏi khung soạn đang nằm dưới thẻ, tránh con trỏ hiện sai chỗ
@@ -2979,15 +2997,6 @@ lsbList.addEventListener('click', e => {
   else if (lsB.sel.has(n)) lsB.sel.delete(n); else lsB.sel.add(n);
   lsB.last = n; lsbPaint();
 });
-function lsbGoAddr(){
-  const q = $('#lsbQ').value.trim(); if (!q) return;
-  const r = refsIn(q)[0]; if (!r) return toast('Chưa nhận ra địa chỉ này. Ví dụ: Gia-cơ 1:5-8');
-  lsbBook.value = r.name; lsbFillCh(r.c1);
-  const hi = r.c2 === r.c1 ? r.v2 : r.v1, pick = []; for (let k = r.v1; k <= hi && pick.length < 80; k++) pick.push(k);
-  lsbLoad(pick);
-}
-$('#lsbGo').onclick = lsbGoAddr;
-$('#lsbQ').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); lsbGoAddr(); } });
 const lsbNarrow = () => matchMedia('(max-width:899px)').matches;      // điện thoại: thẻ phủ cả phần nút Lưu → chèn xong tự đóng
 $('#lsbRef').onclick = () => { const l = lsbLabel(); if (!l) return; lsInsertHTML(esc(l)); if (lsbNarrow()) lsBibleClose(); };
 $('#lsbIns').onclick = () => {
