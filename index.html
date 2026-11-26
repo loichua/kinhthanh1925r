@@ -837,7 +837,7 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .rtb .rti,.lsmbar .rti{width:19px;height:19px;flex:none;display:block}
 .rtcol span .rti{width:17px;height:17px}
 .rtb .rtpri{gap:7px}
-.rtb select[data-s="font"]{max-width:136px;min-width:112px}
+.rtb select[data-s="font"]{max-width:190px;min-width:178px}
 .rtb select[data-s="block"]{min-width:100px}
 @media (min-width:900px){.lspanel:not(.viewing)>.lsgrip{display:none}}
 .rtg.mob,.lsmbar,.lsmenu{display:none}
@@ -948,10 +948,12 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.m:not(.viewing) .rtb.more [data-c="bold"],.lspanel.m:not(.viewing) .rtb.more [data-c="italic"],.lspanel.m:not(.viewing) .rtb.more [data-c="underline"],.lspanel.m:not(.viewing) .rtb.more [data-c="strikeThrough"],.lspanel.m:not(.viewing) .rtb.more [data-c="subscript"],.lspanel.m:not(.viewing) .rtb.more [data-c="superscript"]{order:2}
 .lspanel.m:not(.viewing) .rtb.more .rtcol,.lspanel.m:not(.viewing) .rtb.more [data-c^="justify"]{order:3}
 .lspanel.m:not(.viewing) .rtb.more [data-c^="insert"],.lspanel.m:not(.viewing) .rtb.more [data-c="outdent"],.lspanel.m:not(.viewing) .rtb.more [data-c="indent"],.lspanel.m:not(.viewing) .rtb.more [data-c="removeFormat"]{order:4}
-.lspanel.m:not(.viewing) .rtb.more select[data-s="line"]{order:5;grid-column:span 4}
+.lspanel.m:not(.viewing) .rtb.more select[data-s="line"],.lspanel.m:not(.viewing) .rtb.more select[data-s="block"]{order:5;grid-column:span 2}
+.lspanel.m:not(.viewing) .rtb.more select[data-s="font"]{grid-column:span 4}
 .lspanel.m:not(.viewing) .rtb.more [data-c="undo"]{order:6}
 .lspanel.m:not(.viewing) .rtb.more [data-c="redo"]{order:7}
 @media (max-width:359px){.lspanel.m:not(.viewing) .rtb .rtpri span{display:none}}
+@media (max-width:359px){.lspanel.m:not(.viewing) .rtb.more select[data-s="line"],.lspanel.m:not(.viewing) .rtb.more select[data-s="block"]{font-size:13px;padding:0 1px}}
 .lspanel.m .lsbible{padding-bottom:calc(env(safe-area-inset-bottom) + 12px)}
 .lspanel.m .lsbc select{height:42px;font-size:16px}
 
@@ -1595,7 +1597,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.27a';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên)
+const APP_VERSION = '2026.11.27b';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3072,13 +3074,13 @@ function lsSyncNow(){                                                // đồng 
   lsTa.value = t;
 }
 function lsSaveRange(){ try { const s = getSelection(); if (s.rangeCount){ const r = s.getRangeAt(0); if (lsRich.contains(r.commonAncestorContainer)) lsRange = r.cloneRange(); } } catch(e){} }
-function lsSync(){ lsDirty = true; lsSyncNow(); lsSaveRange(); lsTa.dispatchEvent(new Event('input')); lsToolState(); }
+function lsSync(){ lsFixSize(); lsDirty = true; lsSyncNow(); lsSaveRange(); lsTa.dispatchEvent(new Event('input')); lsToolState(); }
 function lsLoad(old){                                                // nạp ghi chú vào khung soạn
   const h = old ? (old.html ? rtClean(old.html) : rtPlainToHtml(old.text)) : '';
   lsRich.innerHTML = h || '<p><br></p>';
   lsCur.html = old && old.html ? h : '';
   lsTa.value = old ? old.text : '';
-  lsCur.edReady = true; lsDirty = false; lsRange = null;
+  lsCur.edReady = true; lsDirty = false; lsRange = null; lsPend = null; lsPendSize = 0; lsStyleSel();
   lsBibleClose(); lsCountUpdate();
 }
 function lsFocus(end){
@@ -3089,7 +3091,62 @@ function lsFocus(end){
 }
 function lsRestore(){
   lsRich.focus({ preventScroll:true });
-  if (lsRange){ try { const s = getSelection(); s.removeAllRanges(); s.addRange(lsRange); } catch(e){} }
+  if (!lsRange) return;
+  try {
+    const s = getSelection(), c = s.rangeCount ? s.getRangeAt(0) : null;
+    if (!c || c.startContainer !== lsRange.startContainer || c.startOffset !== lsRange.startOffset || c.endContainer !== lsRange.endContainer || c.endOffset !== lsRange.endOffset){ s.removeAllRanges(); s.addRange(lsRange); }   // đang đúng chỗ thì không đặt lại
+    lsReapply();
+  } catch(e){}
+}
+/* Phông / cỡ chọn khi CHỈ đặt con trỏ (chưa bôi đen) được nhớ lại để áp cho chữ gõ tiếp */
+let lsPend = null, lsPendSize = 0;
+const lsAtPend = r => !!(lsPend && r && r.collapsed && r.startContainer === lsPend.n && r.startOffset === lsPend.o);
+function lsNote(key, val){
+  const r = lsRange; if (!r || !r.collapsed){ lsPend = null; return; }
+  if (!lsAtPend(r)) lsPend = { n:r.startContainer, o:r.startOffset };
+  lsPend[key] = val;
+}
+function lsReapply(){
+  if (!lsAtPend(lsRange)) return;
+  if (lsPend.font){ document.execCommand('styleWithCSS', false, true); document.execCommand('fontName', false, lsPend.font); }
+  if (lsPend.size){ lsPendSize = lsPend.size; document.execCommand('styleWithCSS', false, false); document.execCommand('fontSize', false, '7'); }
+}
+function lsFixSize(){                                                 // trình duyệt đánh dấu chữ vừa đổi cỡ bằng “cỡ 7” → sửa tại chỗ sang đúng số pt (con trỏ, vùng chọn giữ nguyên)
+  if (!lsPendSize) return;
+  lsRich.querySelectorAll('font[size="7"],[style*="xxx-large"]').forEach(f => {
+    f.removeAttribute('size'); f.style.fontSize = lsPendSize + 'pt';
+    f.querySelectorAll('[style*="font-size"]').forEach(x => { x.style.fontSize = ''; });
+  });
+}
+/* Ô Phông chữ · Cỡ · Giãn dòng hiện đúng giá trị tại con trỏ / vùng đang chọn (vùng lẫn nhiều kiểu → để tên ô) */
+function lsInline(n, key){
+  for (let el = n.nodeType === 3 ? n.parentElement : n; el && el !== lsRich; el = el.parentElement){
+    if (key === 'font'){ const f = el.style.fontFamily || (el.tagName === 'FONT' && el.getAttribute('face')); if (f) return rtFontOf(f); }
+    else if (el.style.fontSize) return String(rtPt(el.style.fontSize) || '');
+  }
+  return '';
+}
+function lsNodesAt(r){
+  if (!r.collapsed){
+    const out = [], w = document.createTreeWalker(lsRich, NodeFilter.SHOW_TEXT); let t;
+    while ((t = w.nextNode())) if (t.length && r.intersectsNode(t) && !(t === r.startContainer && r.startOffset >= t.length) && !(t === r.endContainer && r.endOffset === 0)) out.push(t);
+    if (out.length) return out;
+  }
+  let n = r.startContainer;
+  if (n.nodeType === 1 && n.childNodes.length){
+    const back = r.startOffset > 0; n = n.childNodes[back ? r.startOffset - 1 : 0];
+    while (n.nodeType === 1 && (back ? n.lastChild : n.firstChild)) n = back ? n.lastChild : n.firstChild;
+  }
+  return [n];
+}
+function lsStyleSel(){
+  const r = lsRange && lsRich.contains(lsRange.commonAncestorContainer) ? lsRange : null;
+  const same = a => a.length && a.every(v => v === a[0]) ? a[0] : '';
+  const put = (key, v) => { const sel = $(`#lsTb [data-s="${key}"]`); if (!sel) return; sel.value = v; if (sel.selectedIndex < 0) sel.value = ''; };
+  const nodes = r ? lsNodesAt(r) : [];
+  ['font', 'size'].forEach(k => put(k, lsAtPend(r) && lsPend[k] ? String(lsPend[k]) : same(nodes.map(n => lsInline(n, k)))));
+  const bl = r ? lsBlocksInSel() : [];
+  put('line', same(bl.filter(b => !bl.some(x => x !== b && b.contains(x))).map(b => b.style.lineHeight)));
 }
 document.addEventListener('selectionchange', () => {
   if (document.activeElement !== lsRich) return;                  // sau khi bấm sang nút/ô chọn, trình duyệt đặt lại con trỏ về đầu: bỏ qua để không mất vị trí đang soạn
@@ -3098,6 +3155,7 @@ document.addEventListener('selectionchange', () => {
 });
 function lsToolState(){
   if (lsEl.hidden) return;
+  lsStyleSel();
   $$('#lsTb button[data-c]').forEach(b => { let on = false; try { on = document.queryCommandState(b.dataset.c); } catch(e){} b.classList.toggle('on', !!on); });
   try { const v = String(document.queryCommandValue('formatBlock') || '').toLowerCase().replace(/[<>]/g, ''), sel = $('#lsTb [data-s="block"]'); if (sel) sel.value = /^(h1|h2|h3|blockquote)$/.test(v) ? v : 'p'; } catch(e){}
 }
@@ -3120,14 +3178,16 @@ function lsExec(cmd, val){
   const r0 = lsRange; let atEnd = false;                             // con trỏ đang ở cuối đoạn? (một số trình duyệt đẩy con trỏ về đầu sau khi tạo danh sách)
   try { if (r0 && r0.collapsed){ const n = r0.startContainer, el = n.nodeType === 3 ? n.parentElement : n, bk = el && el.closest && el.closest('li,p,h1,h2,h3'); if (bk){ const t = document.createRange(); t.selectNodeContents(bk); t.setStart(r0.startContainer, r0.startOffset); atEnd = t.toString() === ''; } } } catch(e){}
   try { document.execCommand(cmd, false, val); } catch(e){}
+  if (cmd === 'fontName') lsNote('font', val);
+  else if (cmd === 'removeFormat'){ lsPend = null; lsPendSize = 0; }
   if (atEnd && /^(insert(Un)?orderedList|formatBlock)$/.test(cmd)){ try { const sl = getSelection(), a = sl.anchorNode, el = a && (a.nodeType === 3 ? a.parentElement : a), bk = el && el.closest && el.closest('li,p,h1,h2,h3'); if (bk && lsRich.contains(bk)){ const r = document.createRange(); r.selectNodeContents(bk); r.collapse(false); sl.removeAllRanges(); sl.addRange(r); } } catch(e){} }
   lsSync();
 }
 function lsSetSize(pt){
   lsRestore();
+  lsPendSize = pt;
   try { document.execCommand('styleWithCSS', false, false); document.execCommand('fontSize', false, '7'); } catch(e){}
-  lsRich.querySelectorAll('font[size="7"]').forEach(f => { const s = document.createElement('span'); s.style.fontSize = pt + 'pt'; while (f.firstChild) s.appendChild(f.firstChild); f.replaceWith(s); });
-  lsRich.querySelectorAll('span[style*="font-size"] span[style*="font-size"]').forEach(x => { if (x.parentElement.childNodes.length === 1) x.parentElement.style.fontSize = ''; });
+  lsNote('size', pt);
   lsSync();
 }
 function lsInsertHTML(html){
@@ -3147,12 +3207,13 @@ $('#lsTb').addEventListener('change', e => {
   if (k){ const c = rtHex(e.target.value) || '#000000'; (k === 'foreColor' ? $('#rtFcBar') : $('#rtHlBar')).style.background = c; lsExec(k, c); return; }
   if (!s) return; const v = s.value, t = s.dataset.s;
   if (t === 'block'){ lsExec('formatBlock', v === 'p' ? 'p' : v); return; }
-  if (t === 'font'){ if (v) lsExec('fontName', v); s.value = ''; return; }
-  if (t === 'size'){ if (v) lsSetSize(+v); s.value = ''; return; }
-  if (t === 'line'){ if (v){ lsRestore(); lsBlocksInSel().forEach(x => { x.style.lineHeight = v; }); lsSync(); } s.value = ''; }
+  if (t === 'font'){ if (v) lsExec('fontName', v); else lsToolState(); return; }
+  if (t === 'size'){ if (v) lsSetSize(+v); else lsToolState(); return; }
+  if (t === 'line'){ if (v){ lsRestore(); lsBlocksInSel().forEach(x => { x.style.lineHeight = v; }); lsSync(); } else lsToolState(); }
 });
 $('#lsTb').addEventListener('input', e => { const k = e.target.dataset.k; if (k) (k === 'foreColor' ? $('#rtFcBar') : $('#rtHlBar')).style.background = e.target.value; });
 lsRich.addEventListener('input', lsSync);
+lsRich.addEventListener('input', () => { lsPend = null; });
 lsRich.addEventListener('paste', e => {
   e.preventDefault();
   const cd = e.clipboardData; if (!cd) return;
