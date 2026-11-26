@@ -826,6 +826,98 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .fnd .fnx{font:600 14px var(--sans);color:var(--muted)}
 .fnd .fnb{display:flex;gap:8px;margin-top:14px}.fnd .fnb .btn{flex:1}
 
+/* §§ ▼▼▼ MỤC 5 · GHI CHÚ & SOẠN THẢO — CSS trình soạn ghi chú chuyên nghiệp (điện thoại + máy tính) ▼▼▼ */
+.rtb .rti,.lsmbar .rti{width:19px;height:19px;flex:none;display:block}
+.rtcol span .rti{width:17px;height:17px}
+.rtb .rtpri{gap:7px}
+.rtb select[data-s="font"]{max-width:136px;min-width:112px}
+.rtb select[data-s="block"]{min-width:100px}
+@media (min-width:900px){.lspanel:not(.viewing)>.lsgrip{display:none}}
+.rtg.mob,.lsmbar,.lsmenu{display:none}
+[data-theme=dark] .rtb button.on,[data-theme=dark] .rtb .rtpri{color:#1a1409}
+.lsrich.empty::before{content:attr(data-placeholder);position:absolute;top:14px;left:18px;color:var(--muted);opacity:.7;pointer-events:none}
+@media (min-width:900px){.lsrich.empty::before{top:20px;left:28px}}
+
+/* Điện thoại (lớp .m do mã bên dưới gắn): soạn toàn màn hình, thanh tiêu đề trên, thanh công cụ nằm ngay trên bàn phím */
+.lssheet.m-edit{bottom:auto;height:100%;height:100dvh;background:var(--card)}
+.lspanel.m:not(.viewing){width:100%;max-width:none;height:100%;border-radius:0;transform:none;transition:none;padding:0}
+.lspanel.m:not(.viewing)>.lsgrip,.lspanel.m:not(.viewing)>.lsbtns,.lspanel.m:not(.viewing) .lshead,.lspanel.m:not(.viewing) .lsnote,.lspanel.m:not(.viewing) .lscount{display:none}
+.lspanel.m:not(.viewing) .lsmbar{flex:none;display:flex;align-items:center;gap:4px;min-height:54px;padding:calc(env(safe-area-inset-top) + 5px) calc(env(safe-area-inset-right) + 10px) 5px calc(env(safe-area-inset-left) + 4px);border-bottom:1px solid var(--line);background:var(--card)}
+.lsmi{flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;color:var(--fg);display:grid;place-items:center}
+.lsmi:active,.lsmi[aria-expanded=true]{background:var(--accent-soft)}
+.lsmbar .lsmi .rti{width:22px;height:22px}
+.lsmt{flex:1;min-width:0;line-height:1.25;font-family:var(--sans)}
+.lsmt b,.lsmt small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lsmt b{font-size:16px;color:var(--fg)}
+.lsmt small{font-size:11.5px;color:var(--muted)}
+.lsmsave{flex:none;height:38px;min-width:66px;margin-left:2px;padding:0 18px;border:0;border-radius:19px;background:var(--accent);color:#fff;font:700 15px var(--sans)}
+.lsmsave:active{filter:brightness(.9)}
+[data-theme=dark] .lsmsave{color:#1a1409}
+.lsmenu:not([hidden]){position:absolute;z-index:6;top:calc(env(safe-area-inset-top) + 54px);right:calc(env(safe-area-inset-right) + 8px);width:232px;display:flex;flex-direction:column;padding:6px;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:0 12px 36px rgba(0,0,0,.28)}
+.lsmenu button{min-height:46px;padding:0 12px;border:0;border-radius:9px;background:none;color:var(--fg);font:600 15px var(--sans);text-align:left}
+.lsmenu button:active{background:var(--accent-soft)}
+.lsmenu button.danger{color:var(--danger)}
+.lsmenu p{margin:4px 0 0;padding:8px 12px 4px;border-top:1px solid var(--line);font:11.5px/1.4 var(--sans);color:var(--muted)}
+
+.lspanel.m:not(.viewing) .lstop{position:relative;max-height:34%;padding:9px calc(env(safe-area-inset-right) + 16px) 9px calc(env(safe-area-inset-left) + 16px)}
+.lspanel.m:not(.viewing) .lsref,.lspanel.m:not(.viewing) .lsvt{display:none}
+.lspanel.m:not(.viewing) .lsverse{max-height:none;font-size:15px;line-height:1.55;text-align:left;hyphens:manual}
+.lspanel.m:not(.viewing) .lstop:not(.open) .lsverse{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.lspanel.m.kbd:not(.viewing) .lstop:not(.open) .lsverse{-webkit-line-clamp:1}
+.lsmfold{display:none}
+.lspanel.m:not(.viewing) .lstop.cut .lsmfold{display:block;margin:2px 0 -4px auto;padding:4px 0 4px 12px;border:0;background:none;color:var(--accent);font:700 12px var(--sans)}
+.lspanel.m.kbd:not(.viewing) .lstop:not(.open) .lsmfold{display:none}
+
+.lspanel.m:not(.viewing) .lsbody{padding:0}
+.lspanel.m:not(.viewing) .lsed{display:contents}
+.lspanel.m:not(.viewing) .lsrich{order:1;flex:1;min-height:0;padding:14px calc(env(safe-area-inset-right) + 16px) 32px calc(env(safe-area-inset-left) + 16px);border:0;border-radius:0;box-shadow:none;background:var(--card);font-size:17px;line-height:1.7;-webkit-overflow-scrolling:touch}
+.lspanel.m:not(.viewing) .lsrich.empty::before{top:14px;left:calc(env(safe-area-inset-left) + 16px)}
+.lspanel.m:not(.viewing) .lslinks{order:2;display:flex;align-items:center;gap:6px;max-height:none;margin:0;padding:6px 12px;overflow-x:auto;overflow-y:hidden;border-top:1px solid var(--line);scrollbar-width:none}
+.lspanel.m:not(.viewing) .lslinks[hidden],.lspanel.m.kbd:not(.viewing) .lslinks{display:none}
+.lspanel.m:not(.viewing) .lslinks .lk{flex:none;margin:0;white-space:nowrap}
+.lspanel.m:not(.viewing) .lslinks .chips{flex:none;flex-wrap:nowrap;margin:0}
+.lspanel.m:not(.viewing) .lslinks button{flex:none;max-width:70vw;min-height:32px}
+
+.lspanel.m:not(.viewing) .rtb{order:3;flex-wrap:nowrap;gap:1px;overflow-x:auto;padding:6px calc(env(safe-area-inset-right) + 6px) calc(env(safe-area-inset-bottom) + 6px) calc(env(safe-area-inset-left) + 6px);border:0;border-top:1px solid var(--line);border-radius:0;background:var(--bg);scrollbar-width:none;-webkit-user-select:none;user-select:none}
+.lspanel.m.kbd:not(.viewing) .rtb{padding-bottom:6px}
+.lspanel.m:not(.viewing) .rtb:not(.more) .rtg{display:contents}
+.lspanel.m:not(.viewing) .rtb:not(.more) .adv{display:none}
+.lspanel.m:not(.viewing) .rtb button,.lspanel.m:not(.viewing) .rtcol{flex:1 0 29px;min-width:29px;height:40px;padding:0;border-radius:9px;font-size:17px}
+.lspanel.m:not(.viewing) .rtb button:hover:not(.on):not(.rtpri){background:transparent;border-color:transparent}
+.lspanel.m:not(.viewing) .rtb button:active:not(.on):not(.rtpri){background:var(--accent-soft)}
+.lspanel.m:not(.viewing) .rtb button.on{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.lspanel.m:not(.viewing) .rtb .rtpri{flex:none;order:-2;gap:4px;padding:0 8px;margin-right:2px;font-size:12.5px}
+.lspanel.m:not(.viewing) .rtb [data-c="undo"]{order:2}
+.lspanel.m:not(.viewing) .rtb [data-c="redo"]{order:3}
+.lspanel.m:not(.viewing) .rtb:not(.more) .rtg.mob button{order:4}
+.lspanel.m:not(.viewing) .rtg.mob{display:flex}
+.lspanel.m:not(.viewing) .rtb:not(.more) .rtg.mob{display:contents}
+.lspanel.m:not(.viewing) .rtb.more{flex-wrap:wrap;align-content:flex-start;gap:6px;max-height:62%;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+.lspanel.m:not(.viewing) .rtb.more .rtg{flex:1 1 auto;gap:2px;margin:0;padding:2px;border:1px solid var(--line)!important;border-radius:11px;background:var(--card)}
+.lspanel.m:not(.viewing) .rtb.more .rtg.adv{display:flex}
+.lspanel.m:not(.viewing) .rtb.more button.adv{display:inline-flex}
+.lspanel.m:not(.viewing) .rtb.more .rtg button,.lspanel.m:not(.viewing) .rtb.more .rtcol{flex:1 0 34px;min-width:34px;height:36px;order:0}
+.lspanel.m.kbd:not(.viewing) .rtb.more{max-height:50%}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(1){order:8}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(2){order:1;flex-basis:100%}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(3){order:2}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(4){order:3}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(5){order:4}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(6){order:5}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(7){order:6;flex:3 1 186px}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(7) select{flex:1 0 108px}
+.lspanel.m:not(.viewing) .rtb.more .rtg:nth-child(8){order:7}
+.lspanel.m:not(.viewing) .rtb.more .rtg.rtbib,.lspanel.m:not(.viewing) .rtb.more .rtg.mob{flex:1 1 40%;padding:0;border:0!important;background:none}
+.lspanel.m:not(.viewing) .rtb.more .rtg.rtbib{order:-2}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob{order:-1}
+.lspanel.m:not(.viewing) .rtb.more .rtpri{margin:0}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob button{border-color:var(--line);background:var(--card)}
+.lspanel.m:not(.viewing) .rtb.more .rtg.mob button[aria-expanded=true]{background:var(--accent-soft);color:var(--accent)}
+.lspanel.m:not(.viewing) .rtb select{flex:1 1 0;min-width:0;max-width:none;height:36px;font-size:16px;border-color:transparent}
+@media (max-width:359px){.lspanel.m:not(.viewing) .rtb .rtpri span{display:none}}
+.lspanel.m .lsbible{padding-bottom:calc(env(safe-area-inset-bottom) + 12px)}
+.lspanel.m .lsbc select{height:42px;font-size:16px}
+
 /* §§ ▼▼▼ MỤC 5 · GHI CHÚ & SOẠN THẢO — CSS chế độ xem bài học ▼▼▼ */
 /* ===== Chế độ XEM bài học: cửa sổ bung rộng hơn, thu gọn phần menu để nhường chỗ cho nội dung ===== */
 .lspanel.viewing{height:min(95vh,95dvh);max-width:660px}
@@ -1274,13 +1366,26 @@ html[data-paper] .reader.print{text-align:justify}
 <div class="lssheet" id="lsSheet" hidden>
   <div class="lspanel" role="dialog" aria-modal="true" aria-label="Viết bài học cá nhân">
     <div class="lsgrip"></div>
+    <div class="lsmbar" id="lsmBar">
+      <button type="button" class="lsmi" id="lsmClose" aria-label="Đóng"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="lsmt"><b id="lsmRef"></b><small id="lsmSub">Bài học cá nhân</small></div>
+      <button type="button" class="lsmi" id="lsmMore" aria-label="Tùy chọn khác" aria-haspopup="menu" aria-expanded="false"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01"/></svg></button>
+      <button type="button" class="lsmsave" id="lsmSave">Lưu</button>
+    </div>
+    <div class="lsmenu" id="lsmMenu" role="menu" hidden>
+      <button type="button" role="menuitem" data-go="lsCopy">📋 Sao chép</button>
+      <button type="button" role="menuitem" data-go="lsWord">📄 Xuất Word</button>
+      <button type="button" role="menuitem" data-go="lsShare">📤 Chia sẻ</button>
+      <button type="button" role="menuitem" data-go="lsDel" class="danger">🗑 Xóa ghi chú</button>
+      <p>📍 Ghi chú được lưu trong máy.</p>
+    </div>
     <div class="lstop"><div class="lsref" id="lsRef"></div><p class="lsverse" id="lsVerse"></p><button type="button" class="lsvt" id="lsVT" hidden>Xem đủ câu ▾</button></div>
     <div class="lsbody">
       <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button></span></div>
       <textarea id="lsText" hidden aria-hidden="true" tabindex="-1" autocomplete="off"></textarea>
       <div class="lsed" id="lsEd">
         <div class="rtb" id="lsTb" role="toolbar" aria-label="Công cụ soạn thảo">
-          <div class="rtg"><button type="button" data-c="undo" title="Hoàn tác (Ctrl+Z)">↶</button><button type="button" data-c="redo" title="Làm lại (Ctrl+Y)">↷</button></div>
+          <div class="rtg"><button type="button" data-c="undo" title="Hoàn tác (Ctrl+Z)" aria-label="Hoàn tác (Ctrl+Z)"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button><button type="button" data-c="redo" title="Làm lại (Ctrl+Y)" aria-label="Làm lại (Ctrl+Y)"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.500a5.500 5.500 0 0 0 0 11H13"/></svg></button></div>
           <div class="rtg adv">
             <select data-s="block" title="Kiểu đoạn"><option value="p">Đoạn văn</option><option value="h1">Tiêu đề 1</option><option value="h2">Tiêu đề 2</option><option value="h3">Tiêu đề 3</option><option value="blockquote">Trích dẫn</option></select>
             <select data-s="font" title="Phông chữ"><option value="">Phông chữ</option><option>Times New Roman</option><option>Arial</option><option>Calibri</option><option>Cambria</option><option>Georgia</option><option>Garamond</option><option>Palatino Linotype</option><option>Verdana</option><option>Tahoma</option><option>Courier New</option></select>
@@ -1289,17 +1394,18 @@ html[data-paper] .reader.print{text-align:justify}
           <div class="rtg"><button type="button" data-c="bold" title="Đậm (Ctrl+B)"><b>B</b></button><button type="button" data-c="italic" title="Nghiêng (Ctrl+I)"><i>I</i></button><button type="button" data-c="underline" title="Gạch chân (Ctrl+U)"><u>U</u></button><button type="button" class="adv" data-c="strikeThrough" title="Gạch ngang"><s>S</s></button></div>
           <div class="rtg adv">
             <label class="rtcol" title="Màu chữ"><span>A</span><i id="rtFcBar"></i><input type="color" data-k="foreColor" value="#8a5a1f" aria-label="Màu chữ"></label>
-            <label class="rtcol" title="Tô nổi chữ"><span>🖍</span><i id="rtHlBar"></i><input type="color" data-k="hiliteColor" value="#ffe066" aria-label="Màu tô nổi"></label>
+            <label class="rtcol" title="Tô nổi chữ"><span><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11-5 5v3h7l3-3"/><path d="m22 11-6.500 6.500-7-7L15 4z"/></svg></span><i id="rtHlBar"></i><input type="color" data-k="hiliteColor" value="#ffe066" aria-label="Màu tô nổi"></label>
             <button type="button" data-c="subscript" title="Chỉ số dưới">x₂</button><button type="button" data-c="superscript" title="Chỉ số trên">x²</button>
           </div>
-          <div class="rtg adv"><button type="button" data-c="justifyLeft" title="Căn trái">⯇</button><button type="button" data-c="justifyCenter" title="Căn giữa">☰</button><button type="button" data-c="justifyRight" title="Căn phải">⯈</button><button type="button" data-c="justifyFull" title="Căn đều hai bên">☷</button></div>
-          <div class="rtg"><button type="button" data-c="insertUnorderedList" title="Danh sách gạch đầu dòng">•≡</button><button type="button" data-c="insertOrderedList" title="Danh sách đánh số">1.≡</button></div>
-          <div class="rtg adv"><button type="button" data-c="outdent" title="Giảm thụt lề">⇤</button><button type="button" data-c="indent" title="Tăng thụt lề">⇥</button>
+          <div class="rtg adv"><button type="button" data-c="justifyLeft" title="Căn trái" aria-label="Căn trái"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg></button><button type="button" data-c="justifyCenter" title="Căn giữa" aria-label="Căn giữa"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg></button><button type="button" data-c="justifyRight" title="Căn phải" aria-label="Căn phải"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg></button><button type="button" data-c="justifyFull" title="Căn đều hai bên" aria-label="Căn đều hai bên"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></button></div>
+          <div class="rtg"><button type="button" data-c="insertUnorderedList" title="Danh sách gạch đầu dòng" aria-label="Danh sách gạch đầu dòng"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01" stroke-width="3"/></svg></button><button type="button" data-c="insertOrderedList" title="Danh sách đánh số" aria-label="Danh sách đánh số"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M4 4.500h1.500V9M4 9h3M4 15.500c.3-1.8 3-1.7 3 0 0 1.200-3 2.300-3 3.500h3" stroke-width="1.5"/></svg></button></div>
+          <div class="rtg adv"><button type="button" data-c="outdent" title="Giảm thụt lề" aria-label="Giảm thụt lề"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M11 10h9M11 14h9M4 19h16"/><path d="M7.500 9 4.500 12l3 3"/></svg></button><button type="button" data-c="indent" title="Tăng thụt lề" aria-label="Tăng thụt lề"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M11 10h9M11 14h9M4 19h16"/><path d="m4.500 9 3 3-3 3"/></svg></button>
             <select data-s="line" title="Giãn dòng"><option value="">Giãn dòng</option><option value="1">1,0</option><option value="1.15">1,15</option><option value="1.5">1,5</option><option value="2">2,0</option><option value="2.5">2,5</option></select></div>
-          <div class="rtg adv"><button type="button" data-c="insertHorizontalRule" title="Chèn đường kẻ ngang">—</button><button type="button" data-c="removeFormat" title="Xóa định dạng">Tx</button></div>
-          <div class="rtg rtbib"><button type="button" id="lsBibBtn" class="rtpri" title="Mở Kinh Thánh để đối chiếu và chèn trích dẫn">📖 Kinh Thánh</button></div>
+          <div class="rtg adv"><button type="button" data-c="insertHorizontalRule" title="Chèn đường kẻ ngang" aria-label="Chèn đường kẻ ngang"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M7 7h10M7 17h10" opacity=".35"/></svg></button><button type="button" data-c="removeFormat" title="Xóa định dạng" aria-label="Xóa định dạng"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6V4.500h12V6M11 4.500 8.500 19M6 19h5"/><path d="m15 14 5 5M20 14l-5 5"/></svg></button></div>
+          <div class="rtg rtbib"><button type="button" id="lsBibBtn" class="rtpri" title="Mở Kinh Thánh để đối chiếu và chèn trích dẫn"><svg class="rti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.500C10 5 7 4.500 3.500 5v13.500c3.500-.5 6.500 0 8.500 1.500 2-1.500 5-2 8.500-1.500V5C17 4.500 14 5 12 6.500zM12 6.500V20"/></svg><span>Kinh Thánh</span></button></div>
+          <div class="rtg mob"><button type="button" id="lsFmtBtn" aria-label="Thêm định dạng" aria-expanded="false" title="Thêm định dạng">Aa</button></div>
         </div>
-        <div class="lsrich" id="lsRich" contenteditable="true" spellcheck="true" lang="vi" role="textbox" aria-multiline="true" aria-label="Nội dung bài học"></div>
+        <div class="lsrich" id="lsRich" contenteditable="true" spellcheck="true" lang="vi" writingsuggestions="false" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" data-lt-active="false" data-ms-editor="false" data-placeholder="Viết bài học của bạn…" role="textbox" aria-multiline="true" aria-label="Nội dung bài học"></div>
       </div>
       <div class="lscount" id="lsCount"></div>
       <div class="lsread" id="lsRead" hidden></div>
@@ -1383,7 +1489,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26j';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26k';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3418,6 +3524,98 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
   }
   return out.join(',');
 }
+
+/* ---- Giao diện soạn ghi chú (2026.11.26k): toàn màn hình trên điện thoại, bám theo bàn phím. Chỉ lo phần hiển thị; mọi nút mới đều gọi lại nút gốc. ---- */
+(function(){
+  const panel = $('.lspanel', lsEl), top = $('.lstop', lsEl), verse = $('#lsVerse'), tb = $('#lsTb');
+  const menu = $('#lsmMenu'), moreBtn = $('#lsmMore'), fmtBtn = $('#lsFmtBtn'), sub = $('#lsmSub');
+  const vv = window.visualViewport, mq = matchMedia('(max-width:899px), (max-height:500px) and (pointer:coarse)');
+  const fold_ = document.createElement('button'); fold_.type = 'button'; fold_.className = 'lsmfold'; top.appendChild(fold_);
+  let baseW = 0, baseH = 0, raf = 0;
+  const editing = () => !lsEl.hidden && !panel.classList.contains('viewing');
+  const foldLabel = () => { fold_.textContent = top.classList.contains('open') ? 'Thu gọn ▴' : 'Xem đủ câu ▾'; };
+  const measureVerse = () => {                                        // chỉ hiện nút bung câu khi câu thực sự bị cắt
+    if (!panel.classList.contains('m') || top.classList.contains('open')) return;
+    top.classList.toggle('cut', verse.scrollHeight > verse.clientHeight + 2);
+  };
+  const setMenu = open => { menu.hidden = !open; moreBtn.setAttribute('aria-expanded', String(open)); if (open) $('[data-go="lsDel"]', menu).hidden = $('#lsDel').hidden; };
+  const setFmt = open => { tb.classList.toggle('more', open); fmtBtn.setAttribute('aria-expanded', String(open)); tb.scrollTop = 0; tb.scrollLeft = 0; };
+  function keepCaret(){                                               // bàn phím che mất dòng đang gõ → cuộn khung soạn cho thấy con trỏ
+    if (!panel.classList.contains('kbd') || document.activeElement !== lsRich) return;
+    const s = getSelection(); if (!s.rangeCount || !s.isCollapsed) return;
+    const r = s.getRangeAt(0); let c = r.getClientRects()[0];
+    if (!c){ const n = r.startContainer, el = n.nodeType === 3 ? n.parentElement : (n.childNodes[r.startOffset] || n); if (el && el.getBoundingClientRect) c = el.getBoundingClientRect(); }
+    if (!c || !c.height) return;
+    const box = lsRich.getBoundingClientRect();
+    if (c.bottom > box.bottom - 10) lsRich.scrollTop += c.bottom - box.bottom + 18;
+    else if (c.top < box.top + 6) lsRich.scrollTop -= box.top - c.top + 14;
+  }
+  function layout(){
+    raf = 0;
+    const m = mq.matches, on = m && editing();
+    panel.classList.toggle('m', m); lsEl.classList.toggle('m-edit', on);
+    if (!on){ lsEl.style.top = lsEl.style.height = ''; panel.classList.remove('kbd'); setMenu(false); setFmt(false); return; }
+    if (vv){
+      if (baseW !== innerWidth){ baseW = innerWidth; baseH = 0; }
+      baseH = Math.max(baseH, vv.height, innerHeight);
+      const a = document.activeElement, typing = a === lsRich;
+      const kbd = typing && baseH - vv.height > 120;
+      lsEl.style.top = vv.offsetTop + 'px'; lsEl.style.height = vv.height + 'px';
+      if (kbd !== panel.classList.contains('kbd')){ panel.classList.toggle('kbd', kbd); if (kbd) top.classList.remove('open'); foldLabel(); }
+    }
+    measureVerse(); keepCaret();
+  }
+  const queue = () => { if (!raf) raf = requestAnimationFrame(layout); };
+  const later = () => { queue(); setTimeout(queue, 120); setTimeout(queue, 420); };
+  if (vv){ vv.addEventListener('resize', queue); vv.addEventListener('scroll', queue); }
+  addEventListener('resize', queue); addEventListener('orientationchange', later);
+  if (mq.addEventListener) mq.addEventListener('change', queue);
+  lsRich.addEventListener('focus', later); lsRich.addEventListener('blur', later);
+  lsRich.addEventListener('pointerdown', () => setFmt(false));            // chạm vào bài để gõ tiếp → thu bảng định dạng
+  lsRich.addEventListener('input', () => requestAnimationFrame(keepCaret));
+  window.addEventListener('openLesson', () => {                       // chạy sau trình xử lý mở ghi chú ở trên
+    if (lsEl.hidden) return;
+    top.classList.remove('open', 'cut'); foldLabel(); setMenu(false); setFmt(false); lsRich.scrollTop = 0; layout(); later();
+  });
+  new MutationObserver(() => { if (panel.classList.contains('viewing')) setMenu(false); layout(); }).observe($('#lsEd'), { attributes:true, attributeFilter:['hidden'] });
+  new MutationObserver(() => { if (lsEl.hidden){ lsEl.style.top = lsEl.style.height = ''; setMenu(false); setFmt(false); } }).observe(lsEl, { attributes:true, attributeFilter:['hidden'] });
+  const mirror = (src, fn) => { const run = () => fn(src.textContent); new MutationObserver(run).observe(src, { childList:true, characterData:true, subtree:true }); run(); };
+  mirror($('#lsRef'), t => { $('#lsmRef').textContent = t; });
+  mirror($('#lsCount'), t => { sub.textContent = t || 'Bài học cá nhân'; });
+  mirror(verse, () => { top.classList.remove('open', 'cut'); foldLabel(); queue(); });
+  const emptyCheck = () => lsRich.classList.toggle('empty', !lsRich.textContent.replace(/​/g, '').trim() && !lsRich.querySelector('li,hr,blockquote,h1,h2,h3'));
+  new MutationObserver(emptyCheck).observe(lsRich, { childList:true, characterData:true, subtree:true }); emptyCheck();
+  /* chạm nút / câu gốc không làm mất con trỏ (bàn phím đứng yên) */
+  [$('#lsmBar'), menu, top].forEach(el => el.addEventListener('mousedown', e => e.preventDefault()));
+  top.addEventListener('click', () => {
+    if (!panel.classList.contains('m') || !(top.classList.contains('cut') || panel.classList.contains('kbd'))) return;
+    top.classList.toggle('open'); top.classList.add('cut'); top.scrollTop = 0; foldLabel(); queue();
+  });
+  $('#lsmClose').onclick = () => { setMenu(false); $('#lsClose').click(); };
+  $('#lsmSave').onclick = () => { setMenu(false); $('#lsSave').click(); };
+  moreBtn.onclick = () => setMenu(menu.hidden);
+  menu.addEventListener('click', e => {
+    const b = e.target.closest('[data-go]'); if (!b) return;
+    setMenu(false); try { lsRich.blur(); } catch(x){}
+    $('#' + b.dataset.go).click();
+  });
+  panel.addEventListener('click', e => { if (!menu.hidden && !e.target.closest('#lsmMenu,#lsmMore')) setMenu(false); });
+  fmtBtn.onclick = () => {
+    const open = !tb.classList.contains('more');
+    if (open){ lsSaveRange(); try { lsRich.blur(); } catch(e){} }      // mở bảng định dạng: hạ bàn phím cho đủ chỗ, vẫn nhớ vùng chữ đang chọn
+    setFmt(open); if (!open) lsRestore();
+  };
+  /* bàn phím đang mở: vuốt vào vùng không cuộn được thì không kéo lệch cả trang */
+  lsEl.addEventListener('touchmove', e => {
+    if (!panel.classList.contains('kbd')) return;
+    for (let n = e.target.nodeType === 1 ? e.target : e.target.parentElement; n && n !== lsEl; n = n.parentElement){
+      const cs = getComputedStyle(n);
+      if ((n.scrollHeight > n.clientHeight + 1 && /auto|scroll/.test(cs.overflowY)) || (n.scrollWidth > n.clientWidth + 1 && /auto|scroll/.test(cs.overflowX))) return;
+    }
+    if (e.cancelable) e.preventDefault();
+  }, { passive:false });
+  layout();
+})();
 
 /* §§ ▼▼▼ MỤC 4 · TRA CỨU & TÌM KIẾM — Tìm kiếm trong cả Kinh Thánh ▼▼▼ */
 /* =========================================================
