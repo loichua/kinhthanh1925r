@@ -823,7 +823,14 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .fnd p{margin:0 0 10px;font:13px/1.5 var(--sans);color:var(--muted)}
 .fnd .fnr{display:flex;align-items:center;gap:6px}
 .fnd input{flex:1;min-width:0;height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font:16px var(--sans)}
-.fnd .fnx{font:600 14px var(--sans);color:var(--muted)}
+.fnd .fnx{flex:none;font:600 14px var(--sans);color:var(--muted)}
+.fnd .fnf{position:relative;flex:1;min-width:0;display:flex}
+.fnd .fnf input{padding-right:42px;-webkit-user-select:text;user-select:text}
+.fnd .fnc{position:absolute;right:3px;top:3px;width:36px;height:36px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--muted);font:15px var(--sans);cursor:pointer}
+.fnd .fnc[hidden]{display:none}
+/* Điện thoại: hộp đặt tên nằm ở phần trên màn hình để bàn phím không che */
+@media (pointer:coarse){.fnd{align-items:flex-start;overflow:auto;padding:calc(env(safe-area-inset-top) + 12px) 12px 12px}}
+@media (pointer:coarse) and (max-height:500px){.fnd{padding-top:8px}.fnd>div{max-width:520px;padding:10px 14px}.fnd h3{margin-bottom:8px}.fnd p{display:none}.fnd .fnb{margin-top:8px}}
 .fnd .fnb{display:flex;gap:8px;margin-top:14px}.fnd .fnb .btn{flex:1}
 
 /* §§ ▼▼▼ MỤC 5 · GHI CHÚ & SOẠN THẢO — CSS trình soạn ghi chú chuyên nghiệp (điện thoại + máy tính) ▼▼▼ */
@@ -1588,7 +1595,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26r';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem)
+const APP_VERSION = '2026.11.27a';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên)
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3239,14 +3246,34 @@ function lsCleanName(s){ return String(s || '').replace(/[\\/:*?"<>|\u0000-\u001
 function askFileName(def, ext){
   return new Promise(res => {
     const o = document.createElement('div'); o.className = 'fnd';
-    o.innerHTML = `<div role="dialog" aria-modal="true" aria-label="Đặt tên tệp"><h3>Đặt tên tệp</h3><p>Gõ tên bạn muốn cho tệp. Có thể dùng dấu cách và tiếng Việt có dấu.</p><div class="fnr"><input type="text" id="fnIn" autocomplete="off" spellcheck="false" maxlength="120"><span class="fnx">${esc(ext)}</span></div><div class="fnb"><button type="button" class="btn" data-a="x">Hủy</button><button type="button" class="btn primary" data-a="ok">Lưu tệp</button></div></div>`;
-    const inp = o.querySelector('#fnIn'); inp.value = def;
-    const done = v => { o.remove(); res(v); };
+    o.innerHTML = `<div role="dialog" aria-modal="true" aria-label="Đặt tên tệp"><h3>Đặt tên tệp</h3><p>Gõ tên bạn muốn cho tệp. Có thể dùng dấu cách và tiếng Việt có dấu.</p><div class="fnr"><div class="fnf"><input type="text" id="fnIn" autocomplete="off" spellcheck="false" maxlength="120" enterkeyhint="done" placeholder="Tên tệp"><button type="button" class="fnc" aria-label="Xóa tên để gõ lại">✕</button></div><span class="fnx">${esc(ext)}</span></div><div class="fnb"><button type="button" class="btn" data-a="x">Hủy</button><button type="button" class="btn primary" data-a="ok">Lưu tệp</button></div></div>`;
+    const inp = o.querySelector('#fnIn'), clr = o.querySelector('.fnc'); inp.value = def;
+    const vv = window.visualViewport, touch = matchMedia('(pointer:coarse)').matches;
+    const h0 = vv ? vv.height : 0; let kbSeen = false;
+    /* điện thoại: hộp đi theo vùng đang nhìn thấy (phía trên bàn phím) */
+    const fit = () => {
+      if (h0 - vv.height > 100) kbSeen = true;
+      if (!touch) return;
+      o.firstElementChild.style.marginTop = Math.max(0, vv.offsetTop) + 'px';
+      o.style.paddingBottom = (Math.max(0, innerHeight - vv.height - vv.offsetTop) + 12) + 'px';
+    };
+    if (vv){ vv.addEventListener('resize', fit); vv.addEventListener('scroll', fit); }
+    const done = v => {
+      if (vv){ vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); }
+      try { inp.blur(); } catch(e){}                                 // hạ bàn phím trước khi gỡ hộp, trang tự về đúng chỗ
+      o.remove(); res(v);
+    };
     const ok = () => { const n = lsCleanName(inp.value); if (!n){ inp.focus(); return; } done(n); };
+    /* ô đã có con trỏ nhưng bàn phím chưa lên → nhả ra để chính cú chạm này mở bàn phím */
+    inp.addEventListener('touchstart', () => { if (!kbSeen && document.activeElement === inp) inp.blur(); }, { passive:true });
+    inp.addEventListener('input', () => { clr.hidden = !inp.value; });
+    clr.addEventListener('mousedown', e => e.preventDefault());
+    clr.addEventListener('click', () => { inp.value = ''; clr.hidden = true; inp.focus(); });
     o.addEventListener('click', e => { if (e.target === o) done(null); const b = e.target.closest('[data-a]'); if (!b) return; b.dataset.a === 'ok' ? ok() : done(null); });
     o.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); ok(); } else if (e.key === 'Escape'){ e.preventDefault(); e.stopPropagation(); done(null); } }, true);
     document.body.appendChild(o);
-    setTimeout(() => { try { inp.focus(); inp.select(); } catch(e){} }, 30);
+    /* PHẢI gọi ngay, không hẹn giờ: iPhone chỉ bật bàn phím khi focus() chạy trong chính cú chạm */
+    try { inp.focus({ preventScroll:true }); inp.setSelectionRange(0, inp.value.length); } catch(e){}
   });
 }
 
