@@ -1574,7 +1574,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; điện thoại: phần đầu gọn một hàng (tiêu đề + nút lịch hiện/ẩn ngày); Word: đầu bài kiểu tài liệu chuyên nghiệp (tiêu đề · địa chỉ+ngày · câu gốc khung nâu); khung soạn điện thoại căn trái, máy tính lưu bằng một hộp “Lưu thành” như Word
+const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; điện thoại: phần đầu gọn một hàng (tiêu đề + nút lịch hiện/ẩn ngày); Word: giữ bố cục Mẫu C, khối Kinh Thánh/Ngày soạn/Câu gốc là bảng không viền (điện thoại và máy tính giống nhau), gạch tiêu đề mảnh, đường kẻ mỏng ngăn bài học; khung soạn điện thoại căn trái, máy tính lưu bằng một hộp “Lưu thành” như Word
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3368,11 +3368,16 @@ function docxFile(items, title, fname){                               // items: 
   let body = '';
   if (multi) body += wPara(title, { b:true, sz:44, color:BROWN, align:'center', after:80 }) + wPara(`${items.length} bài chia sẻ · xuất ngày ${lsFmtDate(Date.now())}`, { i:true, sz:22, color:'7A6E60', align:'center', after:120 }) + rule(480);
   items.forEach((it, i) => {
-    /* 26q: đầu bài kiểu tài liệu chuyên nghiệp: Tiêu đề lớn → một dòng “Địa chỉ Kinh Thánh · Ngày soạn” có vạch mảnh dưới → câu gốc trong khung tô nhạt có vạch nâu bên trái → nội dung */
-    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:36, color:'1C1A16', before:0, after:100, line:300, keep:true, pb:multi });
-    const meta = wRun(it.ref, { b:1, color:BROWN, sz:24 }) + ((!it.hd && it.cr) ? wRun('   ·   ' + lsFmtDate(it.cr), { color:'7A6E60', sz:24 }) : '');
-    body += wPara('', { before:0, after:240, line:300, border:true, borderColor:BROWN, borderSz:4, keep:true, rx:meta });
-    if (it.quote) body += wPara('', { line:352, left:240, right:200, shade:'F6EEDD', bar:'B08840', before:60, after:360, align:'left', rx:wRun('“' + it.quote + '”', { i:1, sz:26, color:'3A2F1F' }) });
+    /* 26q: giữ bố cục Mẫu C: Tiêu đề (gạch chân nâu rất mảnh) → khối Kinh Thánh / Ngày soạn / Câu gốc (cột nhãn cố định, mọi dòng thẳng hàng, câu gốc thụt treo đều) → đường kẻ mỏng ngăn với bài học → nội dung */
+    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:32, color:'1C1A16', spc:20, before:0, after:240, line:300, border:true, borderColor:BROWN, borderSz:2, keep:true, pb:multi });
+    /* khối Kinh Thánh = bảng không viền 2 cột (nhãn | nội dung): mọi dòng thẳng hàng tuyệt đối trên Word, điện thoại, Google Docs */
+    const rows = [['Kinh Thánh', wRun(it.ref, { sz:26 })]];
+    if (!it.hd && it.cr) rows.push(['Ngày soạn', wRun(lsFmtDate(it.cr), { sz:26 })]);
+    if (it.quote) rows.push(['Câu gốc', wRun('“' + it.quote + '”', { sz:26 })]);
+    const cell = (w, inner) => `<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/></w:tcPr>${inner}</w:tc>`;
+    body += `<w:tbl><w:tblPr><w:tblW w:w="9026" w:type="dxa"/><w:tblInd w:w="0" w:type="dxa"/><w:tblBorders><w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/></w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="0" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid><w:gridCol w:w="1560"/><w:gridCol w:w="7466"/></w:tblGrid>` +
+      rows.map((r, k) => { const aft = k === rows.length - 1 ? 0 : 120; return `<w:tr><w:trPr><w:cantSplit/></w:trPr>` + cell(1560, wPara('', { line:340, before:0, after:aft, align:'left', rx:wRun(r[0] + ':', { b:1, color:BROWN, sz:24 }) })) + cell(7466, wPara('', { line:340, before:0, after:aft, align:'left', rx:r[1] })) + `</w:tr>`; }).join('') + `</w:tbl>`;
+    body += wPara('', { sz:8, line:240, before:200, after:360, border:true, borderSz:4, borderColor:'A8A8A8' });   // đường kẻ mỏng: ngăn phần Kinh Thánh với bài học
     if (it.html) body += rtDocx(it.html);
     else String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
       body += wPara(lsTypo(para), { sz:26, line:372, after:160, align:'both' });
