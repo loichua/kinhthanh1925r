@@ -882,6 +882,11 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.m:not(.viewing) .lsmeta .lsmchk{flex:none;font-size:0;gap:0}
 .lspanel.m:not(.viewing) .lsmeta .lsmchk input[type=checkbox]{-webkit-appearance:none;appearance:none;width:40px;height:40px;margin:0;border:1px solid var(--line);border-radius:12px;background:var(--card) no-repeat center/22px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a5a1f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E");cursor:pointer}
 .lspanel.m:not(.viewing) .lsmeta .lsmchk input[type=checkbox]:checked{background-color:var(--accent);border-color:var(--accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5'/%3E%3Cpath d='M3.5 10h17M8 3v4M16 3v4'/%3E%3C/svg%3E")}
+/* 26q: chữ trong khung soạn trên điện thoại căn TRÁI (căn đều làm dòng thưa, hở lỗ chỗ), dòng thoáng vừa phải, đoạn cách đoạn rõ */
+.lspanel.m:not(.viewing) .lsrich>p{text-align:left;hyphens:none}
+.lspanel.m:not(.viewing) .lsrich{line-height:1.62;font-size:17.5px}
+.lspanel.m:not(.viewing) .lsrich p{margin:0 0 .7em}
+.lspanel.m:not(.viewing) .lstop:not(.open) .lsverse{max-height:calc(2 * 1.65em);overflow:hidden}
 .lssheet.m-edit{bottom:auto;height:100%;height:100dvh;background:var(--card)}
 .lspanel.m:not(.viewing){width:100%;max-width:none;height:100%;border-radius:0;transform:none;transition:none;padding:0}
 .lspanel.m:not(.viewing)>.lsgrip,.lspanel.m:not(.viewing)>.lsbtns,.lspanel.m:not(.viewing) .lshead,.lspanel.m:not(.viewing) .lsnote,.lspanel.m:not(.viewing) .lscount{display:none}
@@ -1569,7 +1574,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; điện thoại: phần đầu gọn một hàng (tiêu đề + nút lịch hiện/ẩn ngày); Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word
+const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; điện thoại: phần đầu gọn một hàng (tiêu đề + nút lịch hiện/ẩn ngày); Word: đầu bài kiểu tài liệu chuyên nghiệp (tiêu đề · địa chỉ+ngày · câu gốc khung nâu); khung soạn điện thoại căn trái, máy tính lưu bằng một hộp “Lưu thành” như Word
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3363,15 +3368,11 @@ function docxFile(items, title, fname){                               // items: 
   let body = '';
   if (multi) body += wPara(title, { b:true, sz:44, color:BROWN, align:'center', after:80 }) + wPara(`${items.length} bài chia sẻ · xuất ngày ${lsFmtDate(Date.now())}`, { i:true, sz:22, color:'7A6E60', align:'center', after:120 }) + rule(480);
   items.forEach((it, i) => {
-    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:32, color:'1C1A16', spc:20, before:0, after:200, line:300, border:true, borderColor:BROWN, borderSz:4, keep:true, pb:multi });
-    const rows = [['Kinh Thánh:', wRun(it.ref, { sz:26 })]];
-    if (!it.hd && it.cr) rows.push(['Ngày soạn:', wRun(lsFmtDate(it.cr), { sz:26 })]);
-    if (it.quote) rows.push(['Câu gốc:', wRun('“' + it.quote + '”', { sz:28 })]);
-    rows.forEach((r, k) => {
-      const last = k === rows.length - 1;
-      body += wPara('', { left:1700, hang:1700, tab:1700, line:340, before:0, after:last ? 0 : 60, keep:!last, rx:wRun(r[0], { b:1, color:BROWN, sz:24 }) + '<w:r><w:tab/></w:r>' + r[1] });
-    });
-    body += wPara('', { sz:8, line:240, before:140, after:300, border:true, borderSz:4, borderColor:'BDBDBD' });
+    /* 26q: đầu bài kiểu tài liệu chuyên nghiệp: Tiêu đề lớn → một dòng “Địa chỉ Kinh Thánh · Ngày soạn” có vạch mảnh dưới → câu gốc trong khung tô nhạt có vạch nâu bên trái → nội dung */
+    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:36, color:'1C1A16', before:0, after:100, line:300, keep:true, pb:multi });
+    const meta = wRun(it.ref, { b:1, color:BROWN, sz:24 }) + ((!it.hd && it.cr) ? wRun('   ·   ' + lsFmtDate(it.cr), { color:'7A6E60', sz:24 }) : '');
+    body += wPara('', { before:0, after:240, line:300, border:true, borderColor:BROWN, borderSz:4, keep:true, rx:meta });
+    if (it.quote) body += wPara('', { line:352, left:240, right:200, shade:'F6EEDD', bar:'B08840', before:60, after:360, align:'left', rx:wRun('“' + it.quote + '”', { i:1, sz:26, color:'3A2F1F' }) });
     if (it.html) body += rtDocx(it.html);
     else String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
       body += wPara(lsTypo(para), { sz:26, line:372, after:160, align:'both' });
