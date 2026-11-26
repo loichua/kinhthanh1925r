@@ -749,7 +749,6 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspage .lspq .lsqm{color:var(--accent);font-size:1.4em;line-height:0;font-style:normal}.lspage .lspq .lsqm:first-child{margin-right:.08em}.lspage .lspq .lsqm:last-child{margin-left:.05em}
 .lspage .lsrtxt{font-size:var(--fs);line-height:1.8;text-align:left;white-space:normal;hyphens:manual}
 .lspage .lsrtxt p{margin:0 0 .75em;text-indent:1.4em}.lspage .lsrtxt p:last-child{margin-bottom:0}
-.lsrtxt .sc{font-variant:small-caps;letter-spacing:.045em;font-size:1.05em}
 .lsbody textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
 .lsbtns{flex:none;display:flex;gap:8px;padding:10px 20px 14px}
 .lsbtns .btn{flex:1;white-space:nowrap}
@@ -1278,7 +1277,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26d';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
+const APP_VERSION = '2026.11.26f';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -2635,14 +2634,10 @@ const wx = s => String(s ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F
 function wPara(text, o){
   o = o || {};
   const sz = o.sz || 26, gold = 'B08840';
-  const rpr = sc => { const sp = sc ? (o.spc || 12) : o.spc; return `<w:rPr><w:rFonts w:ascii="${o.font || 'Times New Roman'}" w:hAnsi="${o.font || 'Times New Roman'}" w:cs="${o.font || 'Times New Roman'}"/>${o.b ? '<w:b/>' : ''}${o.i ? '<w:i/>' : ''}${o.caps ? '<w:caps/>' : ''}${sc ? '<w:smallCaps/>' : ''}${o.color ? `<w:color w:val="${o.color}"/>` : ''}${sp ? `<w:spacing w:val="${sp}"/>` : ''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr>`; };
+  const rpr = sc => { const sp = o.spc; return `<w:rPr><w:rFonts w:ascii="${o.font || 'Times New Roman'}" w:hAnsi="${o.font || 'Times New Roman'}" w:cs="${o.font || 'Times New Roman'}"/>${o.b ? '<w:b/>' : ''}${o.i ? '<w:i/>' : ''}${o.caps ? '<w:caps/>' : ''}${o.color ? `<w:color w:val="${o.color}"/>` : ''}${sp ? `<w:spacing w:val="${sp}"/>` : ''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr>`; };
   const runOf = (t, sc, br) => `<w:r>${rpr(sc)}${br ? '<w:br/>' : ''}<w:t xml:space="preserve">${wx(t)}</w:t></w:r>`;
   const runs = String(text).split('\n').map((ln, k) => {
-    if (!o.sc) return runOf(ln, false, k);
-    let out = '', last = 0, first = true;
-    ln.replace(LS_CAPS_RE, (m, idx) => { if (idx > last) { out += runOf(ln.slice(last, idx), false, first && k); first = false; } out += runOf(m.toLowerCase(), true, first && k); first = false; last = idx + m.length; return m; });
-    if (last < ln.length || first) out += runOf(ln.slice(last), false, first && k);
-    return out;
+    return runOf(ln, false, k);
   }).join('');
   const bar = o.bar ? `<w:left w:val="single" w:sz="24" w:space="12" w:color="${o.bar}"/>` : '';
   const bot = o.border ? `<w:bottom w:val="single" w:sz="${o.borderSz || 6}" w:space="4" w:color="${o.borderColor || 'C9A96A'}"/>` : '';
@@ -2656,11 +2651,10 @@ function wPara(text, o){
 function bookDisplay(name){
   return String(name || '').trim().toLowerCase().replace(/(^|\s)(\p{L})/gu, (m, a, b) => a + b.toUpperCase());
 }
-/* Chế độ trình bày chữ cho bài học: ngoặc kép cong “ ”, dấu ba chấm …, và cụm từ viết HOA (ĐỨC CHÚA TRỜI, CHÚA, NGÀI…) hiện bằng chữ hoa nhỏ cho nhẹ mắt.
+/* Chế độ trình bày chữ cho bài học: ngoặc kép cong “ ”, dấu ba chấm …, giữ nguyên chữ HOA / thường do người dùng tự viết.
    Chỉ đổi cách HIỂN THỊ / XUẤT FILE, không đổi chữ đã lưu trong ghi chú. */
 const lsTypo = s => String(s ?? '').normalize('NFC').replace(/\.{3}/g, '…').replace(/(^|[\s(\[{—–-])"/g, '$1“').replace(/"/g, '”');
-const LS_CAPS_RE = /\p{Lu}{2,}(?:[  ]+\p{Lu}{2,})*/gu;
-const lsHtml = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => '<p>' + esc(lsTypo(x)).replace(LS_CAPS_RE, m => '<span class="sc">' + m.toLowerCase() + '</span>') + '</p>').join('');
+const lsHtml = t => String(t || '').split(/\n+/).map(x => x.trim()).filter(Boolean).map(x => '<p>' + esc(lsTypo(x)) + '</p>').join('');
 function docxFile(items, title, fname){                               // items: [{ref, quote, text, at}]
   const when = t => { const d = new Date(t); return d.toLocaleDateString('vi-VN') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
   const rule = (after, before) => wPara('', { sz:8, line:240, before:before || 0, after, left:2900, right:2900, border:true, borderSz:8 });   // vạch vàng ngắn ở giữa trang
@@ -2675,7 +2669,7 @@ function docxFile(items, title, fname){                               // items: 
     } else body += wPara(ref, { b:true, sz:28, color:'8A5A1F', before:i ? 600 : 0, after:200, keep:true });
     body += wPara('Bài học cá nhân', { b:true, caps:true, sz:22, color:'8A5A1F', spc:50, before:120, after:160, border:true, borderColor:'E2D3B3', borderSz:4, keep:true });
     String(it.text).split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
-      body += wPara(lsTypo(para), { sz:26, line:372, after:160, first:567, align:'left', sc:true });
+      body += wPara(lsTypo(para), { sz:26, line:372, after:160, first:567, align:'left' });
     });
     body += rule(160, 240);
     if (it.at) body += wPara('Cập nhật ' + when(it.at), { i:true, sz:20, color:'7A6E60', align:'right', before:60, after:0 });
