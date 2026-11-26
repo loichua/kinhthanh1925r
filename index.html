@@ -837,6 +837,41 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 [data-theme=dark] .rtb button.on,[data-theme=dark] .rtb .rtpri{color:#1a1409}
 .lsrich.empty::before{content:attr(data-placeholder);position:absolute;top:14px;left:18px;color:var(--muted);opacity:.7;pointer-events:none}
 @media (min-width:900px){.lsrich.empty::before{top:20px;left:28px}}
+#lsMetaTitle::placeholder{color:transparent}   /* điện thoại: đã có nhãn TIÊU ĐỀ phía trên nên không cần chữ mờ */
+/* §§ 2026.11.26q — MỤC 5 · khung soạn ghi chú trên MÁY TÍNH (≥900px): rộng, thoáng như trang giấy; chỉ ảnh hưởng máy tính, điện thoại giữ nguyên */
+@media (min-width:900px){
+  .lspanel:not(.viewing):not(.m) .lstop{padding:10px max(20px,calc((100% - 1100px) / 2));max-height:30%}
+  .lspanel:not(.viewing):not(.m) .lsbody{padding:12px max(20px,calc((100% - 1100px) / 2)) 4px}
+  .lspanel:not(.viewing):not(.m) .lsbtns{padding-left:max(20px,calc((100% - 1100px) / 2));padding-right:max(20px,calc((100% - 1100px) / 2))}
+  .lspanel:not(.viewing):not(.m) .lsverse{font-size:16px;line-height:1.55}
+  /* Dòng tiêu đề + số bài + ngày soạn gọn trên MỘT hàng (tiết kiệm ~60px chiều cao) */
+  .lspanel:not(.viewing):not(.m) .lsmeta{flex-wrap:wrap;align-items:center;gap:8px 26px;margin:0 0 12px;padding:0 0 12px}
+  .lspanel:not(.viewing):not(.m) .lsmeta .lsmtt{flex:1 1 100%}
+  .lspanel:not(.viewing):not(.m) .lsmeta label:not(.lsmtt){flex:none}
+  .lspanel:not(.viewing):not(.m) .lsmeta input[type=text]{height:44px;font-size:22px}
+  .lspanel:not(.viewing):not(.m) #lsMetaTitle::placeholder{color:var(--muted);opacity:.65;font-weight:600}
+  /* bỏ dòng chữ “Bài học cá nhân” và chữ “Tiêu đề”: nút Sao chép / Xuất Word nằm cùng hàng với ô tiêu đề → thu gọn ~2 dòng */
+  .lspanel:not(.viewing):not(.m) .lshead{align-self:flex-end;height:40px;margin:2px 0 -40px;position:relative;z-index:2}
+  .lspanel:not(.viewing):not(.m) .lshead .lslabel{display:none}
+  .lspanel:not(.viewing):not(.m) .lsmeta .lsmtt{font-size:0;gap:0}
+  .lspanel:not(.viewing):not(.m) .lsmeta input[type=text]{padding-right:290px;font-size:22px;height:44px}
+  /* Thanh công cụ: gọn hơn để đủ một hàng trên màn hình rộng */
+  .lspanel:not(.viewing):not(.m) .rtb{gap:1px;padding:6px 8px;justify-content:flex-start;border-radius:12px 12px 0 0}
+  .lspanel:not(.viewing):not(.m) .rtg{padding-right:4px;margin-right:2px}
+  .lspanel:not(.viewing):not(.m) .rtb button,.lspanel:not(.viewing):not(.m) .rtcol{min-width:32px;height:32px}
+  .lspanel:not(.viewing):not(.m) .rtb select{height:32px}
+  /* Khung viết: chiếm hết chiều cao còn lại, chữ canh giữa thành cột dễ đọc (~900px) như trang Word */
+  .lspanel:not(.viewing):not(.m) .lsed{min-height:300px}
+  .lspanel:not(.viewing):not(.m) .lsrich{min-height:300px;padding:30px 44px 56px;font-size:19px;line-height:1.85;border-radius:0 0 12px 12px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+  .lspanel:not(.viewing):not(.m) .lsrich:focus{box-shadow:inset 0 0 0 2px var(--accent)}
+  .lspanel:not(.viewing):not(.m) .lsrich.empty::before{top:30px;left:44px}
+  .lspanel:not(.viewing):not(.m) .lscount{margin:6px 2px 2px}
+  .lspanel:not(.viewing):not(.m) .lslinks{margin:4px 0 0;max-height:64px}
+}
+@media (min-width:900px) and (max-height:760px){
+  .lspanel:not(.viewing):not(.m) .lstop{max-height:22%}
+  .lspanel:not(.viewing):not(.m) .lsbody{overflow-y:auto}
+}
 
 /* Điện thoại (lớp .m do mã bên dưới gắn): soạn toàn màn hình, thanh tiêu đề trên, thanh công cụ nằm ngay trên bàn phím */
 .lssheet.m-edit{bottom:auto;height:100%;height:100dvh;background:var(--card)}
@@ -1414,7 +1449,7 @@ html[data-paper] .reader.print{text-align:justify}
     <div class="lsbody">
       <div class="lshead"><label class="lslabel" id="lsLbl">Bài học cá nhân</label><span class="lstools" id="lsTools"><button type="button" class="sbtn" id="lsCopy">📋 Sao chép</button><button type="button" class="sbtn" id="lsWord">📄 Xuất Word</button><button type="button" class="sbtn" id="lsDateTg">📅 Ẩn ngày</button></span></div>
       <div class="lsmeta" id="lsMeta">
-        <label class="lsmtt">Tiêu đề <input type="text" id="lsMetaTitle" maxlength="160" autocomplete="off"></label>
+        <label class="lsmtt">Tiêu đề <input type="text" id="lsMetaTitle" maxlength="160" autocomplete="off" placeholder="Tiêu đề bài học…"></label>
         <label>Bài học số <input type="number" id="lsMetaNo" min="1" max="9999" inputmode="numeric" autocomplete="off"></label>
         <label>Ngày soạn <input type="date" id="lsMetaDate"></label>
         <label class="lsmchk"><input type="checkbox" id="lsMetaShow"> Hiện ngày soạn</label>
@@ -1526,7 +1561,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.26p';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân
+const APP_VERSION = '2026.11.26q';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -3320,7 +3355,7 @@ function docxFile(items, title, fname){                               // items: 
   let body = '';
   if (multi) body += wPara(title, { b:true, sz:44, color:BROWN, align:'center', after:80 }) + wPara(`${items.length} bài chia sẻ · xuất ngày ${lsFmtDate(Date.now())}`, { i:true, sz:22, color:'7A6E60', align:'center', after:120 }) + rule(480);
   items.forEach((it, i) => {
-    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:32, color:'1C1A16', spc:20, before:0, after:200, line:300, border:true, borderColor:BROWN, borderSz:12, keep:true, pb:multi });
+    body += wPara(lsHeadOf(it.tt, noOf(it, i)), { b:true, sz:32, color:'1C1A16', spc:20, before:0, after:200, line:300, border:true, borderColor:BROWN, borderSz:4, keep:true, pb:multi });
     const rows = [['Kinh Thánh:', wRun(it.ref, { sz:26 })]];
     if (!it.hd && it.cr) rows.push(['Ngày soạn:', wRun(lsFmtDate(it.cr), { sz:26 })]);
     if (it.quote) rows.push(['Câu gốc:', wRun('“' + it.quote + '”', { sz:28 })]);
@@ -3368,6 +3403,18 @@ $('#lsWord').onclick = async () => {
   const t = lsTa.value.trim(); if (!t) return toast('Hãy viết nội dung ghi chú trước khi xuất');
   const c = lsCur; if (!c) return;
   const def = (c.tt && c.tt.trim() ? fold(c.tt).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 50) : 'bai-hoc-so-' + c.no) + '-' + (fold(`${c.book} ${c.ch}:${c.key}`).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'ghi-chu');
+  /* 26q: máy tính có hộp “Lưu thành” kiểu Word: vừa đặt tên vừa chọn nơi lưu trong MỘT hộp, không hỏi tên rồi lại hỏi thư mục */
+  if (typeof window.showSaveFilePicker === 'function' && !matchMedia('(pointer:coarse)').matches){
+    try {
+      const fh = await window.showSaveFilePicker({ suggestedName: def + '.docx', types: [{ description: 'Tài liệu Word (.docx)', accept: { 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'] } }] });
+      const f = docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, html:c.html || '', at:c.old ? c.old.at : Date.now(), no:c.no, cr:c.cr, hd:c.hd, tt:c.tt || '' }], 'Bài học cá nhân', fh.name);
+      const w = await fh.createWritable(); await w.write(f); await w.close();
+      toast('📄 Đã lưu file Word “' + fh.name + '”'); return;
+    } catch(err){
+      if (err && err.name === 'AbortError'){ toast('Đã hủy – chưa lưu tệp'); return; }
+      /* lỗi khác: rơi xuống cách lưu cũ bên dưới */
+    }
+  }
   const name = await askFileName(def, '.docx'); if (!name) return;
   saveSmart([docxFile([{ ref:`${bookDisplay(c.book)} ${c.ch}:${c.key}`, quote:c.quote, text:t, html:c.html || '', at:c.old ? c.old.at : Date.now(), no:c.no, cr:c.cr, hd:c.hd, tt:c.tt || '' }], 'Bài học cá nhân', name + '.docx')]).then(st => { if (st === 'default') toast('📄 Đã tạo file Word'); }, e => toast('Không xuất được file Word: ' + (e.message || e)));
 };
