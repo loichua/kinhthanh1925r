@@ -1583,7 +1583,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.27d';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp · 27c = dọn mã thừa / biến chết / CSS không dùng, không đổi tính năng · 27d = font mặc định Merriweather cho toàn trang; cỡ chữ mặc định tự nhận theo thiết bị (điện thoại 18, máy tính bảng / máy tính 20)
+const APP_VERSION = '2026.11.27e';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp · 27c = dọn mã thừa / biến chết / CSS không dùng, không đổi tính năng · 27d = font mặc định Merriweather cho toàn trang; cỡ chữ mặc định tự nhận theo thiết bị (điện thoại 18, máy tính bảng / máy tính 20) · 27e = lời chia sẻ liên kết chỉ còn “Kinh Thánh Tin Lành 1925r”
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -4620,7 +4620,7 @@ document.addEventListener('click', async e => {
   const b = e.target.closest && e.target.closest('#abText [data-ab]'); if (!b) return;
   const u = b.dataset.u, copy = async () => { const ok = await lsCopyText(u); toast(ok ? '📋 Đã sao chép liên kết' : 'Không sao chép được — hãy nhấn giữ vào liên kết để chép'); };
   if (b.dataset.ab === 'copy'){ copy(); return; }
-  try { if (navigator.share){ await navigator.share({ title:(ABOUT.name || 'Kinh Thánh') + (ABOUT.sub ? ' · ' + ABOUT.sub : ''), text:'Kinh Thánh Tin Lành 1925 (bản rà soát 1925r) — đọc miễn phí, không quảng cáo.', url:u }); return; } } catch(err){ if (err && err.name === 'AbortError') return; }
+  try { if (navigator.share){ await navigator.share({ title:(ABOUT.name || 'Kinh Thánh') + (ABOUT.sub ? ' · ' + ABOUT.sub : ''), text:'Kinh Thánh Tin Lành 1925r', url:u }); return; } } catch(err){ if (err && err.name === 'AbortError') return; }
   copy();
 });
 function renderAbout(){
