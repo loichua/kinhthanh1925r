@@ -5,6 +5,8 @@
 <title>Kinh Thánh</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-visual">
 <meta name="theme-color" content="#f7f3ea">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,8 +27,8 @@
   --bg:#f7f3ea; --card:#fffdf8; --fg:#2a2118; --muted:#7a6e60;
   --accent:#8a5a1f; --accent-soft:#f0e3cc; --line:#e4dccb; --hl:#fff1c2;
   --danger:#b3261e; --fs:18px; --hh:calc(46px + env(safe-area-inset-top)); --tabh:0px;
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:"Merriweather",Georgia,"Times New Roman",serif;
+  --sans:"Merriweather",Georgia,"Times New Roman",serif;   /* Merriweather là font mặc định cho TOÀN trang (chữ đọc lẫn nút/nhãn); đổi font trong Cài đặt sẽ ghi đè 2 biến này */
 }
 [data-theme=dark]{
   --bg:#121212; --card:#1c1b19; --fg:#e8e2d6; --muted:#9a9080;
@@ -1581,7 +1583,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.27c';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp · 27c = dọn mã thừa / biến chết / CSS không dùng, không đổi tính năng
+const APP_VERSION = '2026.11.27d';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp · 27c = dọn mã thừa / biến chết / CSS không dùng, không đổi tính năng · 27d = font mặc định Merriweather cho toàn trang; cỡ chữ mặc định tự nhận theo thiết bị (điện thoại 18, máy tính bảng / máy tính 20)
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -1639,11 +1641,23 @@ function choose(title, msg, opts){
 /* §§ ▼▼▼ MỤC 3 · BỘ NHỚ LƯU TRỮ TRÊN MÁY — Cài đặt lưu localStorage ▼▼▼ */
 /* ============ CÀI ĐẶT (localStorage) ============ */
 const PAPER_PAGED = true;   // true: Trang giấy chia trang ngang, cạnh trên/dưới đứng yên, chỉ lật trái–phải. false: cuộn dọc như trang chủ
-const S = { theme:'light', fs:20, font:'Lora', book:null, chapter:1, wake:false, view:'print', paper:false, fullauto:true };
+const S = { theme:'light', fs:20, font:'Merriweather', book:null, chapter:1, wake:false, view:'print', paper:false, fullauto:true };
 try { Object.assign(S, JSON.parse(localStorage.getItem('kt.settings') || '{}')); } catch(e){}
 /* Mở app luôn ở giao diện sáng: người dùng cũ đang để 'Tự động' (theo máy, hay bị tối) được chuyển về 'Sáng' một lần; muốn tối vẫn chọn trong Cài đặt */
 try { if (!localStorage.getItem('kt.themeLight')){ if (S.theme === 'auto') S.theme = 'light'; localStorage.setItem('kt.themeLight', '1'); localStorage.setItem('kt.settings', JSON.stringify(S)); } } catch(e){}
 const saveS = () => { try { localStorage.setItem('kt.settings', JSON.stringify(S)); } catch(e){} };
+/* CỠ CHỮ MẶC ĐỊNH THEO THIẾT BỊ (khi người dùng chưa tự chỉnh): điện thoại 18px (chuẩn chữ đọc trên di động: ≥16px, thường 17–18px);
+   máy tính bảng và máy tính 20px (màn rộng, mắt xa hơn). Đo theo cạnh NGẮN của màn hình nên xoay ngang/dọc không đổi cỡ.
+   Người dùng đã tự chỉnh (A−/A+, ô Cỡ chữ, Chữ lớn, hướng dẫn lần đầu) thì giữ nguyên lựa chọn đó. */
+const deviceFs = () => { try { const sh = Math.min(screen.width || 0, screen.height || 0) || Math.min(innerWidth, innerHeight); return sh < 600 ? 18 : 20; } catch(e){ return 18; } };
+const DEV_FS = deviceFs();
+try {
+  if (S.fsAuto === undefined) S.fsAuto = (S.fs === 20);                         // người dùng cũ đang ở 20 (mặc định cũ) → coi như chưa tự chọn
+  else if (S.fsAuto && S.fs !== S.fsAutoVal) S.fsAuto = false;                  // cỡ chữ đã bị đổi tay so với giá trị tự gán lần trước → giữ lựa chọn của người dùng
+  if (S.fsAuto){ S.fs = DEV_FS; S.fsAutoVal = DEV_FS; }
+  if (S.fontV !== 2){ if (S.font === 'Lora') S.font = 'Merriweather'; S.fontV = 2; }   // một lần: font mặc định cũ (Lora) chuyển sang Merriweather; font khác do người dùng chọn thì giữ
+  localStorage.setItem('kt.settings', JSON.stringify(S));
+} catch(e){}
 
 function applyTheme(){
   const dark = (S.theme === 'dark' || (S.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches));   // Trang giấy cũng có bản tối
@@ -1692,7 +1706,7 @@ function loadFont(name){                                  // trả về Promise:
   return fontP[name];
 }
 function applyFont(){
-  if (!FONTS[S.font] || FONTS[S.font].hidden) S.font = 'Lora';
+  if (!FONTS[S.font] || FONTS[S.font].hidden) S.font = 'Merriweather';
   /* Chữ chỉ hiện khi font đã sẵn sàng (tối đa 1,5 giây): không còn cảnh số chương to / chữ nháy đổi kiểu khi mở lại app */
   const de = document.documentElement; de.classList.add('fw');
   Promise.race([loadFont(S.font), new Promise(r => setTimeout(r, 2500))]).then(() => { de.classList.remove('fw'); try { pgRefresh(); } catch(e){} });
@@ -6393,7 +6407,7 @@ function applyBig(){ $$('#bigSeg button').forEach(b => b.classList.toggle('on', 
 $$('#bigSeg button').forEach(b => b.onclick = () => {
   const on = b.dataset.v === '1';
   if (on && S.fs < BIG_FS){ S.fsBack = S.fs; S.fs = BIG_FS; }
-  else if (!on && S.fs >= BIG_FS){ S.fs = (S.fsBack && S.fsBack < BIG_FS) ? S.fsBack : 20; }
+  else if (!on && S.fs >= BIG_FS){ S.fs = (S.fsBack && S.fsBack < BIG_FS) ? S.fsBack : DEV_FS; }
   else return;
   saveS(); applyFs(); try { pgRefresh(); } catch(e){}
 });
@@ -6427,7 +6441,7 @@ function showOnboard(){
   const done = () => { try { localStorage.setItem('kt.onboard', '1'); } catch(e){} o.remove(); };
   const draw = () => {
     const s = OB[i], last = i === OB.length - 1;
-    const sizes = s.size ? `<div class="obsizes">${[[20, 'Vừa'], [24, 'Lớn'], [28, 'Rất lớn']].map(([n, l]) => `<button class="btn${S.fs === n ? ' primary' : ''}" data-fs="${n}" style="font-size:${n - 4}px">${l}</button>`).join('')}</div><div class="obprev">Hôm nay bạn đã đọc Lời CHÚA chưa?</div>` : '';
+    const sizes = s.size ? `<div class="obsizes">${[[DEV_FS, 'Vừa'], [DEV_FS + 4, 'Lớn'], [DEV_FS + 8, 'Rất lớn']].map(([n, l]) => `<button class="btn${S.fs === n ? ' primary' : ''}" data-fs="${n}" style="font-size:${n - 4}px">${l}</button>`).join('')}</div><div class="obprev">Hôm nay bạn đã đọc Lời CHÚA chưa?</div>` : '';
     o.innerHTML = `<div class="sheet obsheet"><div class="obico${s.aa ? ' aa' : ''}">${s.ico}</div><h3 class="obt">${esc(s.t)}</h3><p class="obd">${esc(s.d)}</p>${sizes}
       <div class="obdots">${OB.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>
       <div class="btns obbtns">${last ? '' : '<button class="btn" data-a="skip">Bỏ qua</button>'}<button class="btn primary" data-a="next" style="margin-left:auto">${last ? 'Bắt đầu đọc' : 'Tiếp tục'}</button></div></div>`;
