@@ -382,9 +382,6 @@ mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 1px;font-wei
 [data-theme=dark] .seg button.on{color:#1a1409}
 input[type=range]{width:100%}
 .panel{max-width:760px;margin:14px auto;padding:0 14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
-.card h4{margin:0 0 10px;font-size:15px}
-.card p.hint{margin:0 0 10px;font-size:13px;color:var(--muted)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
 .stats div{background:var(--bg);border-radius:10px;padding:10px 4px;font-size:12px;color:var(--muted)}
 .stats b{display:block;font-size:22px;color:var(--accent)}
@@ -619,13 +616,9 @@ details.adv>div>.srow{border-top:1px solid var(--line)}
 .updwarn{margin-top:18px;padding:12px 14px;border-radius:12px;border:1px solid rgba(217,119,6,.45);border-left-width:4px;background:rgba(217,119,6,.10);text-align:left}
 .updwarn b{display:block;font-size:14px;color:var(--fg)}
 .updwarn p{margin:6px 0 0;font-size:12.5px;line-height:1.5;color:var(--fg)}
-.updwarn .ust{margin-top:8px;font-size:12.5px;font-weight:600}
 .updwarn.ok{border-color:rgba(46,125,50,.45);background:rgba(46,125,50,.09)}
 .updwarn .btn{width:100%;margin-top:10px;padding:10px 14px;font-size:14px}
-.updwrap{text-align:center;margin-top:10px}
-.updwrap .btn{padding:8px 16px;font-size:13.5px}
 .updmsg{min-height:1.4em;margin-top:6px;font-size:12px;color:var(--muted)}
-.abver{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;letter-spacing:.03em;color:var(--muted);text-align:center}
 /* §§ ▼▼▼ MỤC 2 · ĐIỀU KHIỂN & CẢM ỨNG — CSS cửa sổ chọn sách KINH-THÁNH (mục lục Cựu-Ước / Tân-Ước) ▼▼▼ */
 .overlay.bkpick{z-index:90;opacity:0;transition:opacity .2s ease;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 .overlay.bkpick.in{opacity:1}
@@ -653,7 +646,6 @@ details.adv>div>.srow{border-top:1px solid var(--line)}
 .bkrow:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 @media (prefers-reduced-motion:reduce){.overlay.bkpick,.bkpick .bksheet{transition:none}}
 .sxmore{display:block;margin:12px auto 0;padding:10px 18px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;font-size:15px;cursor:pointer}
-.sxed{margin-top:6px}
 /* §§ ▼▼▼ MỤC 3 · BỘ NHỚ LƯU TRỮ TRÊN MÁY — CSS đánh dấu vị trí đọc (Bookmark) ▼▼▼ */
 /* ===== Đánh dấu vị trí đọc (Bookmark) ===== */
 .reader .v,#bibleText,#bibleText *{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
@@ -714,10 +706,10 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 /* Cửa sổ trượt viết bài học cá nhân */
 .lssheet{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .22s}
 .lssheet.open{opacity:1}
-.lspanel{width:100%;max-width:560px;height:min(86vh,86dvh);display:flex;flex-direction:column;background:var(--card);border-radius:20px 20px 0 0;overflow:hidden;transform:translateY(100%);transition:transform .26s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom)}
+.lspanel{width:100%;height:min(86vh,86dvh);display:flex;flex-direction:column;background:var(--card);border-radius:20px 20px 0 0;overflow:hidden;transform:translateY(100%);transition:transform .26s cubic-bezier(.2,.8,.2,1);padding-bottom:env(safe-area-inset-bottom)}
 .lssheet.open .lspanel{transform:none}
 .lsgrip{width:40px;height:4px;border-radius:2px;background:var(--line);margin:9px auto 0;flex:none}
-.lstop{flex:none;padding:14px 20px 14px;background:var(--accent-soft);border-bottom:1px solid var(--line);max-height:38%;overflow:auto;overscroll-behavior:contain}
+.lstop{flex:none;padding:14px 20px 14px;background:var(--accent-soft);border-bottom:1px solid var(--line);overflow:auto;overscroll-behavior:contain}
 .lsref{font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:.03em;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .lsverse{margin:0;font-family:var(--serif,Georgia,serif);font-style:italic;font-size:17px;line-height:1.65;color:var(--fg);text-align:justify;text-justify:inter-word;hyphens:auto}
 .lsverse::before{content:'“';color:var(--accent);font-size:1.4em;line-height:0;margin-right:.08em}
@@ -732,22 +724,18 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lsverse.clamp::after{content:'…'}
 .lstop{max-height:44%}
 .lspanel{height:min(94vh,94dvh);max-width:640px}
-.lsbody textarea{min-height:200px;padding:16px 16px;font-size:17px;line-height:1.7;font-family:var(--serif,Georgia,serif)}
-.lscount{flex:none;text-align:right;margin:6px 4px 0;font:12px var(--sans);color:var(--muted)}
+.lsbody textarea{font-family:var(--serif,Georgia,serif)}
+.lscount{flex:none;text-align:right;font:12px var(--sans)}
 .lspanel.viewing .lscount{display:none}
 .lspanel:focus-within .lsnote{display:none}
 .lsbody textarea{flex:1;min-height:120px;width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;font-size:16px;line-height:1.6;resize:none}
 .lsread{flex:1;min-height:120px;overflow:auto;overscroll-behavior:contain;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
 .lsrtxt{font-family:var(--serif);font-size:calc(var(--fs) - 1px);line-height:1.7;color:var(--fg);white-space:pre-wrap;overflow-wrap:anywhere}
-.lsrmeta{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font:12px var(--sans);color:var(--muted)}
 /* Chế độ XEM: bài học hiện như một trang hoàn chỉnh (tiêu đề câu, lời trích, nội dung ghi chú), cuộn trọn trang, không còn khung chữ nhỏ bị cắt */
 .lspanel.viewing .lstop{display:none}
-.lspanel.viewing .lsread{border:0;border-radius:0;background:var(--card);padding:6px 4px 10px}
-.lspage .lspref{font:700 13px var(--sans);letter-spacing:.03em;color:var(--accent);text-align:center;margin:2px 0 10px}
-.lspage .lspq{margin:0 0 14px;padding:12px 14px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font:italic calc(var(--fs) - 2px)/1.65 var(--serif);color:var(--fg)}
+.lspanel.viewing .lsread{border:0;border-radius:0;background:var(--card)}
 .lspage .lsrtxt{margin-top:12px}
-.lspage .lspq .lsqm{color:var(--accent);font-size:1.4em;line-height:0;font-style:normal}.lspage .lspq .lsqm:first-child{margin-right:.08em}.lspage .lspq .lsqm:last-child{margin-left:.05em}
-.lspage .lsrtxt{font-size:var(--fs);line-height:1.8;text-align:left;white-space:normal;hyphens:manual}
+.lspage .lsrtxt{font-size:var(--fs);line-height:1.8;text-align:left;hyphens:manual}
 .lspage .lsrtxt p{margin:0 0 .75em;text-indent:1.4em}.lspage .lsrtxt p:last-child{margin-bottom:0}
 .lsbody textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
 .lsbtns{flex:none;display:flex;gap:8px;padding:10px 20px 14px}
@@ -855,7 +843,6 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
   .lspanel:not(.viewing):not(.m) .lsmeta{flex-wrap:wrap;align-items:center;gap:8px 26px;margin:0 0 12px;padding:0 0 12px}
   .lspanel:not(.viewing):not(.m) .lsmeta .lsmtt{flex:1 1 100%}
   .lspanel:not(.viewing):not(.m) .lsmeta label:not(.lsmtt){flex:none}
-  .lspanel:not(.viewing):not(.m) .lsmeta input[type=text]{height:44px;font-size:22px}
   .lspanel:not(.viewing):not(.m) #lsMetaTitle::placeholder{color:var(--muted);opacity:.65;font-weight:600}
   /* bỏ dòng chữ “Bài học cá nhân” và chữ “Tiêu đề”: nút Sao chép / Xuất Word nằm cùng hàng với ô tiêu đề → thu gọn ~2 dòng */
   .lspanel:not(.viewing):not(.m) .lshead{align-self:flex-end;height:40px;margin:2px 0 -40px;position:relative;z-index:2}
@@ -966,9 +953,6 @@ html[data-paper] .v.hold{-webkit-text-stroke:.6px currentColor}
 .lspanel.viewing .lsread{padding:4px 2px 8px}
 .lsphead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
 .lsphead .sbtn{padding:6px 11px;font-size:12px;border-radius:9px;white-space:nowrap}
-.lspage .lsphead .lspref{text-align:left;margin:0;flex:1;min-width:0}
-.lspage .lspq.clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;margin-bottom:6px;padding-bottom:0;border-bottom:12px solid var(--accent-soft)}
-.lspage .lspq{margin-bottom:6px;font-size:calc(var(--fs) - 3px)}
 .lsmore{display:block;margin:0 0 12px auto;border:0;background:none;color:var(--accent);font:600 12px var(--sans);padding:4px 2px}
 .lspanel.viewing .lslinks{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;max-height:none;margin:4px 0 0;padding:4px 0 2px;border-top:1px solid var(--line);-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .lspanel.viewing .lslinks::-webkit-scrollbar{display:none}
@@ -1332,7 +1316,7 @@ html[data-paper] .reader.print{text-align:justify}
           <div class="fszv"><b id="fsVal">20</b><small>cỡ hiện tại</small></div>
           <button class="fszb" id="fsPlus" type="button" aria-label="Tăng cỡ chữ">A+</button>
         </div>
-        <div class="fszprev" id="fsPrev">Ban đầu Đức Chúa Trời dựng nên trời đất.</div>
+        <div class="fszprev">Ban đầu Đức Chúa Trời dựng nên trời đất.</div>
         <select id="fsSel" aria-label="Cỡ chữ" hidden></select>
       </div>
       <div class="srow col">
@@ -1349,7 +1333,7 @@ html[data-paper] .reader.print{text-align:justify}
       </div>
       <div class="srow"><div class="stxt"><b>Hướng dẫn sử dụng</b><span>Xem lại các thao tác cơ bản</span></div>
         <button class="sbtn" id="obShow">Xem lại</button></div>
-      <details class="adv" id="advDet">
+      <details class="adv">
         <summary class="srow advsum"><div class="stxt"><b>⚙ Tùy chọn nâng cao</b><span>Ít khi cần đổi. Bấm để mở hoặc đóng.</span></div><span class="chev" aria-hidden="true">›</span></summary>
         <div>
           <div class="srow"><div class="stxt"><b>Toàn màn hình khi đọc</b><span>Ẩn thanh hệ thống cho rộng chỗ (Android, máy tính). Trên iPhone: bấm Chia sẻ → “Thêm vào Màn hình chính”.</span></div>
@@ -1597,7 +1581,7 @@ try { const v = localStorage.getItem('kt.sbx'); document.documentElement.style.s
   addEventListener('pageshow', () => { drop(); [100, 500, 1200].forEach(t => setTimeout(drop, t)); });     // quay lại trang từ bộ nhớ đệm của Safari
 })();
 
-const APP_VERSION = '2026.11.27b';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp
+const APP_VERSION = '2026.11.27c';   // hiện ở cuối Cài đặt để biết máy đang chạy bản nào · 26l = “Mẫu C · Giáo án” cho Bài học cá nhân (xem + xuất Word) · 26m = thêm ô tiêu đề cả bài · 26n = tiêu đề hiện đúng như người dùng gõ (không gắn nhãn “Đề tài”) · 26o = bỏ chữ mờ gợi ý trong ô Tiêu đề · 26p = câu gốc chữ thường to hơn 1 cỡ (không đậm/nghiêng), ô Tiêu đề kiểu gạch chân · 26q = khung soạn ghi chú trên máy tính rộng, cân đối, bỏ dòng chữ thừa; Word: vạch dưới tiêu đề mảnh, máy tính lưu bằng một hộp “Lưu thành” như Word · 26r = gọn giao diện bài học trên điện thoại (đầu trang, bảng định dạng, trang xem) · 27a = điện thoại đặt được tên tệp trước khi lưu Word (bàn phím tự mở, hộp nằm trên bàn phím, nút ✕ xóa nhanh tên) · 27b = ô Phông chữ / Cỡ / Giãn dòng hiện đúng giá trị đang dùng; chọn phông, cỡ khi chỉ đặt con trỏ áp được cho chữ gõ tiếp · 27c = dọn mã thừa / biến chết / CSS không dùng, không đổi tính năng
 const DB_NAME = 'kinhthanh-pwa';
 
 const DEFAULT_FILE = 'kinhthanh-data.json';
@@ -1892,7 +1876,7 @@ function flashVerse(el){
 }
 /* Chọn sách xong → con trỏ tự nhảy sang ô Chương (sách chỉ có 1 chương thì nhảy thẳng sang ô Câu) */
 $('#selBook').onchange = async e => {
-  const nc = $('#niChap'), nv = $('#niVerse');
+  const nc = $('#niChap');
   await openBook(e.target.value, 1);
   if (!curBook) return;
   /* Chọn sách xong: KHÔNG tự bật bàn phím. Chỉ bấm vào ô Chương / Câu mới hiện bàn phím. */
@@ -2085,7 +2069,7 @@ SCR.addEventListener('scroll', () => rsTrack(), { passive:true });
 function setupNav(kind){
   const isC = kind === 'chap', LB = isC ? 'CHƯƠNG' : 'CÂU';
   const inp = $(isC ? '#niChap' : '#niVerse'), pill = $(isC ? '#rngChap' : '#rngVerse');
-  const txt = pill.firstElementChild, sel = $(isC ? '#selChap' : '#selVerse');
+  const sel = $(isC ? '#selChap' : '#selVerse');
   let busy = false;
   const cfg = () => {
     if (!curBook) return null;
@@ -2770,7 +2754,6 @@ function openLessons(){
       : `<div class="empty" style="padding:28px 10px"><b>${LS.length ? 'Không tìm thấy ghi chú nào' : 'Chưa có bài học nào'}</b>${LS.length ? 'Thử từ khóa khác.' : 'Chạm vào câu (hoặc nhiều câu) rồi nhấn giữ để viết.'}</div>`);
   };
   let hjTok = 0;
-  const HJQ = ['Mỗi ngày một chút, Lời CHÚA ở lại trong bạn.', 'Đọc chậm lại, để Lời thấm vào lòng.', 'Một trang hôm nay, một niềm vui lâu bền.', 'Bình an bắt đầu từ một câu Kinh Thánh.', 'Hãy để Lời CHÚA là tiếng đầu tiên trong ngày.', 'Kiên trì từng ngày, bạn đang đi rất xa.'];
   const drawStats = async () => {
     const tok = ++hjTok;
     const today = dayKey(), pctx = plCtx(), ids = plCountedOn(today, pctx);   // chỉ tính chương thuộc kế hoạch (đọc lướt sách/chương xa không tính)
@@ -3434,7 +3417,7 @@ function zipStore(files){                                             // files: 
 const wx = s => String(s ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '').replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, '�').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function wPara(text, o){
   o = o || {};
-  const sz = o.sz || 26, gold = 'B08840';
+  const sz = o.sz || 26;
   const rpr = sc => { const sp = o.spc; return `<w:rPr><w:rFonts w:ascii="${o.font || 'Times New Roman'}" w:hAnsi="${o.font || 'Times New Roman'}" w:cs="${o.font || 'Times New Roman'}"/>${o.b ? '<w:b/>' : ''}${o.i ? '<w:i/>' : ''}${o.caps ? '<w:caps/>' : ''}${o.color ? `<w:color w:val="${o.color}"/>` : ''}${sp ? `<w:spacing w:val="${sp}"/>` : ''}<w:sz w:val="${sz}"/><w:szCs w:val="${sz}"/><w:lang w:val="vi-VN" w:eastAsia="vi-VN" w:bidi="ar-SA"/></w:rPr>`; };
   const runOf = (t, sc, br) => `<w:r>${rpr(sc)}${br ? '<w:br/>' : ''}<w:t xml:space="preserve">${wx(t)}</w:t></w:r>`;
   const runs = o.rx != null ? o.rx : String(text).split('\n').map((ln, k) => {
@@ -3774,7 +3757,6 @@ function compressRange(a){ // [1,2,3,5] -> "1-3,5"
   const vv = window.visualViewport, mq = matchMedia('(max-width:899px), (max-height:500px) and (pointer:coarse)');
   const fold_ = document.createElement('button'); fold_.type = 'button'; fold_.className = 'lsmfold'; top.appendChild(fold_);
   let baseW = 0, baseH = 0, raf = 0;
-  const editing = () => !lsEl.hidden && !panel.classList.contains('viewing');
   const foldLabel = () => { const open = top.classList.contains('open'); fold_.textContent = open ? '▴' : '▾'; fold_.setAttribute('aria-label', open ? 'Thu gọn câu gốc' : 'Xem đủ câu gốc'); };
   const measureVerse = () => {                                        // chỉ hiện nút bung câu khi câu thực sự bị cắt
     if (!panel.classList.contains('m') || top.classList.contains('open')) return;
@@ -4319,27 +4301,6 @@ const syncOn = () => { const a = Store.cur(); return !!(a && a.configured()); };
 const syncCanWrite = () => { const a = Store.cur(); return !!(a && a.configured() && a.canWrite()); };
 
 /* --- Adapter 1: GitHub (các hàm ghReq / ghRemote… ở trên chỉ phục vụ adapter này) --- */
-/* Máy chỉ đọc (không token): tải thẳng tệp công khai, không dùng API nên không bị giới hạn lượt */
-/* Nếu app đang chạy trên GitHub Pages của CHÍNH kho dữ liệu (vd rubyhcmc.github.io/kinh-thanh-1925/ ↔ kho rubyhcmc/kinh-thanh-1925),
-   tệp dữ liệu nằm ngay cạnh trang → tải cùng nguồn, không phụ thuộc raw.githubusercontent.com (dễ bị chặn, khác tên miền). */
-function ownPagesRepo(){
-  try {
-    return '';   // KHÔI PHỤC bản AA: không tải cùng nguồn, dùng đường tải như cũ
-    const m = location.hostname.match(/^([^.]+)\.github\.io$/i); if (!m) return '';
-    const seg = location.pathname.split('/').filter(Boolean)[0] || '';
-    return (seg && !/\.html?$/i.test(seg) ? m[1] + '/' + decodeURIComponent(seg) : m[1] + '/' + m[1] + '.github.io').toLowerCase();
-  } catch(e){ return ''; }
-}
-async function sameOriginFetch(){
-  if (!GH.repo || GH.branch || GH.repo.toLowerCase() !== ownPagesRepo()) return null;      // chỉ khi đúng kho này và dùng nhánh mặc định
-  try {
-    const url = new URL(ghFile(), location.href).href + '?_=' + Date.now();
-    const res = await fetch(url, { cache:'no-store' });
-    if (!res.ok) return null;
-    const text = await res.text();
-    return /^\s*[\[{]/.test(text.replace(/^\uFEFF/, '')) ? text : null;                      // không phải JSON (trang lỗi, bản cũ…) → bỏ, dùng đường dự phòng
-  } catch(e){ return null; }
-}
 /* Bản MỚI NHẤT thật sự: hỏi thẳng GitHub (không qua bộ nhớ đệm của trang web), để thiết bị luôn lấy đúng tệp bạn vừa sửa. Không được (hết lượt/không mạng) → trả null, dùng đường cũ. */
 async function freshFetch(){
   if (!GH.repo) return null;
@@ -4360,8 +4321,8 @@ async function freshMeta(){
     const j = await res.json(); return (j && typeof j.sha === 'string') ? j.sha : '';
   } catch(e){ return ''; }
 }
+/* Máy chỉ đọc (không token): tải thẳng tệp công khai từ raw.githubusercontent.com, không dùng API nên không bị giới hạn lượt */
 async function rawFetch(){
-  const own = await sameOriginFetch(); if (own !== null) return own;
   const ref = GH.branch ? encodeURIComponent(GH.branch) : 'HEAD';
   const url = `https://raw.githubusercontent.com/${GH.repo}/${ref}/${ghFile()}?_=${Date.now()}`;
   let res;
@@ -4400,7 +4361,7 @@ async function restoreFromDataCache(){
 }
 const sigOf = t => { let h = 5381; for (let i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) | 0; return 'h' + t.length + '-' + (h >>> 0).toString(16); };
 const parseRemote = text => { try { return JSON.parse(String(text).replace(/^﻿/, '')); } catch(e){ throw new Error('Tệp trên máy chủ không đúng định dạng.'); } };
-const GitHubStore = Store.register({
+Store.register({
   id:'github', label:'máy chủ',
   configured: () => !!GH.repo,
   canWrite: () => !!(GH.repo && GH.token),
@@ -4487,10 +4448,10 @@ async function syncReadOnly(A, o){
 
 /* --- Trạng thái hiển thị --- */
 const SYNC_TXT = { off:'', ok:'☁ Đã đồng bộ', busy:'⟳ Đang đồng bộ…', dirty:'● Chờ đồng bộ', err:'⚠ Lỗi đồng bộ', conflict:'⚠ Cần chọn', offline:'☁ Chưa có mạng' };
-let syncState = 'off', syncMsg = '', syncBusy = false, pushTimer, lastCheck = 0;
+let syncState = 'off', syncMsg = '', syncBusy = false, lastCheck = 0;
 function setSync(st, msg){ syncState = st; syncMsg = msg || ''; updateSyncUI(); }
 function updateSyncUI(){
-  const A = Store.cur(), on = syncOn();
+  const on = syncOn();
   let st = syncState; if (st === 'ok' && SY.dirty && syncCanWrite()) st = 'dirty';
   const es = $('#emptySync');
   if (es) es.innerHTML = (on && (st === 'err' || st === 'offline' || st === 'conflict')) ? `<b>${esc(SYNC_TXT[st] || '')}</b>${syncMsg ? '<br>' + esc(syncMsg) : ''}<br><button class="btn" id="emptyRetry" style="margin-top:12px">↻ Thử tải lại</button>` : '';
@@ -4585,7 +4546,6 @@ function aboutMd(t){
 }
 const aboutInl = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
 /* ── Liên hệ (2026.11.22q): 3 kênh số điện thoại / Facebook (tin nhắn) / email, mỗi kênh bật-tắt riêng, cấu hình trong admin, lưu cùng dữ liệu "about" ── */
-const CT_DEF = { on:true, note:'', phone:{ on:false, v:'' }, fb:{ on:false, v:'' }, email:{ on:false, v:'' } };
 function ctNorm(c){
   c = (c && typeof c === 'object') ? c : {};
   const ch = k => { const x = c[k] || {}; return { on: x.on === true, v: String(x.v || '').trim() }; };
@@ -5143,7 +5103,7 @@ $$('#viewSeg button').forEach(b => b.onclick = () => {
    Một lượt duy nhất, ưu tiên cụm dài nhất, không thay chồng. Chữ hoa giữa câu (có thể là tên riêng) → vàng, không nằm trong "Sửa tất cả".
    Mọi thay đổi xem trước từng chỗ, có hoàn tác; từ điển lưu máy + đồng bộ GitHub cùng dữ liệu. */
 const ARCH_KEY = 'kt.archDict';
-var archCache = null, archComp = null;
+var archCache = null;
 const archNFC = s => String(s == null ? '' : s).normalize('NFC');
 function archNorm(r){
   if (!r) return null;
@@ -5159,7 +5119,7 @@ function archGet(){
 
 function applyArch(a){                      // nhận từ điển từ GitHub (bản cũ không có trường này → giữ nguyên bản trên máy)
   if (!Array.isArray(a)) return;
-  archCache = a.map(archNorm).filter(Boolean); archComp = null;
+  archCache = a.map(archNorm).filter(Boolean);
   try { localStorage.setItem(ARCH_KEY, JSON.stringify(archCache)); } catch(e){}
 }
 
@@ -5184,19 +5144,10 @@ function applyArch(a){                      // nhận từ điển từ GitHub (
    Quét đọc từ dữ liệu trong máy: lời văn + tiêu đề + chú thích của cả 66 sách, theo thứ tự Sáng-thế Ký → Khải-huyền.
    Xem trước từng chỗ, bỏ tích chỗ nào không muốn đổi; chỉ ghi khi chữ hiện tại còn đúng như lúc quét; có hoàn tác (lưu trong máy). Độ dài chữ không đổi. */
 
-const TN_L = '[\\p{L}\\p{M}]';
-const TN_RX = {                                    // cu = đổi SANG kiểu cũ 1925 (hòa→hoà) · moi = đổi SANG kiểu mới (hoà→hòa)
-  cu : new RegExp('(?:[òóỏõọÒÓỎÕỌ][aAeE]|[ùúủũụÙÚỦŨỤ][yY])(?!' + TN_L + ')', 'gu'),
-  moi: new RegExp('(?<![qQ])(?:[oO][àáảãạÀÁẢÃẠèéẻẽẹÈÉẺẼẸ]|[uU][ỳýỷỹỵỲÝỶỸỴ])(?!' + TN_L + ')', 'gu')
-};
 
 
 
-const YI_PAIRS = [['kỳ','kì'],['kỵ','kị'],['kỹ','kĩ'],['kỷ','kỉ'],['mỹ','mĩ'],['quỷ','quỉ'],['quỵ','quị']].map(p => p.map(x => x.normalize('NFC')));   // [kiểu y, kiểu i]
-const YI_MAP = new Map(); YI_PAIRS.forEach((p, i) => { YI_MAP.set(p[0], [i, 0]); YI_MAP.set(p[1], [i, 1]); });
-const YI_RX = new RegExp('(?<![\\p{L}\\p{M}])(?:' + [...YI_MAP.keys()].join('|') + ')(?![\\p{L}\\p{M}])', 'giu');
 
-const HY_SUS = new Set(['a-dua','cu-đê','ra-ên','run-en','ta-lâng','phu-tù','ô-me','hô-me','mã-la','ten-rét','ten-sét','cà-lăm']);   // từ phiên âm viết thường mà vẫn có âm tiết quen → luôn đưa vào nhóm “cần xem”
 
 
 
@@ -5812,11 +5763,6 @@ function setupPWA(){
       document.head.appendChild(m);
     } catch(e){}
   };
-  const addStaticManifest = () => {
-    const m = document.createElement('link'); m.rel = 'manifest'; m.href = 'manifest.webmanifest'; document.head.appendChild(m);
-    const i = document.createElement('link'); i.rel = 'icon'; i.type = 'image/png'; i.href = 'icon-192.png'; document.head.appendChild(i);
-    const t = document.createElement('link'); t.rel = 'apple-touch-icon'; t.href = 'apple-touch-icon.png'; document.head.appendChild(t);
-  };
   /* iPhone/iPad: KHÔNG khai báo manifest. Từ iOS 26, nếu lúc "Thêm vào Màn hình chính" trang có manifest (display:standalone) thì iOS cài thành "web app" kiểu mới,
      có lớp mờ "scroll edge" ở mép trên và bám cứng cấu hình đó trong biểu tượng. Không manifest thì iOS dùng chế độ cổ điển (apple-mobile-web-app-capable) – mép trên sắc nét như trước.
      Android/máy tính vẫn dùng manifest tạo bằng mã để cài được. */
@@ -6393,7 +6339,7 @@ function dtExport(){                          // một chạm: tự đặt tên 
 }
 const dtKeyL = x => `${x.book}|${x.ch}|${compressRange(x.ns || [x.n])}`;
 async function dtImport(file){
-  let j; try { j = JSON.parse(await file.text()); } catch(e){ { psNotice('Chưa khôi phục được: file không đọc được.', true); return toast('File không đọc được (không phải JSON hợp lệ)'); } }
+  let j; try { j = JSON.parse(await file.text()); } catch(e){ psNotice('Chưa khôi phục được: file không đọc được.', true); return toast('File không đọc được (không phải JSON hợp lệ)'); }
   return dtApply(j, 'Tệp này');
 }
 async function dtApply(j, srcName){          // khôi phục từ một đối tượng dữ liệu (file JSON hoặc bản sao lưu trong máy)
@@ -6652,8 +6598,8 @@ function drawVerseCard(X, W, H, o){
       x.textAlign = 'right'; x.fillText('\u201D', Math.min(CL + CW - 40 * k, Rr + qs1 * .12), bot + qs1 * .50 + 30 * k);
       x.globalAlpha = 1; x.textAlign = 'center';
     }
-    if (o.frame === 2){                                                   // đường kẻ + hình thoi trang trí giữa lời trích và địa chỉ
-      const oy = REF_Y - rs - 34 * k, ac = o.color || T.acc, d = 7 * k; x.save(); x.strokeStyle = ac; x.fillStyle = ac; x.globalAlpha = .7; x.lineWidth = Math.max(1.2, 1.6 * k);
+    if (o.frame === 2){                                                   // đường kẻ trang trí giữa lời trích và địa chỉ
+      const oy = REF_Y - rs - 34 * k, ac = o.color || T.acc; x.save(); x.strokeStyle = ac; x.fillStyle = ac; x.globalAlpha = .7; x.lineWidth = Math.max(1.2, 1.6 * k);
       x.beginPath(); x.moveTo(CX - 60 * k, oy); x.lineTo(CX + 60 * k, oy); x.stroke(); x.restore();
     }
   };
@@ -6718,7 +6664,7 @@ async function verseImage(nums){
   };
   await ensure(opt);                                                    // chỉ tải font; ảnh đầy đủ tạo sau, khi cần lưu / chia sẻ
   const fname = (fold(ref).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'cau-kinh-thanh') + '.png';
-  let blob = null, file = null;
+  let file = null;
   const segBtns = (attr, items, cur) => items.map(([v, t]) => `<button data-${attr}="${v}" class="${String(v) === String(cur) ? 'on' : ''}" style="white-space:nowrap">${t}</button>`).join('');
   const o = document.createElement('div'); o.className = 'overlay'; o.style.zIndex = 90;
   o.innerHTML = `<div class="sheet" style="text-align:center"><h3>Chia sẻ thành ảnh</h3>
@@ -6778,7 +6724,7 @@ async function verseImage(nums){
     do {
       clearTimeout(tmr); const my = ++seq; stale = false;
       const nb = await mk({ ...opt });
-      if (my === seq && nb){ blob = nb; file = new File([nb], fname, { type:'image/png' }); }
+      if (my === seq && nb){ file = new File([nb], fname, { type:'image/png' }); }
     } while (stale);
     return file;
   };
@@ -6834,7 +6780,6 @@ if (PLAN && PLAN.id === 'd90' && isDate(PLAN.start)) PLAN = { id:'custom', start
 if (!planOK(PLAN)) PLAN = null;
 const savePlan = () => {
   try { PLAN ? localStorage.setItem('kt.plan', JSON.stringify(PLAN)) : localStorage.removeItem('kt.plan'); } catch(e){}
-  planSum();
   if (PLAN && !RESUME){ const f = plSeq()[0]; if (f) setResume(f.book, f.ch, 0); }      // bắt đầu kế hoạch: chỗ đọc tiếp nối = đầu Kinh Thánh, từ đó tự nối tiếp theo từng chương
 };
 const plSeq = () => { const a = []; bibleMeta.forEach(m => { for (let c = 1; c <= (m.chapterCount || 0); c++) a.push({ book:m.name, ch:c }); }); return a; };
@@ -6897,13 +6842,6 @@ function plCountedOn(k, ctx){
   return r ? r.slice() : raw;
 }
 
-function planSum(){
-  const a = $('#planSum'), b = $('#planSub'); if (!a) return;
-  if (!PLAN){ a.textContent = 'Chưa chọn kế hoạch'; b.textContent = '1 năm · 2 năm · 6 tháng · Tự thiết kế'; return; }
-  const pl = planDef(PLAN), d = plDay(PLAN.start);
-  a.textContent = 'Kế hoạch ' + pl.name; let early = false; try { early = !!plToday().early; } catch(e){}
-  b.textContent = early ? 'Đã hoàn thành sớm 🎉' : d > pl.days ? 'Đã hoàn thành 🎉' : d < 1 ? 'Chưa đến ngày bắt đầu' : `Ngày ${d} / ${pl.days}`;
-}
 /* Bộ đếm lượt truy cập: CountAPI (bản thay thế còn hoạt động trước, bản gốc api.countapi.xyz làm dự phòng); mỗi lần mở app (một phiên) cộng 1 lượt */
 const CT = { key:'kinhthanh-luot-truy-cap', ns:'kinhthanh-vn' };
 async function ctFetch(url){
@@ -6947,7 +6885,6 @@ function openPlan(opts){
   opts = opts || {};
   const o = document.createElement('div'); o.className = 'overlay'; o.style.zIndex = 72;
   const closePlan = () => { o.remove(); if (opts.onClose) opts.onClose(); };
-  const T = plSeq().length;
   const cust = { mode:(PCUST && PCUST.mode === 'chap') ? 'chap' : 'days', val:String((PCUST && PCUST.val) || '') };
   const custDays = () => {                                           // trả về số ngày hợp lệ hoặc 0
     const n = parseInt(cust.val, 10), max = BIBLE_CHAPTERS; if (!(n >= 1) || n > max) return 0;
@@ -7022,7 +6959,6 @@ function openPlan(opts){
   });
   document.body.appendChild(o);
 }
-planSum();
 
 /* Gõ vào ô Chương / Câu / Tìm kiếm: nội dung ĐỨNG YÊN, bàn phím chỉ che phía dưới, không đẩy trang lên và không dàn trang lại.
    - Trình duyệt Android: meta viewport "interactive-widget=resizes-visual" (ở đầu tệp) khiến bàn phím không co khung nhìn.
@@ -7299,8 +7235,8 @@ const PStore = (() => {
       try { if (sessionStorage.getItem(RELOAD_KEY)) return false; } catch(e){}  // chống vòng lặp tải lại
       if (!(await withTimeout(ensure(), 4000))) return false;                  // chỉ khi localStorage trống mới cần chờ kho dự phòng (tối đa 4 giây)
       const cur = await withTimeout(store.getItem('current'), 4000);
-      let d = clean(cur && cur.data), src = 'bản phản chiếu';
-      if (!hasData(d)){ const h = (await withTimeout(store.getItem('hist'), 4000)) || []; const e = h.find(x => hasData(clean(x.data))); d = e ? clean(e.data) : null; src = 'bản sao lưu định kỳ'; }
+      let d = clean(cur && cur.data);
+      if (!hasData(d)){ const h = (await withTimeout(store.getItem('hist'), 4000)) || []; const e = h.find(x => hasData(clean(x.data))); d = e ? clean(e.data) : null; }
       if (!hasData(d)) return false;
       const put = (k, v) => { if (v != null) rawSet.call(localStorage, k, JSON.stringify(v)); };
       put('kt.reads', d.reads); put('kt.lessons', d.lessons); put('kt.marks', d.marks);
@@ -7720,9 +7656,9 @@ PStore.init();
     + '.updcard .updrow{display:flex;gap:8px}.updcard .updrow .btn{flex:1;margin:0}@keyframes updIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}'
     + '@media (prefers-reduced-motion:reduce){.updcard{animation:none}}';
   document.head.appendChild(css);
-  var shown = '', dismissed = '', lastCheck = 0, busy = false, tries = 0;
+  var dismissed = '', lastCheck = 0, busy = false, tries = 0;
   var busyUI = function(){ return false; };
-  function close(){ var c = document.getElementById('updCard'); if (c) c.remove(); shown = ''; }
+  function close(){ var c = document.getElementById('updCard'); if (c) c.remove(); }
   function show(ver){
     if (document.getElementById('updCard')) return;
     var c = document.createElement('div'); c.id = 'updCard'; c.className = 'updcard'; c.setAttribute('role', 'alert');
@@ -7736,7 +7672,7 @@ PStore.init();
       if (b){ try { if (typeof toast === 'function') toast('Đang cập nhật…'); } catch(e){} b.click(); }
       else location.reload();
     };
-    document.body.appendChild(c); shown = ver;
+    document.body.appendChild(c);
   }
   async function check(){
     if (busy || !navigator.onLine) return;
